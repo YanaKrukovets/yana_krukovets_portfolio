@@ -16,7 +16,7 @@ const Layout = ({children}) => {
             <main >
                 {children}
             </main>
-            <footer class="purple">&copy;Yana Krukovets, 2022</footer>
+            <footer className="purple">&copy;Yana Krukovets, 2022</footer>
         </div>
     );
 }

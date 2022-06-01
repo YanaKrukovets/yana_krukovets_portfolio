@@ -23,7 +23,7 @@ const About = () => {
         <p><span className="bold">Jan 2013 - May 2016:</span> Frontend Developer at 
         <a href="https://www.softserveinc.com" className="italic"> SoftServe </a>Dnipro, Ukraine</p>
         <p><span className="bold">2011 - 2013:</span> Teacher C++ at 
-        <a href="https://itstep.org" className="italic"> IT Academy "Step" </a>Dnipro, Ukraine</p>
+        <a href="https://itstep.org" className="italic"> IT Academy &quot;Step&quot; </a>Dnipro, Ukraine</p>
         <a href="https://github.com/YanaKrukovets"><AiFillGithub className="social-media" /></a>
         <a href="https://www.linkedin.com/in/yana-krukovets-25658260/"><AiFillLinkedin className="social-media" /></a>
 

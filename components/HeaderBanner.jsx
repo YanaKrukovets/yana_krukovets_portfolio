@@ -9,8 +9,8 @@ const HeaderBanner = () => {
         <div id="welcome" className="center-text">
             <img />
                 <h1>Hello! My name is Yana.</h1>
-                <h2> And I'm a Web Developer</h2>
-                <h3>Let's make a new life in the Network</h3>
+                <h2> And I am a Web Developer</h2>
+                <h3>Let&apos;s make a new life in the Network</h3>
                 <a className="my-work-btn" href="#projects">
                     <span></span>
                     <span></span>
