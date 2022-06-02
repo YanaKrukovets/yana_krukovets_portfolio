@@ -455,6 +455,12 @@ nav a:hover {
   font-size: 13px;
 }
 
+.succeed-form {
+  text-align: center;
+  padding: 10%;
+  font-size: 20px;
+}
+
 @media screen and (max-width: 850px) {
   .topnav a {display: none;}
   .topnav .icon {

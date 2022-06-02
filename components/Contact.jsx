@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
-import { toast } from 'react-hot-toast';
 
 function ContactForm() {
   const [state, handleSubmit] = useForm("mjvllaww");
 
-  useEffect(() => {
+
     if (state.succeeded) {
-        toast.success(`Thanks for taking the time to reach out. I will contact with you soon`);
+        return <p className="succeed-form">Thanks for taking the time to reach out. I will contact with you soon</p>
     }
-  });
+  
 
   return (
       <div id="contact" className="margin-pos">
