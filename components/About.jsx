@@ -13,7 +13,7 @@ const About = () => {
         />
         <h3>Who am I?</h3>
         <p>My name is Yana. I am a Web Developer based in Ottawa, Canada.
-            I like to code things from scratch, and enjoy bringing ideas to life in the browser.
+            I like to code things from scratch and enjoy bringing ideas to life in the browser.
         </p>
 
         <h3>Skills</h3>
