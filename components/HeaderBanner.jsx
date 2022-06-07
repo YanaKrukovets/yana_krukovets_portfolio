@@ -18,7 +18,7 @@ const HeaderBanner = () => {
                     <span></span>
                     Check my work
                 </a>
-                <a className="my-work-btn" href="mailto:webmaster@example.com">
+                <a className="my-work-btn" href="mailto:krukovets.yana@gmail.com">
                     <span></span>
                     <span></span>
                     <span></span>
