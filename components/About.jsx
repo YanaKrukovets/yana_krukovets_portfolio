@@ -17,7 +17,7 @@ const About = () => {
         </p>
 
         <h3>Skills</h3>
-        <p>HTML, CSS, JavaScript, ReactJS, jQuery, Bootstrap, PHP, mySQL</p>
+        <p>HTML, CSS, JavaScript, ReactJS, Vue.js, Tailwind.css, jQuery, Bootstrap, PHP, mySQL</p>
 
         <h3>Experience</h3>
         <p><span className="bold">Jan 2013 - May 2016:</span> Frontend Developer at 
