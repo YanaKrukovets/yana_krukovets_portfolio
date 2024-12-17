@@ -1,13 +1,15 @@
-import '../styles/globals.css'
-import Layout from '../components/Layout';
-import Cursor from 'react-cursor-follow';
+import Layout from "../components/Layout";
+import "../styles/styles.scss";
+import Head from "next/head";
 
-function MyApp({ Component, pageProps }) {
-  return (<>
-    <Cursor pulse color="#E1AD01" duration={0.8} size={45} hollow />
-    <Layout>
-      <Component {...pageProps} />
-    </Layout></>);
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+      <Head></Head>
+
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
+  );
 }
-
-export default MyApp
