@@ -5,9 +5,17 @@ import Project from "./Project";
 const Projects = () => {
   const projectsWork = [
     {
+      href: "https://elitedigitalagency.com/health",
+      src: "/images/components/projects/healthElite.jpg",
+      alt: "Elite Digital Health website",
+      year: "2023",
+      text: "Elite Digital Project",
+      tech: "Next.js, tailwindcss, Sass",
+    },
+    {
       href: "https://bloombyorganon.ca",
       src: "/images/components/projects/bloom.jpg",
-      alt: "Yana Krukovets portfolio website",
+      alt: "bloom website",
       year: "2023",
       text: "Elite Digital Project",
       tech: "Wordpress",
@@ -42,7 +50,7 @@ const Projects = () => {
       href: "https://art-shop-zeta.vercel.app",
       src: "/images/components/projects/art-shop.jpg",
       alt: "Art shop website",
-      year: "2022",
+      year: "2025",
       text: "Personal Project",
       tech: "Next.js, Sanity, Stripe, HTML, CSS",
     },
