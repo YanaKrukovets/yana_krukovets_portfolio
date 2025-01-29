@@ -3,11 +3,29 @@ import React from "react";
 import Project from "./Project";
 
 const Projects = () => {
+  const projectsWork = [
+    {
+      href: "https://bloombyorganon.ca",
+      src: "/images/components/projects/bloom.jpg",
+      alt: "Yana Krukovets portfolio website",
+      year: "2023",
+      text: "Elite Digital Project",
+      tech: "Wordpress",
+    },
+    {
+      href: "https://www.dentrixascend.com",
+      src: "/images/dentrix.jpg",
+      alt: "Dentrix Ascend",
+      text: "Henry Schein Project",
+      year: "2016",
+      tech: "Bootstrap, Backbone.js, Sass",
+    },
+  ];
   const projects = [
     {
       href: "https://www.yanakrukovets-artgallery.com",
       src: "/images/components/projects/art-gallery.jpg",
-      alt: "Art gallery website",
+      alt: "Dentrix Ascend",
       text: "Personal Project",
       year: "2024",
       tech: "Next.js, tailwindcss, Sass",
@@ -56,13 +74,21 @@ const Projects = () => {
           Also I was a part of a big team who was working on the &quot;Dentrix
           Ascend&quot; system (Dental Software)
         </p>
-        <div className="projects-container">
-          <Project
-            href="https://www.dentrixascend.com"
-            src="/images/dentrix.jpg"
-            alt="Dentrix Ascend"
-            tech="HTML, Bootstrap, Backbone.js"
-          />
+
+        <div className="projects-container flex-disp">
+          {projectsWork.map((project, index) => {
+            return (
+              <Project
+                key={index}
+                href={project.href}
+                src={project.src}
+                alt={project.alt}
+                text={project.text}
+                tech={project.tech}
+                year={project.year}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
