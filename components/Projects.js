@@ -78,10 +78,7 @@ const Projects = () => {
             );
           })}
         </div>
-        <p>
-          Also I was a part of a big team who was working on the &quot;Dentrix
-          Ascend&quot; system (Dental Software)
-        </p>
+        <p>Also I was a part of a team who was working on the next projects</p>
 
         <div className="projects-container flex-disp">
           {projectsWork.map((project, index) => {
