@@ -34,7 +34,7 @@ const Navbar = () => {
               >
                 <GiHamburgerMenu />
               </button>
-              <Link href="#" onClick={scrollToTop}>
+              <Link href="#" onClick={scrollToTop} className="ml-[-16px]">
                 <Image
                   className="max-w-[40px]"
                   src="/images/logos/logo-en.png"

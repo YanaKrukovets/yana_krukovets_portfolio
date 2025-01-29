@@ -6,7 +6,7 @@ import { AiFillLinkedin } from "react-icons/ai";
 const About = () => {
   return (
     <div id="about" className="about max-w-wrapper px-5 mx-auto font-roboto">
-      <div className="flex justify-between gap-2 pt-[20px] md:pt-[0px] md:flex-col max-w-[1000px] mx-auto">
+      <div className="flex justify-between gap-2 pt-[20px] md:pt-[0px] md:flex-col max-w-[1100px] mx-auto">
         <div className="my-auto">
           <Image
             className="profile-img"
