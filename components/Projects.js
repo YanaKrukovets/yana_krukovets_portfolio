@@ -14,7 +14,7 @@ const Projects = () => {
     },
     {
       href: "https://www.dentrixascend.com",
-      src: "/images/dentrix.jpg",
+      src: "/images/components/projects/dentrix.jpg",
       alt: "Dentrix Ascend",
       text: "Henry Schein Project",
       year: "2016",
