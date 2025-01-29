@@ -5,7 +5,7 @@ const Project = ({ href, src, alt, tech, text, year }) => {
   return (
     <div>
       <div className="project-card">
-        <a href={href} target="_blank">
+        <a href={href} target="_blank" rel="noreferrer">
           <div className="imageContainer">
             <Image
               src={src}
