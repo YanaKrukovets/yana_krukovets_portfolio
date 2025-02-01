@@ -14,9 +14,13 @@ function ContactForm() {
   return (
     <div
       id="contact"
-      className="max-w-wrapper px-5 mx-auto my-[40px] py-[20px] font-roboto max-w-[900px]"
+      className="max-w-wrapper px-5 mx-auto my-[40px] py-[20px] font-roboto"
     >
-      <form onSubmit={handleSubmit} method="POST">
+      <form
+        onSubmit={handleSubmit}
+        method="POST"
+        className="max-w-[900px] mx-auto"
+      >
         <fieldset>
           <legend>
             <h2 className="pb-[10px] text-[27px]">
