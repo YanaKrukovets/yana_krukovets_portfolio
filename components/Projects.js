@@ -55,7 +55,7 @@ const Projects = () => {
       tech: "Next.js, Tailwind CSS, Sass",
     },
     {
-      href: "https://www.yanakrukovets-artgallery.com",
+      href: "https://www.yanakrukovets.com",
       src: "/images/components/projects/portfolio.jpg",
       alt: "Yana Krukovets portfolio website",
       year: "2024",

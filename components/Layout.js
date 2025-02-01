@@ -23,41 +23,26 @@ export default function Layout({ children }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-        <meta
-          property="og:url"
-          content="https://yanakrukovets-artgallery.com/"
-        />
+        <meta property="og:url" content="http://yanakrukovets.com/" />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Online Art Gallery by Yana Krukovets"
-        />
+        <meta property="og:title" content="Yana Krukovets Portfolio" />
         <meta
           property="og:description"
           content="Acrylic, watercolor abstract space nature artworks."
         />
-        <meta property="og:image" content="/images/og-image.webp" />
+        <meta property="og:image" content="/images/og-image.png" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          property="twitter:domain"
-          content="yanakrukovets-artgallery.com"
-        />
-        <meta
-          property="twitter:url"
-          content="https://yanakrukovets-artgallery.com/"
-        />
-        <meta
-          name="twitter:title"
-          content="Online Art Gallery by Yana Krukovets"
-        />
+        <meta property="twitter:domain" content="yanakrukovets.com" />
+        <meta property="twitter:url" content="http://yanakrukovets.com/" />
+        <meta name="twitter:title" content="Yana Krukovets Portfolio" />
         <meta
           name="twitter:description"
           content="Acrylic, watercolor abstract space nature artworks."
         />
         <meta
           name="twitter:image"
-          content="https://yanakrukovets-artgallery.com/images/og-image.webp"
+          content="http://yanakrukovets.com/images/og-image.png"
         />
 
         <meta
@@ -73,14 +58,11 @@ export default function Layout({ children }) {
         <link
           rel="apple-touch-icon"
           sizes="57x57"
-          href="https://yanakrukovets-artgallery.com/apple-touch-icon.png"
+          href="http://yanakrukovets.com/apple-touch-icon.png"
         />
 
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="icon"
-          href="https://yanakrukovets-artgallery.com/favicon.ico"
-        />
+        <link rel="icon" href="http://yanakrukovets.com/favicon.ico" />
       </Head>
       <header>
         <HeaderBanner />

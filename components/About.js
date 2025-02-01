@@ -61,7 +61,7 @@ const About = () => {
           </p>
           <p>
             <b>2011 - 2013:</b> Teacher C++ at{" "}
-            <a href="https://itstep.org" className="underline" target="_blanc">
+            <a href="https://itstep.org" className="underline" target="_blank">
               <i>IT Academy &quot;Step&quot;</i>
             </a>{" "}
             Dnipro, Ukraine
@@ -69,7 +69,7 @@ const About = () => {
         </div>
       </div>
       <div className="flex justify-center py-[10px] mt-[20px] social">
-        <a href="https://github.com/YanaKrukovets" target="_blanc">
+        <a href="https://github.com/YanaKrukovets" target="_blank">
           <AiFillGithub className="social-media" />
         </a>
         <a
