@@ -588,7 +588,6 @@ header .mobile-nav {
 }
 header .mobile-nav.block {
   transform: translateX(0);
-  border-top: 5px solid rgb(131 197 190);
 }
 @media (min-width: 898px) {
   header .mobile-nav {

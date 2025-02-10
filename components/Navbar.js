@@ -1,57 +1,165 @@
-import React, { useState, useEffect } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
+import React, { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/router";
+
 import Image from "next/image";
 
-const Navbar = () => {
-  const showLinks = (event) => {
-    var x = document.getElementById("myTopnav");
-    if (x.classList.contains("responsive")) {
-      x.classList.remove("responsive");
-    } else {
-      x.classList.add("responsive");
-    }
+export default function Navbar() {
+  const router = useRouter();
+  const { locale, asPath } = router;
+  const [mobileNavExpanded, setMobileNavExpanded] = useState(false);
+  const dropdown = useRef(null);
+
+  const [isReveal, setIsReveal] = useState(true);
+  const reveal = () => setIsReveal(!isReveal);
+  let nav;
+
+  nav = {
+    item1: {
+      label:
+        "<span class='whitespace-nowrap lg:whitespace-normal font-inka md:font-[500]'>About</span>",
+      href: "/#about",
+    },
+    item2: {
+      label:
+        "<span class='whitespace-nowrap lg:whitespace-normal font-inka md:font-[500]'>Projects</span>",
+      href: "/#projects",
+    },
+    item3: {
+      label:
+        "<span class='whitespace-nowrap lg:whitespace-normal font-inka md:font-[500]'>Contact</span>",
+      href: "/#contact",
+    },
   };
 
-  // Scroll smoothly to the top when the button is clicked
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth", // Smooth scroll to top
-    });
+  const loadMenu = () => {
+    let menuArr = [];
+
+    for (const key in nav) {
+      let temp = nav[key];
+      menuArr.push(temp);
+    }
+    return menuArr;
   };
+  const menu = loadMenu();
+
+  // disable scrolling on mobile nav menu
+  useEffect(() => {
+    if (mobileNavExpanded) {
+      document.body.style.position = "fixed";
+      function handleClick(event) {}
+      window.addEventListener("click", handleClick);
+      return () => {
+        window.removeEventListener("click", handleClick);
+        document.body.style.position = "relative";
+      };
+    }
+    return () => (document.body.style.position = "relative");
+  }, [mobileNavExpanded]);
 
   return (
-    <div className="max-w-inner xxxl:px-0">
-      <nav>
-        <div className="topnav fixed w-full left-0 md:py-[15px]" id="myTopnav">
-          <div className="max-w-wrapper px-5 mx-auto">
-            <div className="header-right">
-              <button
-                type="button"
-                className="icon text-white"
-                onClick={(event) => showLinks(event)}
+    <>
+      {/*Header Nav*/}
+      <div className="max-w-inner xxxl:px-0 fixed top-0 w-full z-10">
+        <nav className="md:flex justify-between topnav">
+          <div className="flex justify-between max-w-wrapper px-5 mx-auto w-full">
+            {/* Logo */}
+            <div className="flex justify-between">
+              <div className="w-[80px] md:w-[50px] ">
+                <Link href="/" passHref>
+                  <Image
+                    src="/images/logos/logo-en.png"
+                    className="w-full max-w-[80px] object-cover my-[15px]"
+                    alt="YK - Yana Krukovets logo"
+                    priority={true}
+                    width={250}
+                    height={250}
+                  />
+                </Link>
+              </div>
+            </div>
+
+            {/* Desktop Nav */}
+
+            <div className="desktop-nav">
+              {!!menu &&
+                menu.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <Link
+                        href={item.href}
+                        key={item.label}
+                        className={`${
+                          router.pathname == "/" + item.href ? "active" : ""
+                        } text-white  hover:underline menu-a`}
+                      >
+                        <span
+                          className="!flex flex-col xmd:inline-block"
+                          dangerouslySetInnerHTML={{ __html: item.label }}
+                        ></span>
+                      </Link>
+                    </div>
+                  );
+                })}
+            </div>
+
+            {/* Mobile Nav */}
+
+            <div
+              className={`mobile-nav ${
+                mobileNavExpanded ? "block h-full" : ""
+              }`}
+            >
+              {!!menu &&
+                menu.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      {item.submenu ? (
+                        <></>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className="mobile-nav-item"
+                          onClick={() =>
+                            setMobileNavExpanded(!mobileNavExpanded)
+                          }
+                        >
+                          <span
+                            className={`mobile-nav-text ${
+                              index === 0
+                                ? "max-w-[200px]"
+                                : index === 1
+                                ? "xmd:max-w-[240px]"
+                                : ""
+                            }`}
+                            dangerouslySetInnerHTML={{ __html: item.label }}
+                          ></span>
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
+
+            {/* Language Toggle */}
+            <div className="flex-end ">
+              <a
+                role="button"
+                ref={dropdown}
+                id="nav-button"
+                className={`${mobileNavExpanded ? "open" : ""} nav-button`}
+                onClick={() => {
+                  setMobileNavExpanded(!mobileNavExpanded);
+                }}
               >
-                <GiHamburgerMenu />
-              </button>
-              <Link href="#" onClick={scrollToTop} className="ml-[-16px]">
-                <Image
-                  className="max-w-[40px]"
-                  src="/images/logos/logo-en.png"
-                  alt="YK - Yana Krukovets logo"
-                  width={250}
-                  height={250}
-                />
-              </Link>
-              <Link href="#about">About</Link>
-              <Link href="#projects">Projects</Link>
-              <Link href="#contact">Contact</Link>
+                <span></span>
+                <span></span>
+                <span></span>
+              </a>
             </div>
           </div>
-        </div>
-      </nav>
-    </div>
+        </nav>
+      </div>
+    </>
   );
-};
-
-export default Navbar;
+}
