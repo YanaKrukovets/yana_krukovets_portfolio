@@ -6,10 +6,10 @@ import Image from "next/image";
 const Navbar = () => {
   const showLinks = (event) => {
     var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
+    if (x.classList.contains("responsive")) {
+      x.classList.remove("responsive");
     } else {
-      x.className = "topnav";
+      x.classList.add("responsive");
     }
   };
 
@@ -24,12 +24,12 @@ const Navbar = () => {
   return (
     <div className="max-w-inner xxxl:px-0">
       <nav>
-        <div className="topnav fixed w-full left-0" id="myTopnav">
+        <div className="topnav fixed w-full left-0 md:py-[15px]" id="myTopnav">
           <div className="max-w-wrapper px-5 mx-auto">
             <div className="header-right">
               <button
                 type="button"
-                className="icon"
+                className="icon text-white"
                 onClick={(event) => showLinks(event)}
               >
                 <GiHamburgerMenu />
