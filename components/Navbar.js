@@ -17,17 +17,17 @@ export default function Navbar() {
   nav = {
     item1: {
       label:
-        "<span class='whitespace-nowrap lg:whitespace-normal font-inka md:font-[500]'>About</span>",
+        "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>About</span>",
       href: "/#about",
     },
     item2: {
       label:
-        "<span class='whitespace-nowrap lg:whitespace-normal font-inka md:font-[500]'>Projects</span>",
+        "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>Projects</span>",
       href: "/#projects",
     },
     item3: {
       label:
-        "<span class='whitespace-nowrap lg:whitespace-normal font-inka md:font-[500]'>Contact</span>",
+        "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>Contact</span>",
       href: "/#contact",
     },
   };
@@ -65,11 +65,11 @@ export default function Navbar() {
           <div className="flex justify-between max-w-wrapper px-5 mx-auto w-full">
             {/* Logo */}
             <div className="flex justify-between">
-              <div className="w-[80px] md:w-[50px] ">
+              <div className="w-[60px] md:w-[50px] ">
                 <Link href="/" passHref>
                   <Image
                     src="/images/logos/logo-en.png"
-                    className="w-full max-w-[80px] object-cover my-[15px]"
+                    className="w-full max-w-[60px] object-cover my-[15px]"
                     alt="YK - Yana Krukovets logo"
                     priority={true}
                     width={250}
@@ -142,7 +142,7 @@ export default function Navbar() {
             </div>
 
             {/* Language Toggle */}
-            <div className="flex-end ">
+            <div className="flex-end mt-[-9px]">
               <a
                 role="button"
                 ref={dropdown}

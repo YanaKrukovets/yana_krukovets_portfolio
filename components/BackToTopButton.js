@@ -36,7 +36,7 @@ const BackToTopButton = () => {
     isVisible && (
       <button onClick={scrollToTop} className="back-to-top xxl:right-[20px]">
         <FontAwesomeIcon
-          className="w-4 inline mt-[7px]"
+          className="w-4 inline mt-[-1px]"
           icon={faAngleUp}
           color="#090a0f"
         />

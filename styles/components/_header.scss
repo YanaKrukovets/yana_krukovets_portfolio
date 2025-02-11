@@ -105,7 +105,7 @@ header {
     }
 
     &.open span {
-      background: $color-middle-gray;
+      background: #fff;
 
       &:nth-child(1) {
         -webkit-transform: rotate(45deg);
