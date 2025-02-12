@@ -11,7 +11,6 @@ const HeaderBanner = () => {
             className="text-center font-roboto welcome md:mt-[40%]"
             id="welcome"
           >
-            <img />
             <h1 className="text-[40px] leading-[85px] md:text-[35px] md:leading-[60px] sm:text-[30px] sm:leading-[40px] md:mt-[30px]">
               Hello! My name is Yana
             </h1>

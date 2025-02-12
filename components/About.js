@@ -31,7 +31,7 @@ const About = () => {
           </h3>
           <p>
             HTML, CSS, JavaScript, ReactJS, Next.js, Tailwind.css, jQuery,
-            Bootstrap, Wordpress, Sanity, PHP, mySQL
+            Bootstrap, Wordpress, Tilda, Sanity, Liquid script, PHP, mySQL
           </p>
 
           <h3 className="pb-[10px] pt-[20px] text-[20px]">

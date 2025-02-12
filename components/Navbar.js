@@ -147,6 +147,7 @@ export default function Navbar() {
                 role="button"
                 ref={dropdown}
                 id="nav-button"
+                aria-label="mobile menu"
                 className={`${mobileNavExpanded ? "open" : ""} nav-button`}
                 onClick={() => {
                   setMobileNavExpanded(!mobileNavExpanded);
