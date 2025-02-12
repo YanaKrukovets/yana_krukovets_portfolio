@@ -18,16 +18,19 @@ export default function Navbar() {
     item1: {
       label:
         "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>About</span>",
+      aria: "About Yana Krukovets",
       href: "/#about",
     },
     item2: {
       label:
         "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>Projects</span>",
+      aria: "Yana Krukovets Projects",
       href: "/#projects",
     },
     item3: {
       label:
         "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>Contact</span>",
+      aria: "Contact Yana Krukovets",
       href: "/#contact",
     },
   };
@@ -87,6 +90,7 @@ export default function Navbar() {
                   return (
                     <div key={index}>
                       <Link
+                        aria-label={item.aria}
                         href={item.href}
                         key={item.label}
                         className={`${
