@@ -63,7 +63,7 @@ export default function Navbar() {
   return (
     <>
       {/*Header Nav*/}
-      <div className="xxxl:px-0 fixed w-full z-10 l-0">
+      <div className="xxxl:px-0 fixed w-full z-10 left-0">
         <nav className="md:flex justify-between topnav mx-auto">
           <div className="flex justify-between max-w-wrapper px-5 mx-auto w-full">
             {/* Logo */}
