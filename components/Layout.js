@@ -64,7 +64,7 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" href="http://yanakrukovets.com/favicon.ico" />
       </Head>
-      <header>
+      <header className="max-w-inner">
         <HeaderBanner />
       </header>
       <main className={`verflow-x-hidden w-full text-black`} id="main">
