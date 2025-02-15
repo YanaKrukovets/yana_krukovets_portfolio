@@ -34,7 +34,7 @@ export default function Layout({ children }) {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="yanakrukovets.com" />
-        <meta property="twitter:url" content="http://yanakrukovets.com/" />
+        <meta property="twitter:url" content="https://www.yanakrukovets.com/" />
         <meta name="twitter:title" content="Yana Krukovets Portfolio" />
         <meta
           name="twitter:description"
@@ -62,7 +62,7 @@ export default function Layout({ children }) {
         />
 
         <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" href="http://yanakrukovets.com/favicon.ico" />
+        <link rel="icon" href="https://www.yanakrukovets.com/favicon.ico" />
       </Head>
       <header className="max-w-inner">
         <HeaderBanner />
