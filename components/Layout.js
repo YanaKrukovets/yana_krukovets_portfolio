@@ -28,7 +28,8 @@ export default function Layout({ children }) {
         <meta property="og:title" content="Yana Krukovets Portfolio" />
         <meta
           property="og:description"
-          content="Acrylic, watercolor abstract space nature artworks."
+          content="Yana Krukovets. Front-end web developer. HTML, CSS, JavaScript, ReactJS, Next.js, Tailwind.css, jQuery,
+          Bootstrap, Wordpress, Tilda, Sanity, Liquid script, PHP, mySQL"
         />
         <meta property="og:image" content="/images/og-image.png" />
 
@@ -38,7 +39,8 @@ export default function Layout({ children }) {
         <meta name="twitter:title" content="Yana Krukovets Portfolio" />
         <meta
           name="twitter:description"
-          content="Acrylic, watercolor abstract space nature artworks."
+          content="Yana Krukovets. Front-end web developer. HTML, CSS, JavaScript, ReactJS, Next.js, Tailwind.css, jQuery,
+          Bootstrap, Wordpress, Tilda, Sanity, Liquid script, PHP, mySQL"
         />
         <meta
           name="twitter:image"

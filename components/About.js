@@ -21,9 +21,9 @@ const About = () => {
             <b>Who am I?</b>
           </h3>
           <p>
-            My name is Yana. I am a Front-End Developer based in Ottawa, Canada.
-            I like to code things from scratch and enjoy bringing ideas to life
-            in the browser.
+            My name is Yana Krukovets. I am a Front-End Developer based in
+            Ottawa, Canada. I like to code things from scratch and enjoy
+            bringing ideas to life in the browser.
           </p>
 
           <h3 className="pb-[10px] pt-[20px] text-[20px]">
@@ -71,8 +71,17 @@ const About = () => {
             </a>{" "}
             Dnipro, Ukraine
           </p>
+
+          <h3 className="pb-[10px] pt-[20px] text-[20px]">
+            <b>Hobbies</b>
+          </h3>
+          <p>
+            I like to spend time with my family, play with kids, traveling,
+            cycling, hiking, painting.
+          </p>
         </div>
       </div>
+
       <div className="flex justify-center py-[10px] mt-[20px] social">
         <a
           href="https://github.com/YanaKrukovets"

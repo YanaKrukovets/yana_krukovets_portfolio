@@ -12,12 +12,12 @@ const HeaderBanner = () => {
             id="welcome"
           >
             <h1 className="text-[40px] leading-[85px] md:text-[35px] md:leading-[60px] sm:text-[30px] sm:leading-[40px] md:mt-[30px]">
-              Hello! My name is Yana
+              Hello! My name is Yana Krukovets
             </h1>
             <h2 className="text-[25px] leading-[55px]">
               I am a Front-End Developer
             </h2>
-            <h3 className="text-[20px] leading-[50px]">
+            <h3 className="text-[20px] leading-[50px] md:text-[18px] md:leading-[30px]">
               Let&apos;s make a new life in the Network
             </h3>
             <div className="mt-[20px]">
