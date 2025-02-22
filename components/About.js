@@ -89,14 +89,14 @@ const About = () => {
           rel="noreferrer"
           aria-label="Link to Yana Krukovets Github"
         >
-          <AiFillGithub className="social-media" />
+          <AiFillGithub className="social-media" role="presentation" />
         </a>
         <a
           href="https://www.linkedin.com/in/yana-krukovets-25658260/"
           target="_blanc"
           aria-label="Link to Yana Krukovets linkedin account"
         >
-          <AiFillLinkedin className="social-media" />
+          <AiFillLinkedin className="social-media" role="presentation" />
         </a>
       </div>
     </div>

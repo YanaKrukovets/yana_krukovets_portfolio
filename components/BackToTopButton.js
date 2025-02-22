@@ -39,6 +39,7 @@ const BackToTopButton = () => {
           className="w-4 inline mt-[-1px]"
           icon={faAngleUp}
           color="#090a0f"
+          role="presentation"
         />
       </button>
     )

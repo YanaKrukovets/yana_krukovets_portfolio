@@ -36,6 +36,7 @@ function ContactForm() {
             type="name"
             className="form-control"
             name="name"
+            aria-required="true"
             required
           />
           <ValidationError prefix="name" field="name" errors={state.errors} />
@@ -48,6 +49,7 @@ function ContactForm() {
             type="email"
             name="email"
             className="form-control"
+            aria-required="true"
             required
           />
           <ValidationError prefix="Email" field="email" errors={state.errors} />

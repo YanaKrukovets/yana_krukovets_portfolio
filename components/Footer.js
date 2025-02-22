@@ -15,7 +15,9 @@ export default function Footer() {
     <footer className="max-w-inner xxxl:px-0 purple">
       <div className="footer-wrapper">
         <div className="max-w-wrapper px-5 mx-auto">
-          <footer>© Yana Krukovets, 2025</footer>
+          <div role="footer" aria-label="footer">
+            © Yana Krukovets, 2025
+          </div>
         </div>
       </div>
     </footer>
