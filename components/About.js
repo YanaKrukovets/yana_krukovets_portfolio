@@ -87,12 +87,14 @@ const About = () => {
           href="https://github.com/YanaKrukovets"
           target="_blank"
           rel="noreferrer"
+          aria-label="Link to Yana Krukovets Github"
         >
           <AiFillGithub className="social-media" />
         </a>
         <a
           href="https://www.linkedin.com/in/yana-krukovets-25658260/"
           target="_blanc"
+          aria-label="Link to Yana Krukovets linkedin account"
         >
           <AiFillLinkedin className="social-media" />
         </a>

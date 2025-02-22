@@ -18,19 +18,19 @@ export default function Navbar() {
     item1: {
       label:
         "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>About</span>",
-      aria: "About Yana Krukovets",
+      aria: "Link About Yana Krukovets",
       href: "/#about",
     },
     item2: {
       label:
         "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>Projects</span>",
-      aria: "Yana Krukovets Projects",
+      aria: "Link to Yana Krukovets Projects",
       href: "/#projects",
     },
     item3: {
       label:
         "<span class='whitespace-nowrap lg:whitespace-normal text-[20px]'>Contact</span>",
-      aria: "Contact Yana Krukovets",
+      aria: "Link to Contact Yana Krukovets",
       href: "/#contact",
     },
   };
@@ -124,6 +124,7 @@ export default function Navbar() {
                         <Link
                           href={item.href}
                           className="mobile-nav-item"
+                          aria-label={item.aria}
                           onClick={() =>
                             setMobileNavExpanded(!mobileNavExpanded)
                           }
