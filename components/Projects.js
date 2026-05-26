@@ -96,7 +96,7 @@ const Projects = () => {
         </div>
         <hr className="my-[20px]" />
         <p>Also I was a part of a team who was working on the next projects</p>
-
+        /*{" "}
         <div className="projects-container flex-disp">
           {projectsWork.map((project, index) => {
             return (
@@ -112,6 +112,7 @@ const Projects = () => {
             );
           })}
         </div>
+        */
       </div>
     </div>
   );
