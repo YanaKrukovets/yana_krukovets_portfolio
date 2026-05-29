@@ -4,7 +4,7 @@ import { useTypewriter } from "../hooks/useTypewriter";
 
 const ROLES = [
   "Front-End Developer",
-  "React Developer",
+  "Full Stack Developer",
   "Next.js Developer",
   "UI Developer",
 ];

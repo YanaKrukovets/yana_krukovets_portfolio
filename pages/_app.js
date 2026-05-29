@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+import ChatWidget from "../components/ChatWidget";
 import "../styles/styles.scss";
 import Head from "next/head";
 
@@ -10,6 +11,7 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <ChatWidget />
     </>
   );
 }

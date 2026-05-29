@@ -231,6 +231,11 @@
   dependencies:
     prop-types "^15.8.1"
 
+"@google/generative-ai@^0.24.1":
+  version "0.24.1"
+  resolved "https://registry.npmjs.org/@google/generative-ai/-/generative-ai-0.24.1.tgz"
+  integrity sha512-MqO+MLfM6kjxcKoy0p1wRzG3b4ZZXtPI+z2IE26UogS2Cm/XHO+7gGRBh6gcJsOiIVoH93UwKvW4HdgiOZCy9Q==
+
 "@headlessui/react@^1.7.7":
   version "1.7.18"
   resolved "https://registry.npmjs.org/@headlessui/react/-/react-1.7.18.tgz"
