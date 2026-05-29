@@ -36,11 +36,18 @@ const SKILLS = [
 
 const EXPERIENCE = [
   {
+    period: "Jul 2025 — May 2026",
+    role: "Full Stack Developer",
+    company: "Elite Digital",
+    href: "https://elitedigitalagency.com/",
+    location: "Ontario, Canada",
+  },
+  {
     period: "Jan 2023 — Jan 2024",
     role: "Frontend Developer",
     company: "Elite Digital",
     href: "https://elitedigitalagency.com/",
-    location: "Toronto, Canada",
+    location: "Ontario, Canada",
   },
   {
     period: "Jan 2013 — May 2016",
@@ -86,9 +93,22 @@ const About = () => {
             <b>Who am I?</b>
           </h3>
           <p>
-            My name is Yana Krukovets. I am a Front-End Developer based in
-            Ottawa, Canada. I like to code things from scratch and enjoy
-            bringing ideas to life in the browser.
+            My name is Yana Krukovets. I&rsquo;m a Full Stack Developer based
+            in Ottawa, Canada, with 4+ years of professional experience. I like
+            to code things from scratch and enjoy bringing ideas to life in the
+            browser.
+          </p>
+          <p className="mt-[12px]">
+            I work across the full stack — from database and API design to
+            polished, user-facing front-end work — using React, Next.js,
+            TypeScript, GraphQL, Tailwind CSS, and more. I have hands-on
+            experience with Agile/SCRUM teams, full SDLC, and building both
+            MVC and MVVM applications.
+          </p>
+          <p className="mt-[12px]">
+            Beyond the code, I&rsquo;m genuinely excited about AI — keeping up
+            with the evolving landscape of models and tooling, and finding
+            practical ways to integrate AI into everyday development workflows.
           </p>
 
           {/* Resume download */}

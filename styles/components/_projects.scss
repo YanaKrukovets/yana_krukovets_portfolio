@@ -10,6 +10,7 @@
   justify-content: center;
   margin-top: 20px;
   width: 100%;
+
 }
 
 .project-image {
@@ -89,7 +90,9 @@
 // Swiper overrides for project carousel on mobile
 .projects-swiper {
   width: 100%;
-  padding-bottom: 36px !important;
+  padding-bottom: 44px !important;
+  padding-left: 36px !important;
+  padding-right: 36px !important;
 
   .swiper-pagination-bullet {
     background: rgba(255, 255, 255, 0.4);
@@ -99,6 +102,18 @@
   .swiper-pagination-bullet-active {
     background: $color-accent;
     box-shadow: 0 0 6px $color-accent;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: $color-accent;
+    width: 28px;
+    height: 28px;
+
+    &::after {
+      font-size: 16px;
+      font-weight: 700;
+    }
   }
 
   .project-card {
