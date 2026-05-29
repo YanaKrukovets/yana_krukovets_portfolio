@@ -24,7 +24,7 @@ const SKILLS = [
   { icon: SiCss3, label: "CSS3", color: "#1572b6" },
   { icon: SiJavascript, label: "JavaScript", color: "#f7df1e" },
   { icon: SiReact, label: "ReactJS", color: "#61dafb" },
-  { icon: SiNextdotjs, label: "Next.js", color: "#ffffff" },
+  { icon: SiNextdotjs, label: "Next.js", color: "#000000" },
   { icon: SiTailwindcss, label: "Tailwind", color: "#38bdf8" },
   { icon: SiJquery, label: "jQuery", color: "#0769ad" },
   { icon: SiBootstrap, label: "Bootstrap", color: "#7952b3" },
