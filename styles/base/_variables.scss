@@ -30,7 +30,7 @@ $xxlarge-max-width: 1919.98px;
 $color-light-gray: #f2f2f2;
 $color-gray: #000000;
 $color-middle-gray: #616060;
-$color-yellow: #83c5be;
+$color-teal: #83c5be;
 
 $color-font-primary: #414042;
 $color-green: #2a5a51;
@@ -38,6 +38,28 @@ $color-pewter: #6d6e70;
 $color-gold: #ffb718;
 $color-marigold: #ffd100;
 $color-white: #ffffff;
+
+// Accent / glow color used throughout the site
+$color-accent: #e0a5e0;
+
+// Button colors
+$color-btn-bg: #4a374a;
+$color-btn-hover-text: #255784;
+
+// Background gradient colors
+$color-bg-gradient-start: #663b66;
+$color-bg-gradient-end: #090a0f;
+
+// Form input colors
+$color-input-text: #212529;
+$color-input-border: #ced4da;
+$color-input-bg: #ffffff;
+
+// Project card colors
+$color-project-card-bg: #ebebeb;
+
+// Nav colors
+$color-nav-bg: #333333;
 
 // //FONTS
 $font-primary: "Arial";

@@ -1,12 +1,22 @@
 import React from "react";
 import Navbar from "./Navbar";
+import { useTypewriter } from "../hooks/useTypewriter";
+
+const ROLES = [
+  "Front-End Developer",
+  "React Developer",
+  "Next.js Developer",
+  "UI Developer",
+];
 
 const HeaderBanner = () => {
+  const role = useTypewriter(ROLES);
+
   return (
     <>
       <Navbar />
       <div className="max-w-inner xxxl:px-0">
-        <div className="max-w-wrapper px-5 mx-auto">
+        <div className="content-wrapper">
           <div
             className="text-center font-roboto welcome md:mt-[40%]"
             id="welcome"
@@ -14,8 +24,12 @@ const HeaderBanner = () => {
             <h1 className="text-[40px] leading-[85px] md:text-[35px] md:leading-[60px] sm:text-[30px] sm:leading-[40px] md:mt-[30px]">
               Hello! My name is Yana Krukovets
             </h1>
-            <h2 className="text-[25px] leading-[55px]">
-              I am a Front-End Developer
+            <h2 className="text-[25px] leading-[55px] min-h-[55px]">
+              I am a{" "}
+              <span className="typewriter-text">
+                {role}
+                <span className="typewriter-cursor" aria-hidden="true">|</span>
+              </span>
             </h2>
             <h3 className="text-[20px] leading-[50px] md:text-[18px] md:leading-[30px]">
               Let&apos;s make a new life in the Network
@@ -41,12 +55,6 @@ const HeaderBanner = () => {
           <div id="stars"></div>
           <div id="stars2"></div>
           <div id="stars3"></div>
-
-          {/* <div className="pPos">
-            <div className="pyramid one"></div>
-            <div className="pyramid two"></div>
-            <div className="pyramid three"></div>
-  </div>*/}
         </div>
         <a href="#about">
           <div className="container">

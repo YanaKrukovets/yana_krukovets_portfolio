@@ -1,7 +1,7 @@
-import react from "react";
+import React from "react";
 import Image from "next/image";
 
-const Project = ({ href, src, alt, tech, text, year }) => {
+const Project = ({ href, src, alt, tech, text, year, description }) => {
   return (
     <div>
       <div className="project-card">
@@ -12,21 +12,23 @@ const Project = ({ href, src, alt, tech, text, year }) => {
               alt={alt}
               height={230}
               width={330}
-              className="image mb-[7px]"
+              className="image"
             />
-
-            <div className="overlay">
+            <div className="overlay mt-7">
               <p>
                 <b>VIEW</b>
               </p>
             </div>
           </div>
         </a>
-        <div className="px-[10px]" role="button" tabindex="0">
+        <div className="px-[10px]" role="button" tabIndex="0">
           <div className="flex justify-between leading-[19px]">
             <p className="text">{text}</p>
             <p>{year}</p>
           </div>
+          {description && (
+            <p className="project-description">{description}</p>
+          )}
           <p className="tech">
             <b>Technologies:</b> {tech}
           </p>

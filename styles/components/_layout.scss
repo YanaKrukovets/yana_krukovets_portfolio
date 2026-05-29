@@ -37,10 +37,15 @@ sup {
   padding-left: 20px;
   padding-right: 20px;
 
-  @media (max-width: $small-min-width) {
+  @media (max-width: $small-max-width) {
     padding-left: 15px;
     padding-right: 15px;
   }
+}
+
+// Shared page-width container — replaces repeated `max-w-wrapper px-5 mx-auto`
+.content-wrapper {
+  @apply max-w-wrapper px-5 mx-auto;
 }
 
 .home-banner {
@@ -92,7 +97,7 @@ sup {
 .scroll {
   width: 50px;
   height: 50px;
-  box-shadow: 0 0 10px #e0a5e0, 0 0 40px #e0a5e0, 0 0 80px #e0a5e0;
+  box-shadow: 0 0 10px $color-accent, 0 0 40px $color-accent, 0 0 80px $color-accent;
   border: 2px solid #fff;
   border-radius: 50%;
   position: relative;

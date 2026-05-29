@@ -1,7 +1,9 @@
 import { useForm, ValidationError } from "@formspree/react";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 function ContactForm() {
   const [state, handleSubmit] = useForm("mjvllaww");
+  const { ref, isVisible } = useScrollReveal(0.1);
 
   if (state.succeeded) {
     return (
@@ -14,7 +16,8 @@ function ContactForm() {
   return (
     <div
       id="contact"
-      className="max-w-wrapper px-5 mx-auto my-[40px] py-[20px] font-roboto"
+      ref={ref}
+      className={`content-wrapper my-[40px] py-[20px] font-roboto reveal${isVisible ? " reveal--visible" : ""}`}
     >
       <form
         onSubmit={handleSubmit}
@@ -33,7 +36,7 @@ function ContactForm() {
           </label>
           <input
             id="name"
-            type="name"
+            type="text"
             className="form-control"
             name="name"
             aria-required="true"
@@ -57,14 +60,19 @@ function ContactForm() {
           <label htmlFor="message" className="form-label">
             Message:
           </label>
-          <textarea className="form-control" id="message" name="message" />
+          <textarea
+            className="form-control"
+            id="message"
+            name="message"
+            rows={5}
+          />
           <ValidationError
             prefix="Message"
             field="message"
             errors={state.errors}
           />
           <button type="submit" className="btn" disabled={state.submitting}>
-            Submit
+            {state.submitting ? "Sending…" : "Submit"}
           </button>
         </fieldset>
       </form>

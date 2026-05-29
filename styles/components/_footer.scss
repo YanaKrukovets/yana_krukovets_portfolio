@@ -1,6 +1,6 @@
 footer {
   font-weight: 400;
-  color: $color-font-primary;
+  color: #ffffff;
 
   .footer-wrapper {
     width: 100%;
@@ -19,7 +19,7 @@ footer {
       line-height: 16px;
       flex-wrap: wrap;
       margin-bottom: 20px;
-      color: $color-yellow;
+      color: $color-teal;
       align-items: center;
 
       @media (max-width: $medium-max-width) {

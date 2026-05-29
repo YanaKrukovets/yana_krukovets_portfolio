@@ -12,7 +12,7 @@ module.exports = {
     },
     screens: {
       xxxl: { max: "2000px" },
-      xxl: { max: "1920px" },
+      xxlmax: { max: "1920px" },
       xl: { max: "1536px" },
       xlg: { max: "1480px" },
       xxl: { max: "1340px" },

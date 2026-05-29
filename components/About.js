@@ -1,13 +1,78 @@
 import React from "react";
 import Image from "next/image";
-import { AiFillGithub } from "react-icons/ai";
-import { AiFillLinkedin } from "react-icons/ai";
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import {
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiReact,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiJquery,
+  SiBootstrap,
+  SiWordpress,
+  SiSanity,
+  SiPhp,
+  SiMysql,
+} from "react-icons/si";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+
+const SKILLS = [
+  { icon: SiHtml5, label: "HTML5", color: "#e34f26" },
+  { icon: SiCss3, label: "CSS3", color: "#1572b6" },
+  { icon: SiJavascript, label: "JavaScript", color: "#f7df1e" },
+  { icon: SiReact, label: "ReactJS", color: "#61dafb" },
+  { icon: SiNextdotjs, label: "Next.js", color: "#ffffff" },
+  { icon: SiTailwindcss, label: "Tailwind", color: "#38bdf8" },
+  { icon: SiJquery, label: "jQuery", color: "#0769ad" },
+  { icon: SiBootstrap, label: "Bootstrap", color: "#7952b3" },
+  { icon: SiWordpress, label: "WordPress", color: "#21759b" },
+  { icon: SiSanity, label: "Sanity", color: "#f03e2f" },
+  { icon: SiPhp, label: "PHP", color: "#777bb4" },
+  { icon: SiMysql, label: "mySQL", color: "#4479a1" },
+];
+
+const EXPERIENCE = [
+  {
+    period: "Jan 2023 — Jan 2024",
+    role: "Frontend Developer",
+    company: "Elite Digital",
+    href: "https://elitedigitalagency.com/",
+    location: "Toronto, Canada",
+  },
+  {
+    period: "Jan 2013 — May 2016",
+    role: "Frontend Developer",
+    company: "SoftServe",
+    href: "https://www.softserveinc.com",
+    location: "Dnipro, Ukraine",
+  },
+  {
+    period: "2011 — 2013",
+    role: "Teacher C++",
+    company: "IT Academy \"Step\"",
+    href: "https://itstep.org",
+    location: "Dnipro, Ukraine",
+  },
+];
 
 const About = () => {
+  const { ref: bioRef, isVisible: bioVisible } = useScrollReveal(0.1);
+  const { ref: skillsRef, isVisible: skillsVisible } = useScrollReveal(0.1);
+  const { ref: expRef, isVisible: expVisible } = useScrollReveal(0.1);
+  const { ref: socialRef, isVisible: socialVisible } = useScrollReveal(0.1);
+
   return (
-    <div id="about" className="about max-w-wrapper px-5 mx-auto font-roboto">
-      <div className="flex justify-between gap-2 pt-[20px] md:pt-[0px] md:flex-col max-w-[1100px] mx-auto">
-        <div className="my-auto">
+    <div id="about" className="about content-wrapper font-roboto">
+
+      {/* Bio + Photo */}
+      <div
+        ref={bioRef}
+        className={`flex justify-between gap-2 pt-[20px] md:pt-[0px] md:flex-col max-w-[1100px] mx-auto reveal${bioVisible ? " reveal--visible" : ""}`}
+      >
+        <div className="my-auto reveal reveal--left" style={{ transitionDelay: "0.1s", opacity: bioVisible ? 1 : 0, transform: bioVisible ? "translateX(0)" : "translateX(-32px)" }}>
           <Image
             className="profile-img"
             src="/images/components/about/yana_krukovets.jpg"
@@ -26,63 +91,90 @@ const About = () => {
             bringing ideas to life in the browser.
           </p>
 
-          <h3 className="pb-[10px] pt-[20px] text-[20px]">
-            <b>Skills</b>
-          </h3>
-          <p>
-            HTML, CSS, JavaScript, ReactJS, Next.js, Tailwind.css, jQuery,
-            Bootstrap, Wordpress, Tilda, Sanity, Liquid script, PHP, mySQL
-          </p>
-
-          <h3 className="pb-[10px] pt-[20px] text-[20px]">
-            <b>Experience</b>
-          </h3>
-          <p>
-            <b>Jan 2023 - Jan 2024:</b> Frontend Developer at{" "}
+          {/* Resume download */}
+          <div className="mt-[20px]">
             <a
-              href="https://elitedigitalagency.com/"
-              className="underline"
-              target="_blanc"
+              href="/Yana_Krukovets_CV.pdf"
+              download
+              className="btn inline-flex items-center gap-[8px] mt-[10px]"
+              aria-label="Download Yana Krukovets resume"
             >
-              <i>Elite Digital</i>
-            </a>{" "}
-            Toronto, Canada
-          </p>
-          <p>
-            <b>Jan 2013 - May 2016:</b> Frontend Developer at{" "}
-            <a
-              href="https://www.softserveinc.com"
-              className="underline"
-              target="_blanc"
-            >
-              <i>SoftServe</i>
-            </a>{" "}
-            Dnipro, Ukraine
-          </p>
-          <p>
-            <b>2011 - 2013:</b> Teacher C++ at{" "}
-            <a
-              href="https://itstep.org"
-              className="underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <i>IT Academy &quot;Step&quot;</i>
-            </a>{" "}
-            Dnipro, Ukraine
-          </p>
-
-          <h3 className="pb-[10px] pt-[20px] text-[20px]">
-            <b>Hobbies</b>
-          </h3>
-          <p>
-            I like to spend time with my family, play with kids, traveling,
-            cycling, hiking, painting.
-          </p>
+              <FontAwesomeIcon icon={faDownload} className="w-4" />
+              Download CV
+            </a>
+          </div>
         </div>
       </div>
 
-      <div className="flex justify-center py-[10px] mt-[20px] social">
+      {/* Skills Icon Grid */}
+      <div
+        ref={skillsRef}
+        className={`max-w-[1100px] mx-auto mt-[40px] reveal${skillsVisible ? " reveal--visible" : ""}`}
+      >
+        <h3 className="pb-[10px] text-[20px]">
+          <b>Skills</b>
+        </h3>
+        <div className="skills-grid">
+          {SKILLS.map(({ icon: Icon, label, color }) => (
+            <div key={label} className="skill-item">
+              <Icon className="skill-icon" style={{ color }} aria-hidden="true" />
+              <span className="skill-label">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Experience Timeline */}
+      <div
+        ref={expRef}
+        className={`max-w-[1100px] mx-auto mt-[40px] reveal${expVisible ? " reveal--visible" : ""}`}
+      >
+        <h3 className="pb-[10px] text-[20px]">
+          <b>Experience</b>
+        </h3>
+        <div className="timeline">
+          {EXPERIENCE.map((item, i) => (
+            <div
+              key={i}
+              className="timeline-item"
+            >
+              <div className="timeline-dot" aria-hidden="true" />
+              <div className="timeline-content">
+                <span className="timeline-period">{item.period}</span>
+                <p className="timeline-role">
+                  {item.role} at{" "}
+                  <a
+                    href={item.href}
+                    className="underline"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <i>{item.company}</i>
+                  </a>
+                </p>
+                <span className="timeline-location">{item.location}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Hobbies */}
+      <div className="max-w-[1100px] mx-auto mt-[40px]">
+        <h3 className="pb-[10px] text-[20px]">
+          <b>Hobbies</b>
+        </h3>
+        <p>
+          I like to spend time with my family, play with kids, traveling,
+          cycling, hiking, painting.
+        </p>
+      </div>
+
+      {/* Social */}
+      <div
+        ref={socialRef}
+        className={`flex justify-center py-[10px] mt-[20px] social reveal${socialVisible ? " reveal--visible" : ""}`}
+      >
         <a
           href="https://github.com/YanaKrukovets"
           target="_blank"
@@ -93,7 +185,8 @@ const About = () => {
         </a>
         <a
           href="https://www.linkedin.com/in/yana-krukovets-25658260/"
-          target="_blanc"
+          target="_blank"
+          rel="noreferrer"
           aria-label="Link to Yana Krukovets linkedin account"
         >
           <AiFillLinkedin className="social-media" role="presentation" />

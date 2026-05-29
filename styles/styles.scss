@@ -2,15 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-//base
+// base
 @import "./base/variables";
 @import "./base/fonts";
 
-//components
+// components
 @import "./components/backToTopButton";
 @import "./components/layout";
 @import "./components/header";
 @import "./components/footer";
 @import "./components/home";
-
-//pages
+@import "./components/stars";
+@import "./components/about";
+@import "./components/projects";
+@import "./components/contact";
+@import "./components/animations";
