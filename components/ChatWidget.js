@@ -7,13 +7,13 @@ const SUGGESTED_QUESTIONS = [
   "Are you available for hire?",
 ];
 
+let msgId = 0;
+const newMsg = (role, text) => ({ id: ++msgId, role, text });
+
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    {
-      role: "model",
-      text: "Hi! I'm Yana's AI assistant. Ask me anything about her skills, experience, or projects!",
-    },
+    newMsg("model", "Hi! I'm Yana's AI assistant. Ask me anything about her skills, experience, or projects!"),
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +36,7 @@ const ChatWidget = () => {
     const userText = text || input.trim();
     if (!userText || isLoading) return;
 
-    const userMessage = { role: "user", text: userText };
+    const userMessage = newMsg("user", userText);
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInput("");
@@ -55,15 +55,13 @@ const ChatWidget = () => {
       });
 
       const data = await res.json();
-      setMessages((prev) => [
-        ...prev,
-        { role: "model", text: data.reply || "Sorry, I couldn't get a response." },
-      ]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        { role: "model", text: "Something went wrong. Please try again." },
-      ]);
+      if (!res.ok) throw new Error(data.error || "Server error");
+      setMessages((prev) => [...prev, newMsg("model", data.reply || "Sorry, I couldn't get a response.")]);
+    } catch (err) {
+      const errText = err?.message?.includes("Too many requests")
+        ? "Too many requests — please wait a moment."
+        : "Something went wrong. Please try again.";
+      setMessages((prev) => [...prev, newMsg("model", errText)]);
     } finally {
       setIsLoading(false);
     }
@@ -111,8 +109,8 @@ const ChatWidget = () => {
           </div>
 
           <div className="chat-messages" role="log" aria-live="polite">
-            {messages.map((msg, i) => (
-              <div key={i} className={`chat-message chat-message--${msg.role === "user" ? "user" : "bot"}`}>
+            {messages.map((msg) => (
+              <div key={msg.id} className={`chat-message chat-message--${msg.role === "user" ? "user" : "bot"}`}>
                 <p>{msg.text}</p>
               </div>
             ))}

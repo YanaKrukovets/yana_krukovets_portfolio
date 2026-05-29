@@ -5,9 +5,9 @@ import Image from "next/image";
 const SECTIONS = ["about", "projects", "contact"];
 
 const NAV_ITEMS = [
-  { label: "About",    aria: "Link About Yana Krukovets",         href: "/#about",    section: "about" },
-  { label: "Projects", aria: "Link to Yana Krukovets Projects",   href: "/#projects", section: "projects" },
-  { label: "Contact",  aria: "Link to Contact Yana Krukovets",    href: "/#contact",  section: "contact" },
+  { label: "About",    aria: "Link About Yana Krukovets",         href: "/#about",    section: "about",    mobileClass: "max-w-[200px]" },
+  { label: "Projects", aria: "Link to Yana Krukovets Projects",   href: "/#projects", section: "projects", mobileClass: "xmd:max-w-[240px]" },
+  { label: "Contact",  aria: "Link to Contact Yana Krukovets",    href: "/#contact",  section: "contact",  mobileClass: "" },
 ];
 
 export default function Navbar() {
@@ -87,7 +87,7 @@ export default function Navbar() {
 
           {/* Mobile Nav */}
           <div className={`mobile-nav ${mobileNavExpanded ? "block h-full" : ""}`}>
-            {NAV_ITEMS.map((item, index) => (
+            {NAV_ITEMS.map((item) => (
               <div key={item.section}>
                 <Link
                   href={item.href}
@@ -95,11 +95,7 @@ export default function Navbar() {
                   aria-label={item.aria}
                   onClick={() => setMobileNavExpanded(false)}
                 >
-                  <span
-                    className={`mobile-nav-text whitespace-nowrap lg:whitespace-normal text-[20px] ${
-                      index === 0 ? "max-w-[200px]" : index === 1 ? "xmd:max-w-[240px]" : ""
-                    }`}
-                  >
+                  <span className={`mobile-nav-text whitespace-nowrap lg:whitespace-normal text-[20px] ${item.mobileClass}`}>
                     {item.label}
                   </span>
                 </Link>

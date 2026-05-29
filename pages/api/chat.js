@@ -1,5 +1,24 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+// Simple in-memory rate limiter: max 10 requests per IP per minute
+const rateLimitMap = new Map();
+const RATE_LIMIT = 10;
+const RATE_WINDOW_MS = 60_000;
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
+  if (now - entry.start > RATE_WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, start: now });
+    return false;
+  }
+  if (entry.count >= RATE_LIMIT) return true;
+  rateLimitMap.set(ip, { count: entry.count + 1, start: entry.start });
+  return false;
+}
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
 const SYSTEM_CONTEXT = `You are a helpful assistant on Yana Krukovets' portfolio website. Answer questions about Yana based on the following information. Be friendly, concise, and professional. If asked something you don't know about Yana, say you're not sure and suggest contacting her directly.
 
 ABOUT YANA:
@@ -33,29 +52,40 @@ LOCATION: Ottawa, Canada
 
 Keep responses brief (2-4 sentences max). If asked about availability or hiring, encourage them to use the contact form.`;
 
+const ALLOWED_ROLES = new Set(["user", "model"]);
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  const ip = req.headers["x-forwarded-for"]?.split(",")[0].trim() || req.socket.remoteAddress || "unknown";
+  if (isRateLimited(ip)) {
+    return res.status(429).json({ error: "Too many requests. Please wait a moment." });
+  }
+
   const { message, history } = req.body;
-  if (!message) {
+  if (!message || typeof message !== "string") {
     return res.status(400).json({ error: "Message is required" });
+  }
+  if (message.length > 2000) {
+    return res.status(400).json({ error: "Message too long" });
+  }
+  if (Array.isArray(history) && history.length > 40) {
+    return res.status(400).json({ error: "History too long" });
   }
 
   try {
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
       systemInstruction: SYSTEM_CONTEXT,
     });
 
-    const chat = model.startChat({
-      history: (history || []).map((msg) => ({
-        role: msg.role,
-        parts: [{ text: msg.text }],
-      })),
-    });
+    const safeHistory = (history || [])
+      .filter((msg) => ALLOWED_ROLES.has(msg.role) && typeof msg.text === "string")
+      .map((msg) => ({ role: msg.role, parts: [{ text: msg.text.slice(0, 2000) }] }));
+
+    const chat = model.startChat({ history: safeHistory });
 
     const result = await chat.sendMessage(message);
     const text = result.response.text();

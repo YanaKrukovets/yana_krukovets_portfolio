@@ -7,6 +7,15 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+const SWIPER_PROPS = {
+  modules: [Pagination, Navigation, A11y],
+  spaceBetween: 20,
+  slidesPerView: 1,
+  pagination: { clickable: true },
+  navigation: true,
+  className: "projects-swiper mt-[20px]",
+};
+
 const projectsWork = [
   {
     href: "https://elitedigitalagency.com/health",
@@ -107,14 +116,7 @@ const Projects = () => {
           className={`reveal${personalVisible ? " reveal--visible" : ""}`}
         >
           {isMobile ? (
-            <Swiper
-              modules={[Pagination, Navigation, A11y]}
-              spaceBetween={20}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-              navigation
-              className="projects-swiper mt-[20px]"
-            >
+            <Swiper {...SWIPER_PROPS}>
               {projects.map((project, index) => (
                 <SwiperSlide key={index}>
                   <Project {...project} />
@@ -139,14 +141,7 @@ const Projects = () => {
         >
           <p className="mb-[8px]">Also I was a part of a team who was working on the next projects</p>
           {isMobile ? (
-            <Swiper
-              modules={[Pagination, Navigation, A11y]}
-              spaceBetween={20}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-              navigation
-              className="projects-swiper mt-[20px]"
-            >
+            <Swiper {...SWIPER_PROPS}>
               {projectsWork.map((project, index) => (
                 <SwiperSlide key={index}>
                   <Project {...project} />
