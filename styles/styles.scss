@@ -1,19 +1,16 @@
+// @use rules must precede all other statements in Dart Sass
+@use "./base/fonts";
+@use "./components/backToTopButton";
+@use "./components/layout";
+@use "./components/header";
+@use "./components/footer";
+@use "./components/home";
+@use "./components/stars";
+@use "./components/about";
+@use "./components/projects";
+@use "./components/contact";
+@use "./components/animations";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-// base
-@import "./base/variables";
-@import "./base/fonts";
-
-// components
-@import "./components/backToTopButton";
-@import "./components/layout";
-@import "./components/header";
-@import "./components/footer";
-@import "./components/home";
-@import "./components/stars";
-@import "./components/about";
-@import "./components/projects";
-@import "./components/contact";
-@import "./components/animations";

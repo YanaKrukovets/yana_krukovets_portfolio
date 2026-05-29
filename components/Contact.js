@@ -39,6 +39,7 @@ function ContactForm() {
             type="text"
             className="form-control"
             name="name"
+            autoComplete="name"
             aria-required="true"
             required
           />
@@ -52,6 +53,7 @@ function ContactForm() {
             type="email"
             name="email"
             className="form-control"
+            autoComplete="email"
             aria-required="true"
             required
           />

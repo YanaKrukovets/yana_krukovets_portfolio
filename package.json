@@ -5,7 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
   },
   "dependencies": {
     "@formspree/react": "^2.5.1",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7",
+    "@playwright/test": "^1.60.0",
     "@types/node": "18.11.17",
     "@types/react": "^17.0.35",
     "autoprefixer": "^10.4.13",

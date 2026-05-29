@@ -21,7 +21,7 @@ const Project = ({ href, src, alt, tech, text, year, description }) => {
             </div>
           </div>
         </a>
-        <div className="px-[10px]" role="button" tabIndex="0">
+        <div className="px-[10px] pt-4">
           <div className="flex justify-between leading-[19px]">
             <p className="text">{text}</p>
             <p>{year}</p>
