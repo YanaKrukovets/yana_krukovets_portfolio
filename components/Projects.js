@@ -138,11 +138,28 @@ const Projects = () => {
           className={`reveal${workVisible ? " reveal--visible" : ""}`}
         >
           <p className="mb-[8px]">Also I was a part of a team who was working on the next projects</p>
-          <div className={`projects-container flex-disp mt-[20px]${isMobile ? " projects-scroll" : ""}`}>
-            {projectsWork.map((project, index) => (
-              <Project key={index} {...project} />
-            ))}
-          </div>
+          {isMobile ? (
+            <Swiper
+              modules={[Pagination, Navigation, A11y]}
+              spaceBetween={20}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              navigation
+              className="projects-swiper mt-[20px]"
+            >
+              {projectsWork.map((project, index) => (
+                <SwiperSlide key={index}>
+                  <Project {...project} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <div className="projects-container flex-disp mt-[20px]">
+              {projectsWork.map((project, index) => (
+                <Project key={index} {...project} />
+              ))}
+            </div>
+          )}
         </div>
 
       </div>
