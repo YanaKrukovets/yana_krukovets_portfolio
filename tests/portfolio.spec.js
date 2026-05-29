@@ -53,6 +53,35 @@ test.describe("SEO", () => {
     expect(h1Count).toBe(1);
   });
 
+  test("html element has lang attribute", async ({ page }) => {
+    await goto(page);
+    const lang = await page.locator("html").getAttribute("lang");
+    expect(lang).toBe("en");
+  });
+
+  test("has JSON-LD Person structured data", async ({ page }) => {
+    await goto(page);
+    const ld = await page.locator('script[type="application/ld+json"]').textContent();
+    const parsed = JSON.parse(ld);
+    expect(parsed["@type"]).toBe("Person");
+    expect(parsed.name).toBe("Yana Krukovets");
+    expect(Array.isArray(parsed.sameAs)).toBeTruthy();
+  });
+
+  test("has preconnect for Google Fonts", async ({ page }) => {
+    await goto(page);
+    const preconnect = page.locator('link[rel="preconnect"][href*="fonts.googleapis.com"]');
+    await expect(preconnect).toHaveCount(1);
+  });
+
+  test("og:image has width and height meta tags", async ({ page }) => {
+    await goto(page);
+    const w = await page.locator('meta[property="og:image:width"]').getAttribute("content");
+    const h = await page.locator('meta[property="og:image:height"]').getAttribute("content");
+    expect(Number(w)).toBeGreaterThanOrEqual(1200);
+    expect(Number(h)).toBeGreaterThanOrEqual(630);
+  });
+
   test("page has header, main, footer landmarks", async ({ page }) => {
     await goto(page);
     expect(await page.locator("header").count()).toBe(1);
