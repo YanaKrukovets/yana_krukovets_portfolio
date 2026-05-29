@@ -112,15 +112,15 @@ const About = () => {
           </p>
 
           {/* Hobbies */}
-      <div className="max-w-[1100px] mx-auto mt-[40px]">
-        <h3 className="pb-[10px] text-[20px]">
-          <b>Hobbies</b>
-        </h3>
-        <p>
-          I like to spend time with my family, play with kids, traveling,
-          cycling, hiking, painting.
-        </p>
-      </div>
+          <div className="mt-[20px]">
+            <h3 className="pb-[10px] text-[20px]">
+              <b>Hobbies</b>
+            </h3>
+            <p>
+              I like to spend time with my family, play with kids, traveling,
+              cycling, hiking, painting.
+            </p>
+          </div>
 
           {/* Resume download */}
           <div className="mt-[20px]">
