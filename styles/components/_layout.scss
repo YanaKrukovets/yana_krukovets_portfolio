@@ -1,3 +1,5 @@
+@use '../base/variables' as *;
+
 * {
   box-sizing: border-box;
 }
@@ -17,11 +19,6 @@ a {
   text-decoration: none;
 }
 
-body {
-  @media (min-width: $xxmedium-min-width) {
-    position: relative;
-  }
-}
 
 main {
   overflow-x: clip;

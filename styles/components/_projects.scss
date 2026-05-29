@@ -1,3 +1,5 @@
+@use '../base/variables' as *;
+
 .purple {
   background: radial-gradient(ellipse at bottom, $color-bg-gradient-start 0%, $color-bg-gradient-end 100%);
   color: #ffffff;
@@ -10,6 +12,7 @@
   justify-content: center;
   margin-top: 20px;
   width: 100%;
+
 }
 
 .project-image {
@@ -33,16 +36,18 @@
 
 .imageContainer {
   position: relative;
-  display: inline-block;
+  display: block;
   width: 100%;
-  height: auto;
+  height: 230px;
   max-width: 350px;
   overflow: hidden;
 }
 
 .image {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
   display: block;
   transition: opacity 0.3s ease-in-out;
 }
@@ -89,7 +94,9 @@
 // Swiper overrides for project carousel on mobile
 .projects-swiper {
   width: 100%;
-  padding-bottom: 36px !important;
+  padding-bottom: 44px !important;
+  padding-left: 36px !important;
+  padding-right: 36px !important;
 
   .swiper-pagination-bullet {
     background: rgba(255, 255, 255, 0.4);
@@ -99,6 +106,18 @@
   .swiper-pagination-bullet-active {
     background: $color-accent;
     box-shadow: 0 0 6px $color-accent;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: $color-accent;
+    width: 28px;
+    height: 28px;
+
+    &::after {
+      font-size: 16px;
+      font-weight: 700;
+    }
   }
 
   .project-card {

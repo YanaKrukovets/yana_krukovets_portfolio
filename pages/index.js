@@ -3,14 +3,14 @@ import Head from "next/head";
 import Projects from "../components/Projects";
 import ContactForm from "../components/Contact";
 
-export default function Home(props) {
+export default function Home() {
   return (
     <>
       <Head>
-        <title>Yana Krukovets. Front-End Web Developer. Ottawa, Canada</title>
+        <title>Yana Krukovets | Full Stack &amp; Front-End Developer — Ottawa, Canada</title>
         <meta
           name="description"
-          content="Yana Krukovets. Front-End Web Developer | Portfolio. Ottawa, Canada"
+          content="Full Stack &amp; Front-End Developer based in Ottawa, Canada. 4+ years of experience building web apps with React, Next.js, TypeScript, GraphQL, Tailwind CSS, WordPress, and more."
         />
       </Head>
       <div className="max-w-inner xxxl:px-0">

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Project from "./Project";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-
-// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, A11y } from "swiper/modules";
+import { Pagination, Navigation, A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const projectsWork = [
   {
@@ -109,10 +108,11 @@ const Projects = () => {
         >
           {isMobile ? (
             <Swiper
-              modules={[Pagination, A11y]}
+              modules={[Pagination, Navigation, A11y]}
               spaceBetween={20}
               slidesPerView={1}
               pagination={{ clickable: true }}
+              navigation
               className="projects-swiper mt-[20px]"
             >
               {projects.map((project, index) => (
@@ -140,10 +140,11 @@ const Projects = () => {
           <p className="mb-[8px]">Also I was a part of a team who was working on the next projects</p>
           {isMobile ? (
             <Swiper
-              modules={[Pagination, A11y]}
+              modules={[Pagination, Navigation, A11y]}
               spaceBetween={20}
               slidesPerView={1}
               pagination={{ clickable: true }}
+              navigation
               className="projects-swiper mt-[20px]"
             >
               {projectsWork.map((project, index) => (
