@@ -1,10 +1,18 @@
 import { useForm, ValidationError } from "@formspree/react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
+// Contact form powered by Formspree — no custom backend needed.
+// Submissions are forwarded by Formspree to Yana's email address.
+// "mjvllaww" is the Formspree form ID for this project.
 function ContactForm() {
+  // useForm handles submission state (submitting, succeeded, errors) and wires up handleSubmit
   const [state, handleSubmit] = useForm("mjvllaww");
+
+  // Animate the form in when it scrolls into view
   const { ref, isVisible } = useScrollReveal(0.1);
 
+  // Replace the entire form with a thank-you message after successful submission —
+  // avoids a double-submit and gives immediate visual feedback
   if (state.succeeded) {
     return (
       <p className="succeed-form">
@@ -19,11 +27,13 @@ function ContactForm() {
       ref={ref}
       className={`content-wrapper my-[40px] py-[20px] font-roboto reveal${isVisible ? " reveal--visible" : ""}`}
     >
+      {/* method="POST" is a fallback for non-JS environments; Formspree also handles it via JS fetch */}
       <form
         onSubmit={handleSubmit}
         method="POST"
         className="max-w-[900px] mx-auto"
       >
+        {/* <fieldset> + <legend> groups the fields semantically and labels the form for screen readers */}
         <fieldset>
           <legend>
             <h2 className="pb-[10px] text-[27px]">
@@ -31,6 +41,7 @@ function ContactForm() {
             </h2>
           </legend>
           <p>* - required fields</p>
+
           <label htmlFor="name" className="form-label">
             Name:*
           </label>
@@ -39,10 +50,11 @@ function ContactForm() {
             type="text"
             className="form-control"
             name="name"
-            autoComplete="name"
+            autoComplete="name"  // hints the browser to offer saved names
             aria-required="true"
             required
           />
+          {/* ValidationError renders the field-level error message from Formspree if submission fails */}
           <ValidationError prefix="name" field="name" errors={state.errors} />
 
           <label htmlFor="email" className="form-label">
@@ -73,6 +85,8 @@ function ContactForm() {
             field="message"
             errors={state.errors}
           />
+
+          {/* Disabled while submitting to prevent duplicate submissions */}
           <button type="submit" className="btn" disabled={state.submitting}>
             {state.submitting ? "Sending…" : "Submit"}
           </button>
