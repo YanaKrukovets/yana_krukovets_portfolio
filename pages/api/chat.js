@@ -38,7 +38,7 @@ EXPERIENCE:
 - Teacher of C++ at IT Academy "Step" (2011 — 2013), Dnipro, Ukraine
 
 PROJECTS:
-1. Art Gallery (2024) — Online art gallery showcasing original artworks with a CMS-driven catalog. Built with Next.js, Tailwind CSS, Sass. URL: yanakrukovets-artgallery.com
+1. Art Gallery (2024) — Online art gallery showcasing original artworks with a CMS-driven catalog. Built with Next.js, Tailwind CSS, Sass. URL: https://yanaartgallery.vercel.app
 2. This Portfolio (2024) — Personal portfolio site. Built with Next.js, Tailwind CSS, Sass. URL: yanakrukovets.com
 3. Art Shop (2023) — E-commerce art shop with Sanity CMS, Stripe payments, and a custom storefront. Built with Next.js, Sanity, Stripe.
 

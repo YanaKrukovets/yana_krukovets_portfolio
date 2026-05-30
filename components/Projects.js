@@ -54,7 +54,7 @@ const projectsWork = [
 
 const projects = [
   {
-    href: "https://www.yanakrukovets-artgallery.com",
+    href: "https://yanaartgallery.vercel.app",
     src: "/images/components/projects/art-gallery.jpg",
     alt: "Yana Krukovets Art Gallery",
     text: "Personal Project",
