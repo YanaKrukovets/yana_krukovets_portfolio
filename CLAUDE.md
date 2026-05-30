@@ -4,7 +4,7 @@ Personal portfolio website for Yana Krukovets, a Front-End Developer based in Ot
 
 ## Tech Stack
 
-- **Framework**: Next.js 13.0.7 — Pages Router (not App Router)
+- **Framework**: Next.js 15 — Pages Router (not App Router)
 - **Language**: JavaScript (JSX) — TypeScript is in devDependencies but all source files are `.js`
 - **Styling**: Hybrid SCSS + Tailwind CSS (both used in parallel — see Styling section)
 - **Icons**: `react-icons` (AiFillGithub, AiFillLinkedin) + FontAwesome (`@fortawesome/react-fontawesome`)
@@ -24,9 +24,9 @@ public/           Yana_Krukovets_CV.pdf — resume download
 styles/           Global SCSS only — no CSS Modules
   styles.scss     Master entry point (imports Tailwind directives + all partials)
   base/           _fonts.scss, _variables.scss
-  components/     _animations.scss, _backToTopButton.scss, _footer.scss,
-                  _header.scss, _home.scss, _layout.scss, _about.scss,
-                  _projects.scss, _contact.scss, _stars.scss
+  components/     _animations.scss, _backToTopButton.scss, _chat.scss,
+                  _footer.scss, _header.scss, _home.scss, _layout.scss,
+                  _about.scss, _projects.scss, _contact.scss, _stars.scss
 ```
 
 ## Styling Rules
@@ -54,6 +54,7 @@ styles/           Global SCSS only — no CSS Modules
 | `Contact.js` | Contact form via Formspree |
 | `Footer.js` | Simple footer — copyright line |
 | `BackToTopButton.js` | Fixed scroll-to-top button, appears after 300px scroll |
+| `ChatWidget.js` | AI chat assistant — floating button, opens chat panel; rendered in `_app.js` on homepage only (`router.pathname === "/"`) |
 
 ### Inactive / Legacy (do not use without explicit intent)
 
@@ -98,6 +99,5 @@ French (`fr`) locale content is largely placeholder (identical to English or stu
 
 - `tsconfig.json` exists but the project uses `.js` throughout — do not convert files to TypeScript without explicit instruction
 - `axios`, `swiper`, `react-gtm-module`, `react-scripts`, `react-dev-utils` are listed as dependencies but not actively used
-- `target="_blanc"` (typo for `_blank`) appears in several links in `About.js` and `Navbar.js` — known issue
 - `styles/styles.css` is a compiled SCSS output file — edit `.scss` sources, not this file
 - `pages/api/hello.js` is the default Next.js stub — not used by the UI
