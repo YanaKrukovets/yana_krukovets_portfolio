@@ -24,7 +24,7 @@ const SKILLS = [
   { icon: SiCss3, label: "CSS3", color: "#1572b6" },
   { icon: SiJavascript, label: "JavaScript", color: "#f7df1e" },
   { icon: SiReact, label: "ReactJS", color: "#61dafb" },
-  { icon: SiNextdotjs, label: "Next.js", color: "#ffffff" },
+  { icon: SiNextdotjs, label: "Next.js", color: "#000000" },
   { icon: SiTailwindcss, label: "Tailwind", color: "#38bdf8" },
   { icon: SiJquery, label: "jQuery", color: "#0769ad" },
   { icon: SiBootstrap, label: "Bootstrap", color: "#7952b3" },
@@ -111,6 +111,17 @@ const About = () => {
             practical ways to integrate AI into everyday development workflows.
           </p>
 
+          {/* Hobbies */}
+          <div className="mt-[20px]">
+            <h3 className="pb-[10px] text-[20px]">
+              <b>Hobbies</b>
+            </h3>
+            <p>
+              I like to spend time with my family, play with kids, traveling,
+              cycling, hiking, painting.
+            </p>
+          </div>
+
           {/* Resume download */}
           <div className="mt-[20px]">
             <a
@@ -177,17 +188,6 @@ const About = () => {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Hobbies */}
-      <div className="max-w-[1100px] mx-auto mt-[40px]">
-        <h3 className="pb-[10px] text-[20px]">
-          <b>Hobbies</b>
-        </h3>
-        <p>
-          I like to spend time with my family, play with kids, traveling,
-          cycling, hiking, painting.
-        </p>
       </div>
 
       {/* Social */}

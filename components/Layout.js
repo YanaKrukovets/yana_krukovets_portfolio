@@ -25,6 +25,8 @@ const jsonLd = {
   knowsAbout: ["React", "Next.js", "TypeScript", "JavaScript", "GraphQL", "Tailwind CSS", "WordPress", "PHP", "MySQL"],
 };
 
+const jsonLdString = JSON.stringify(jsonLd);
+
 export default function Layout({ children }) {
   return (
     <>
@@ -58,6 +60,7 @@ export default function Layout({ children }) {
 
         <meta name="author" content="Yana Krukovets" />
         <meta name="p:domain_verify" content="155e6479dee7fb2c5ff84b2e5da8957f" />
+        <meta name="p:domain_verify" content="b5004b976bb28d76591224d39f9edad0" />
 
         <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png" />
         <link rel="icon" href="/favicon.ico" />
@@ -66,7 +69,7 @@ export default function Layout({ children }) {
         {/* JSON-LD structured data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdString }}
         />
       </Head>
 

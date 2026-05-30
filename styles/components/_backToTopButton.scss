@@ -24,4 +24,9 @@
     pointer-events: auto;
     transform: translateY(0);
   }
+
+  @media (max-width: $small-max-width) {
+    bottom: 90px;
+    right: 24px;
+  }
 }

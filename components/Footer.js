@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="footer-wrapper">
           <div className="content-wrapper">
           <div role="footer" aria-label="footer">
-            © Yana Krukovets, 2025
+            © Yana Krukovets, 2026
           </div>
         </div>
       </div>

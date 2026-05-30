@@ -4,7 +4,7 @@ import { useTypewriter } from "../hooks/useTypewriter";
 
 const ROLES = [
   "Front-End Developer",
-  "React Developer",
+  "Full Stack Developer",
   "Next.js Developer",
   "UI Developer",
 ];
@@ -16,6 +16,9 @@ const HeaderBanner = () => {
     <>
       <Navbar />
       <div className="max-w-inner xxxl:px-0">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
         <div className="content-wrapper">
           <div
             className="text-center font-roboto welcome md:mt-[40%]"
@@ -51,10 +54,6 @@ const HeaderBanner = () => {
               </a>
             </div>
           </div>
-          {/* <Trees /> */}
-          <div id="stars"></div>
-          <div id="stars2"></div>
-          <div id="stars3"></div>
         </div>
         <a href="#about">
           <div className="container">
