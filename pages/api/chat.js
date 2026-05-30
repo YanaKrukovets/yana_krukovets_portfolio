@@ -1,6 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Simple in-memory rate limiter: max 10 requests per IP per minute
+// In-memory rate limiter: max 10 requests per IP per minute.
+// Note: resets on cold start and is NOT shared across serverless instances —
+// provides basic abuse protection in dev/low-traffic but not a hard guarantee in prod.
 const rateLimitMap = new Map();
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 60_000;
@@ -17,7 +19,9 @@ function isRateLimited(ip) {
   return false;
 }
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = process.env.GEMINI_API_KEY
+  ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+  : null;
 
 const SYSTEM_CONTEXT = `You are a helpful assistant on Yana Krukovets' portfolio website. Answer questions about Yana based on the following information. Be friendly, concise, and professional. If asked something you don't know about Yana, say you're not sure and suggest contacting her directly.
 
@@ -54,6 +58,10 @@ Keep responses brief (2-4 sentences max). If asked about availability or hiring,
 
 const ALLOWED_ROLES = new Set(["user", "model"]);
 
+const model = genAI
+  ? genAI.getGenerativeModel({ model: "gemini-2.5-flash", systemInstruction: SYSTEM_CONTEXT })
+  : null;
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -75,14 +83,13 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "History too long" });
   }
 
-  try {
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-      systemInstruction: SYSTEM_CONTEXT,
-    });
+  if (!model) {
+    return res.status(503).json({ error: "Chat is currently unavailable" });
+  }
 
+  try {
     const safeHistory = (history || [])
-      .filter((msg) => ALLOWED_ROLES.has(msg.role) && typeof msg.text === "string")
+      .filter((msg) => msg != null && typeof msg === "object" && ALLOWED_ROLES.has(msg.role) && typeof msg.text === "string")
       .map((msg) => ({ role: msg.role, parts: [{ text: msg.text.slice(0, 2000) }] }));
 
     const chat = model.startChat({ history: safeHistory });

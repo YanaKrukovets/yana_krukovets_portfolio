@@ -7,13 +7,13 @@ const SUGGESTED_QUESTIONS = [
   "Are you available for hire?",
 ];
 
-let msgId = 0;
-const newMsg = (role, text) => ({ id: ++msgId, role, text });
-
 const ChatWidget = () => {
+  const msgId = useRef(0);
+  const newMsg = (role, text) => ({ id: ++msgId.current, role, text });
+
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    newMsg("model", "Hi! I'm Yana's AI assistant. Ask me anything about her skills, experience, or projects!"),
+  const [messages, setMessages] = useState(() => [
+    { id: ++msgId.current, role: "model", text: "Hi! I'm Yana's AI assistant. Ask me anything about her skills, experience, or projects!" },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);

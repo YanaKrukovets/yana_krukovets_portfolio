@@ -25,6 +25,8 @@ const jsonLd = {
   knowsAbout: ["React", "Next.js", "TypeScript", "JavaScript", "GraphQL", "Tailwind CSS", "WordPress", "PHP", "MySQL"],
 };
 
+const jsonLdString = JSON.stringify(jsonLd);
+
 export default function Layout({ children }) {
   return (
     <>
@@ -67,7 +69,7 @@ export default function Layout({ children }) {
         {/* JSON-LD structured data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdString }}
         />
       </Head>
 

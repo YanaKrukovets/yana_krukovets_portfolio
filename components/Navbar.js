@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const SECTIONS = ["about", "projects", "contact"];
@@ -13,7 +13,6 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const [mobileNavExpanded, setMobileNavExpanded] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const dropdown = useRef(null);
 
   useEffect(() => {
     const observers = [];
@@ -86,7 +85,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Nav */}
-          <div className={`mobile-nav ${mobileNavExpanded ? "block h-full" : ""}`}>
+          <div id="mobile-nav" className={`mobile-nav ${mobileNavExpanded ? "block h-full" : ""}`}>
             {NAV_ITEMS.map((item) => (
               <div key={item.section}>
                 <Link
@@ -107,7 +106,6 @@ export default function Navbar() {
           <div className="flex-end mt-[-9px]">
             <button
               type="button"
-              ref={dropdown}
               id="nav-button"
               aria-label="Toggle mobile menu"
               aria-expanded={mobileNavExpanded}
