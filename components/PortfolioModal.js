@@ -133,7 +133,7 @@ const TABS = [
           </div>
           <ul className="portfolio-modal__bullet-list">
             <li>In-memory rate limiter: 10 requests / IP / minute (resets on cold start)</li>
-            <li>System prompt includes Yana's full bio, skills, experience, and projects</li>
+            <li>System prompt includes Yana&apos;s full bio, skills, experience, and projects</li>
             <li>4 suggested questions shown on first open</li>
             <li>Typing indicator (3-dot animation) while waiting for a reply</li>
           </ul>
@@ -160,10 +160,10 @@ const TABS = [
         <div className="portfolio-modal__claude-section">
           <h4 className="portfolio-modal__claude-heading">CLAUDE.md</h4>
           <p className="portfolio-modal__claude-text">
-            A project context file checked into the repo and always injected into Claude's
+            A project context file checked into the repo and always injected into Claude&apos;s
             context automatically. Documents the flat component structure, SCSS-not-CSS-Modules
             rule, both project arrays, inactive components, i18n status, and known quirks —
-            so Claude doesn't have to re-derive them every conversation.
+            so Claude doesn&apos;t have to re-derive them every conversation.
           </p>
         </div>
 
@@ -190,7 +190,7 @@ const TABS = [
           <div className="portfolio-modal__cmd-item">
             <span className="portfolio-modal__cmd-name">run-tests</span>
             <span className="portfolio-modal__cmd-desc">
-              Documents the Playwright suite — what's covered, which files, and all run commands. Claude reads this when helping with tests.
+              Documents the Playwright suite — what&apos;s covered, which files, and all run commands. Claude reads this when helping with tests.
             </span>
           </div>
         </div>
