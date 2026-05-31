@@ -2,8 +2,11 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
+// Section IDs that IntersectionObserver watches to highlight the matching nav link
 const SECTIONS = ["about", "projects", "contact"];
 
+// Nav link data — keeping it in an array avoids repeating the Link markup three times
+// mobileClass lets individual items adjust their max-width on small screens
 const NAV_ITEMS = [
   { label: "About",    aria: "Link About Yana Krukovets",         href: "/#about",    section: "about",    mobileClass: "max-w-[200px]" },
   { label: "Projects", aria: "Link to Yana Krukovets Projects",   href: "/#projects", section: "projects", mobileClass: "xmd:max-w-[240px]" },
@@ -11,9 +14,15 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
+  // Controls whether the mobile fullscreen menu is shown
   const [mobileNavExpanded, setMobileNavExpanded] = useState(false);
+
+  // Tracks which section is currently in view — used to apply the nav-active highlight class
   const [activeSection, setActiveSection] = useState("");
 
+  // Watch each section with IntersectionObserver so the active nav link updates as the user scrolls.
+  // threshold: 0.35 means the link activates when 35% of the section is visible —
+  // low enough to trigger before the section fully fills the screen.
   useEffect(() => {
     const observers = [];
     SECTIONS.forEach((id) => {
@@ -26,9 +35,12 @@ export default function Navbar() {
       observer.observe(el);
       observers.push(observer);
     });
+    // Disconnect all observers on unmount to prevent memory leaks
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  // Lock page scroll when the mobile nav is open so the background doesn't scroll behind it.
+  // The scrollY snapshot + restoration pattern prevents iOS from jumping to the top on close.
   useEffect(() => {
     if (!mobileNavExpanded) return;
     // Save scroll position before locking — prevents iOS jumping to top
@@ -47,11 +59,12 @@ export default function Navbar() {
   }, [mobileNavExpanded]);
 
   return (
+    // Fixed positioning keeps the nav visible while scrolling; z-10 keeps it above page content
     <div className="xxxl:px-0 fixed w-full z-10 left-0">
       <nav className="md:flex justify-between topnav mx-auto">
         <div className="flex justify-between content-wrapper w-full">
 
-          {/* Logo */}
+          {/* Logo — links back to the homepage */}
           <div className="flex justify-between">
             <div className="w-[60px] md:w-[50px]">
               <Link href="/" passHref>
@@ -59,7 +72,7 @@ export default function Navbar() {
                   src="/images/logos/logo-en.png"
                   className="w-full max-w-[60px] object-cover my-[15px]"
                   alt="YK - Yana Krukovets logo"
-                  priority={true}
+                  priority={true}  // above-the-fold image — load it immediately, don't lazy-load
                   width={250}
                   height={250}
                 />
@@ -67,13 +80,14 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop Nav */}
+          {/* Desktop nav — hidden on mobile via CSS, shown above the md breakpoint */}
           <div className="desktop-nav">
             {NAV_ITEMS.map((item) => (
               <div key={item.section}>
                 <Link
                   aria-label={item.aria}
                   href={item.href}
+                  // nav-active adds the underline/highlight for the currently visible section
                   className={`${activeSection === item.section ? "nav-active" : ""} text-white hover:underline menu-a`}
                 >
                   <span className="whitespace-nowrap lg:whitespace-normal text-[20px] !flex flex-col xmd:inline-block">
@@ -84,7 +98,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Nav */}
+          {/* Mobile nav — full-screen overlay, shown when hamburger is toggled */}
           <div id="mobile-nav" className={`mobile-nav ${mobileNavExpanded ? "block h-full" : ""}`}>
             {NAV_ITEMS.map((item) => (
               <div key={item.section}>
@@ -92,6 +106,7 @@ export default function Navbar() {
                   href={item.href}
                   className="mobile-nav-item"
                   aria-label={item.aria}
+                  // Close the mobile menu when the user taps a link
                   onClick={() => setMobileNavExpanded(false)}
                 >
                   <span className={`mobile-nav-text whitespace-nowrap lg:whitespace-normal text-[20px] ${item.mobileClass}`}>
@@ -102,7 +117,8 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Hamburger — native <button> for proper keyboard/screen-reader support */}
+          {/* Hamburger — native <button> for proper keyboard/screen-reader support.
+              aria-expanded and aria-controls wire it to the mobile nav for assistive tech. */}
           <div className="flex-end mt-[-9px]">
             <button
               type="button"
@@ -110,9 +126,11 @@ export default function Navbar() {
               aria-label="Toggle mobile menu"
               aria-expanded={mobileNavExpanded}
               aria-controls="mobile-nav"
+              // "open" class triggers the CSS X animation (three spans become an X)
               className={`${mobileNavExpanded ? "open" : ""} nav-button`}
               onClick={() => setMobileNavExpanded(!mobileNavExpanded)}
             >
+              {/* Three spans are the three lines of the hamburger icon */}
               <span></span>
               <span></span>
               <span></span>

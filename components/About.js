@@ -19,6 +19,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
+// Each entry renders as a branded icon + label in the skills grid.
+// color matches the technology's official brand colour so the icons look recognisable.
 const SKILLS = [
   { icon: SiHtml5, label: "HTML5", color: "#e34f26" },
   { icon: SiCss3, label: "CSS3", color: "#1572b6" },
@@ -34,6 +36,8 @@ const SKILLS = [
   { icon: SiMysql, label: "mySQL", color: "#4479a1" },
 ];
 
+// Rendered as a vertical timeline — most recent entry first.
+// href links to the company website (opens in a new tab).
 const EXPERIENCE = [
   {
     period: "Jul 2025 — May 2026",
@@ -65,7 +69,11 @@ const EXPERIENCE = [
   },
 ];
 
+// About section — bio, skills grid, experience timeline, and social links.
+// Each sub-block has its own scroll reveal so they animate in independently as the user scrolls down.
 const About = () => {
+  // Each useScrollReveal call returns a ref to attach to a DOM node and a boolean that
+  // flips true once that node enters the viewport — triggers the CSS reveal animation
   const { ref: bioRef, isVisible: bioVisible } = useScrollReveal(0.1);
   const { ref: skillsRef, isVisible: skillsVisible } = useScrollReveal(0.1);
   const { ref: expRef, isVisible: expVisible } = useScrollReveal(0.1);
@@ -74,11 +82,13 @@ const About = () => {
   return (
     <div id="about" className="about content-wrapper font-roboto">
 
-      {/* Bio + Photo */}
+      {/* Bio + Photo — slides in from the left when it enters the viewport */}
       <div
         ref={bioRef}
         className={`flex justify-between gap-2 pt-[20px] md:pt-[0px] md:flex-col max-w-[1100px] mx-auto reveal${bioVisible ? " reveal--visible" : ""}`}
       >
+        {/* Photo — inline style drives the reveal animation because the transform values
+            are data-driven (visible/hidden) and can't be expressed as static Tailwind classes */}
         <div className="my-auto reveal reveal--left" style={{ transitionDelay: "0.1s", opacity: bioVisible ? 1 : 0, transform: bioVisible ? "translateX(0)" : "translateX(-32px)" }}>
           <Image
             className="profile-img"
@@ -122,7 +132,8 @@ const About = () => {
             </p>
           </div>
 
-          {/* Resume download */}
+          {/* Resume download — the `download` attribute tells the browser to save the file
+              rather than open it; aria-label makes the purpose clear to screen readers */}
           <div className="mt-[20px]">
             <a
               href="/Yana_Krukovets_CV.pdf"
@@ -137,7 +148,7 @@ const About = () => {
         </div>
       </div>
 
-      {/* Skills Icon Grid */}
+      {/* Skills Icon Grid — maps SKILLS array to icon + label pairs */}
       <div
         ref={skillsRef}
         className={`max-w-[1100px] mx-auto mt-[40px] reveal${skillsVisible ? " reveal--visible" : ""}`}
@@ -148,6 +159,7 @@ const About = () => {
         <div className="skills-grid">
           {SKILLS.map(({ icon: Icon, label, color }) => (
             <div key={label} className="skill-item">
+              {/* aria-hidden because the label below already describes the icon */}
               <Icon className="skill-icon" style={{ color }} aria-hidden="true" />
               <span className="skill-label">{label}</span>
             </div>
@@ -155,7 +167,7 @@ const About = () => {
         </div>
       </div>
 
-      {/* Experience Timeline */}
+      {/* Experience Timeline — maps EXPERIENCE array to a vertical dot-line timeline */}
       <div
         ref={expRef}
         className={`max-w-[1100px] mx-auto mt-[40px] reveal${expVisible ? " reveal--visible" : ""}`}
@@ -169,6 +181,7 @@ const About = () => {
               key={i}
               className="timeline-item"
             >
+              {/* Decorative dot on the timeline line — aria-hidden so screen readers skip it */}
               <div className="timeline-dot" aria-hidden="true" />
               <div className="timeline-content">
                 <span className="timeline-period">{item.period}</span>
@@ -178,7 +191,7 @@ const About = () => {
                     href={item.href}
                     className="underline"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noreferrer"  // noreferrer prevents the new tab from accessing window.opener
                   >
                     <i>{item.company}</i>
                   </a>
@@ -190,7 +203,7 @@ const About = () => {
         </div>
       </div>
 
-      {/* Social */}
+      {/* Social links — GitHub and LinkedIn icons from react-icons */}
       <div
         ref={socialRef}
         className={`flex justify-center py-[10px] mt-[20px] social reveal${socialVisible ? " reveal--visible" : ""}`}
@@ -201,6 +214,7 @@ const About = () => {
           rel="noreferrer"
           aria-label="Link to Yana Krukovets Github"
         >
+          {/* role="presentation" because the parent <a> already has an aria-label */}
           <AiFillGithub className="social-media" role="presentation" />
         </a>
         <a

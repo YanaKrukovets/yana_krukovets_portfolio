@@ -11,7 +11,7 @@ Runs the full Playwright test suite against the local dev server (auto-started i
 ## What it does
 
 1. Starts `next dev` on port 3000 if not already running (Playwright config handles this automatically via `webServer`).
-2. Runs `npx playwright test` — 43 tests covering:
+2. Runs `npx playwright test` — 47 tests covering:
    - SEO (title, meta description, og/twitter tags, h1, landmarks)
    - Accessibility (skip link, alt text, aria labels, form labels, hamburger button)
    - Responsiveness — desktop (1440×900), tablet (768×1024), mobile (375×812)

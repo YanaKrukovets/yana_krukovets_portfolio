@@ -27,14 +27,18 @@
   "devDependencies": {
     "@babel/core": "^7",
     "@playwright/test": "^1.60.0",
-    "@types/node": "18.11.17",
-    "@types/react": "^17.0.35",
     "autoprefixer": "^10.4.13",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "postcss": "^8.4.20",
-    "tailwindcss": "^3.2.4",
-    "typescript": "^4.5.2"
+    "tailwindcss": "^3.2.4"
   },
-  "browser": {}
+  "browser": {},
+  "browserslist": [
+    "chrome >= 93",
+    "edge >= 93",
+    "firefox >= 92",
+    "safari >= 15.4",
+    "opera >= 79"
+  ]
 }
