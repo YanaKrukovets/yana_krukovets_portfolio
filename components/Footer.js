@@ -18,9 +18,7 @@ export default function Footer() {
     <footer className="max-w-inner xxxl:px-0 purple">
       <div className="footer-wrapper">
         <div className="content-wrapper">
-          {/* role="footer" is non-standard; the semantic <footer> element already provides the landmark.
-              Left as-is to avoid breaking existing CSS selectors or test assertions. */}
-          <div role="footer" aria-label="footer">
+          <div>
             © Yana Krukovets, 2026
           </div>
         </div>

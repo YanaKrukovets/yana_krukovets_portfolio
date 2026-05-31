@@ -72,7 +72,7 @@ const HeaderBanner = () => {
         </div>
 
         {/* Animated scroll-down indicator — clicking it jumps to the About section */}
-        <a href="#about">
+        <a href="#about" aria-label="Scroll down to About section">
           <div className="container">
             <div className="field">
               <div className="scroll"></div>
