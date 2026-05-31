@@ -33,5 +33,12 @@
     "postcss": "^8.4.20",
     "tailwindcss": "^3.2.4"
   },
-  "browser": {}
+  "browser": {},
+  "browserslist": [
+    "chrome >= 93",
+    "edge >= 93",
+    "firefox >= 92",
+    "safari >= 15.4",
+    "opera >= 79"
+  ]
 }

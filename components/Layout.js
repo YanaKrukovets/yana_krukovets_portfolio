@@ -41,10 +41,6 @@ export default function Layout({ children }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-        {/* Preconnect for Google Fonts — reduces font load latency */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-
         {/* Open Graph — controls how the link preview looks when shared on social media */}
         <meta property="og:url" content={`${SITE_URL}/`} />
         <meta property="og:type" content="website" />
