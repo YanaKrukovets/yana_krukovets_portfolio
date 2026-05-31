@@ -5,11 +5,13 @@ Personal portfolio website for Yana Krukovets, a Full Stack Developer based in O
 ## Tech Stack
 
 - **Framework**: Next.js 15 — Pages Router (not App Router)
-- **Language**: JavaScript (JSX) — TypeScript is in devDependencies but all source files are `.js`
+- **Language**: JavaScript (JSX) — all source files are `.js`; no TypeScript
 - **Styling**: Hybrid SCSS + Tailwind CSS (both used in parallel — see Styling section)
 - **Icons**: `react-icons` (AiFillGithub, AiFillLinkedin) + FontAwesome (`@fortawesome/react-fontawesome`)
 - **Contact form**: `@formspree/react` with form ID `mjvllaww`
+- **AI chat**: `@google/generative-ai` (Gemini 2.5 Flash) — backend at `pages/api/chat.js`, rate-limited 10 req/IP/min
 - **i18n**: Next.js built-in i18n (`en` / `fr`), locale strings in `locales/en.js` and `locales/fr.js`
+- **Testing**: Playwright (`@playwright/test`) — config in `playwright.config.js`, tests in `tests/`
 - **Deployment**: Vercel
 
 ## Project Structure
@@ -18,7 +20,9 @@ Personal portfolio website for Yana Krukovets, a Full Stack Developer based in O
 components/       Flat directory — all components at top level, no subdirectories
 hooks/            useScrollReveal.js, useTypewriter.js — custom React hooks
 locales/          en.js and fr.js — plain JS export objects for i18n strings
-pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, api/hello.js
+pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, api/hello.js, api/chat.js
+tests/            portfolio.spec.js — Playwright end-to-end tests (SEO, a11y, responsiveness, content)
+playwright.config.js  Playwright config — runs against localhost:3000, Chromium only
 public/images/    components/about/ and components/projects/ for all site images
 public/           Yana_Krukovets_CV.pdf — resume download
 styles/           Global SCSS only — no CSS Modules
@@ -56,7 +60,8 @@ styles/           Global SCSS only — no CSS Modules
 | `Footer.js` | Simple footer — copyright line |
 | `BackToTopButton.js` | Fixed scroll-to-top button, appears after 300px scroll |
 | `ChatWidget.js` | AI chat assistant — floating button, opens chat panel; rendered in `_app.js` on homepage only (`router.pathname === "/"`) |
-| `PortfolioModal.js` | Info modal with tabs (Tech Stack, Architecture, Claude Setup) — explains how the portfolio site was built; opened from within ChatWidget |
+| `PortfolioModal.js` | Info modal with tabs (Tech Stack, Architecture, Claude Setup) — explains how the portfolio site was built; opened from within ChatWidget; uses ProjectModal |
+| `ProjectModal.js` | Reusable modal shell — props: `title`, `tabs` (array of `{ label, content }`), `onClose`; handles Escape key, scroll lock, tab switching |
 
 ### Inactive / Legacy (do not use without explicit intent)
 
@@ -99,8 +104,7 @@ French (`fr`) locale content is largely placeholder (identical to English or stu
 
 ## Known Quirks
 
-- `tsconfig.json` exists but the project uses `.js` throughout — do not convert files to TypeScript without explicit instruction
-- `axios`, `react-gtm-module`, `react-scripts`, `react-dev-utils` are listed as dependencies but not actively used
 - `swiper` is actively used — mobile carousel in `Projects.js` (Swiper + SwiperSlide + Pagination/Navigation/A11y modules)
 - `styles/styles.css` is a compiled SCSS output file — edit `.scss` sources, not this file
-- `pages/api/hello.js` is the default Next.js stub — not used by the UI
+- `styles/styles.scss` uses Dart Sass `@use` (not legacy `@import`); `_variables.scss` is not imported at the root — component partials that need variables must `@use` them directly
+- `pages/api/hello.js` is the default Next.js stub — not used by the UI; `pages/api/chat.js` is the real active route (Gemini chat backend)
