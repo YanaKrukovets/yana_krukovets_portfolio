@@ -19,13 +19,7 @@ export default function App({ Component, pageProps }) {
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" as="style" href={FONT_URL} />
-        <link
-          rel="stylesheet"
-          href={FONT_URL}
-          media="print"
-          onLoad={(e) => { e.currentTarget.media = "all"; }}
-        />
+        <link rel="stylesheet" href={FONT_URL} />
       </Head>
 
       <Layout>

@@ -7,8 +7,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      roboto: ["Roboto"],
-      anek: ["Anek Latin"],
+      roboto: ["Roboto", "Arial", "sans-serif"],
+      anek: ["Anek Latin", "Arial", "sans-serif"],
     },
     screens: {
       xxxl: { max: "2000px" },
