@@ -5,7 +5,7 @@ export default function ProjectsPage() {
   return (
     <>
       <Head>
-        <title>Projects | Yana Krukovets — Full Stack Developer Ottawa</title>
+        <title>Projects | Yana Krukovets — Full Stack Developer Ottawa, Canada</title>
         <meta
           name="description"
           content="Personal and professional projects by Yana Krukovets — Full Stack Developer based in Ottawa, Canada. Built with React, Next.js, TypeScript, GraphQL, Tailwind CSS, and more."
