@@ -1,5 +1,6 @@
 @use '../base/variables' as *;
 
+// Global form element defaults (retained for any other forms)
 .form-label {
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
@@ -26,4 +27,198 @@
   text-align: center;
   padding: 10%;
   font-size: 20px;
+}
+
+// ─── Contact page banner ───────────────────────────────────────────────────────
+
+.contact-banner {
+  background: radial-gradient(ellipse at bottom, $color-bg-gradient-start 0%, $color-bg-gradient-end 100%);
+  min-height: calc(100vh - 50px);
+  display: flex;
+  align-items: center;
+  padding: 100px 60px;
+  // Break out of Layout's 20px side padding so gradient fills the full width
+  margin-left: -20px;
+  margin-right: -20px;
+
+  @media (max-width: $xmedium-max-width) {
+    padding: 80px 40px;
+  }
+
+  @media (max-width: $xxmedium-max-width) {
+    padding: 70px 40px;
+    align-items: flex-start;
+  }
+
+  @media (max-width: $medium-max-width) {
+    padding: 60px 40px;
+    min-height: auto;
+  }
+
+  @media (max-width: $small-max-width) {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 50px 30px;
+  }
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 40px 80px;
+  width: 100%;
+  max-width: 1100px;
+  margin: auto auto;
+  align-items: start;
+  padding-top: 40px;
+
+  .contact-info     { grid-column: 1; grid-row: 1; }
+  .contact-form-col { grid-column: 2; grid-row: 1 / 3; }
+  .contact-meta     { grid-column: 1; grid-row: 2; }
+
+  @media (max-width: $xxmedium-max-width) {
+    grid-template-columns: 1fr;
+    grid-template-rows: unset;
+    gap: 20px;
+    max-width: 600px;
+
+    .contact-info     { grid-column: unset; grid-row: unset; order: 1; }
+    .contact-form-col { grid-column: unset; grid-row: unset; order: 2; }
+    .contact-meta     { grid-column: unset; grid-row: unset; order: 3; }
+  }
+}
+
+// ─── Left column ──────────────────────────────────────────────────────────────
+
+.contact-info {
+  color: #ffffff;
+
+  h1 {
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #ffffff;
+    margin: 0 0 20px;
+  }
+}
+
+.contact-tagline {
+  font-size: 17px;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.78);
+
+  max-width: 380px;
+
+  @media (max-width: $xxmedium-max-width) {
+    max-width: 100%;
+  }
+}
+
+.contact-details {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 36px;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 22px;
+  }
+}
+
+.contact-detail-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: $color-teal;
+  margin-bottom: 5px;
+}
+
+.contact-details {
+  a,
+  span:not(.contact-detail-label) {
+    font-size: 15px;
+    color: #ffffff;
+  }
+
+  a:hover {
+    color: $color-accent;
+    text-decoration: underline;
+  }
+}
+
+.contact-socials {
+  display: flex;
+  gap: 16px;
+
+  a {
+    color: rgba(255, 255, 255, 0.75);
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+}
+
+// ─── Right column ─────────────────────────────────────────────────────────────
+
+.contact-form-col {
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.contact-label {
+  display: block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 6px;
+  margin-top: 22px;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.contact-input {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  appearance: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-teal;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba($color-teal, 0.4);
+  }
+}
+
+.contact-form-col .btn {
+  margin-top: 28px;
+}
+
+.contact-success {
+  text-align: center;
+  padding: 10%;
+  font-size: 20px;
+  color: #ffffff;
 }

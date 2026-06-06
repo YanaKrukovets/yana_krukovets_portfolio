@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/next-script-for-ga */
 import Head from "next/head";
 import React from "react";
+import { useRouter } from "next/router";
 import BackToTopButton from "../components/BackToTopButton";
 import HeaderBanner from "./HomeBanner";
 import Footer from "./Footer";
@@ -35,6 +36,10 @@ const jsonLdString = JSON.stringify(jsonLd);
 // Root layout wrapper — wraps every page via _app.js.
 // Owns all shared meta tags so individual pages only need to set <title> and <description>.
 export default function Layout({ children }) {
+  const { pathname } = useRouter();
+  const isHome = pathname === "/";
+  const isErrorPage = pathname === "/404" || pathname === "/500";
+  const canonicalUrl = isErrorPage ? null : (isHome ? `${SITE_URL}/` : `${SITE_URL}${pathname}`);
   return (
     <>
       <Head>
@@ -42,10 +47,11 @@ export default function Layout({ children }) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
         {/* Open Graph — controls how the link preview looks when shared on social media */}
-        <meta property="og:url" content={`${SITE_URL}/`} />
+        <meta property="og:url" key="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Yana Krukovets | Full Stack & Front-End Developer — Ottawa" />
-        <meta property="og:description" content={DESCRIPTION} />
+        <meta property="og:site_name" content="Yana Krukovets" />
+        <meta property="og:title" key="og:title" content="Yana Krukovets | Full Stack & Front-End Developer — Ottawa" />
+        <meta property="og:description" key="og:description" content={DESCRIPTION} />
         <meta property="og:image" content={OG_IMAGE} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -55,9 +61,9 @@ export default function Layout({ children }) {
         {/* Twitter / X card — summary_large_image shows the full-width preview image */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="yanakrukovets.com" />
-        <meta property="twitter:url" content={`${SITE_URL}/`} />
-        <meta name="twitter:title" content="Yana Krukovets | Full Stack & Front-End Developer — Ottawa" />
-        <meta name="twitter:description" content={DESCRIPTION} />
+        <meta property="twitter:url" key="twitter:url" content={canonicalUrl} />
+        <meta name="twitter:title" key="twitter:title" content="Yana Krukovets | Full Stack & Front-End Developer — Ottawa" />
+        <meta name="twitter:description" key="twitter:description" content={DESCRIPTION} />
         <meta name="twitter:image" content={OG_IMAGE} />
         <meta name="twitter:image:alt" content="Yana Krukovets — Full Stack Developer portfolio" />
 
@@ -69,7 +75,7 @@ export default function Layout({ children }) {
         <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png" />
         <link rel="icon" href="/favicon.ico" />
         {/* Canonical prevents duplicate-content penalties if the page is ever indexed under multiple URLs */}
-        <link rel="canonical" href={`${SITE_URL}/`} />
+        {canonicalUrl && <link rel="canonical" key="canonical" href={canonicalUrl} />}
 
         {/* Inject JSON-LD as a plain string — dangerouslySetInnerHTML is safe here because
             the data comes from a hardcoded constant, not user input */}
@@ -86,7 +92,7 @@ export default function Layout({ children }) {
       </a>
 
       {/* Hero / nav lives in <header> outside <main> so landmark navigation is correct for assistive tech */}
-      <header className="max-w-inner">
+      <header className={`max-w-inner${isHome ? "" : " header-inner"}`}>
         <HeaderBanner />
       </header>
       <main className="overflow-x-hidden w-full text-black" id="main">
@@ -94,8 +100,8 @@ export default function Layout({ children }) {
           {/* Page-specific content injected here (About, Projects, Contact via index.js) */}
           {children}
         </div>
-        <BackToTopButton />
-        <Footer />
+        {!isErrorPage && <BackToTopButton />}
+        {!isErrorPage && <Footer />}
       </main>
     </>
   );

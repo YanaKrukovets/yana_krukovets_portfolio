@@ -5,6 +5,93 @@
   color: #ffffff;
 }
 
+.projects-page-header {
+  margin-bottom: 40px;
+
+  &__label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 16px;
+    background: linear-gradient(135deg, #ffffff 40%, $color-accent 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    @media (max-width: $medium-max-width) {
+      font-size: 36px;
+    }
+  }
+
+  &__line {
+    width: 56px;
+    height: 3px;
+    background: linear-gradient(90deg, $color-accent, transparent);
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    opacity: 0.7;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid rgba($color-accent, 0.5);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+
+  &--active {
+    background: rgba($color-accent, 0.18);
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+  }
+}
+
+.filter-empty {
+  text-align: center;
+  opacity: 0.55;
+  font-size: 15px;
+  padding: 48px 0;
+}
+
 .projects-container {
   display: flex;
   flex-wrap: wrap;

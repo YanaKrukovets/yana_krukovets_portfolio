@@ -23,7 +23,7 @@ const BackToTopButton = () => {
     // back-to-top--visible toggles the CSS opacity/pointer-events so the button fades in/out
     <button
       onClick={scrollToTop}
-      className={`back-to-top xxl:right-[20px]${isVisible ? " back-to-top--visible" : ""}`}
+      className={`back-to-top${isVisible ? " back-to-top--visible" : ""}`}
       aria-label="Back to top"
     >
       {/* role="presentation" because the parent button already has an aria-label */}

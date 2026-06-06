@@ -27,9 +27,8 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
 
-      {/* ChatWidget is only shown on the homepage — it's specific to the portfolio context
-          and would be out of place on error pages (404, 500) */}
-      {router.pathname === "/" && <ChatWidget />}
+      {/* ChatWidget shown on all portfolio pages; excluded from error pages */}
+      {!["/404", "/500"].includes(router.pathname) && <ChatWidget />}
     </>
   );
 }

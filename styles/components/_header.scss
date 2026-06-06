@@ -167,6 +167,11 @@ header {
       display: none;
     }
 
+    a:not(.nav-active):hover {
+      color: $color-accent;
+      border-bottom: 2px solid $color-accent;
+    }
+
     .active,
     .nav-active {
       z-index: 2;
@@ -285,6 +290,13 @@ header {
       }
     }
   }
+}
+
+// On inner pages the hero is hidden — collapse the header so it takes no space
+header.header-inner {
+  height: auto;
+  background: none;
+  overflow: visible;
 }
 
 ul.submenu {

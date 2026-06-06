@@ -1,73 +1,101 @@
 @use '../base/variables' as *;
 
-footer {
-  font-weight: 400;
+.site-footer {
   color: #ffffff;
+  width: 100%;
+}
 
-  .footer-wrapper {
-    width: 100%;
-    margin: auto;
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 44px 40px 28px;
 
-    padding: 20px 20px;
+  @media (max-width: $xmedium-max-width) {
+    padding: 36px 28px 24px;
+  }
 
-    @media (max-width: $small-max-width) {
-      padding: 30px 2px;
-    }
+  @media (max-width: $medium-max-width) {
+    padding: 28px 20px 20px;
+  }
+}
 
-    .footer-nav {
-      display: flex;
-      column-gap: 20px;
-      font-size: 14px;
-      line-height: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      color: $color-teal;
-      align-items: center;
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
 
-      @media (max-width: $medium-max-width) {
-        display: block;
-        font-size: 16px;
-        line-height: 20px;
-        width: 100%;
-      }
+  @media (max-width: $xxmedium-max-width) {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
 
-      @media (max-width: $small-max-width) {
-        font-size: 14px;
-        line-height: 18px;
-      }
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
 
-      @media (max-width: $ssmall-max-width) {
-        font-size: 12px;
-        line-height: 16px;
-      }
+.footer-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+}
 
-      .horisontal-line,
-      a {
-        border-left: 1px solid;
-        padding-left: 25px;
+.footer-tagline {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
 
-        @media (max-width: $xxmedium-max-width) {
-          padding-left: 20px;
-        }
+// position: static overrides the global `nav { position: fixed }` in _home.scss
+.footer-nav {
+  position: static;
+  display: flex;
+  gap: 16px 48px;
+  align-items: flex-start;
+  justify-content: flex-end;
 
-        @media (max-width: 780px) {
-          padding-left: 15px;
-        }
+  @media (max-width: $xxmedium-max-width) {
+    justify-content: flex-start;
+  }
 
-        &:first-child {
-          border-left: none;
-          padding-left: 0px;
-          padding-right: 25px;
-          @media (max-width: $ssmall-max-width) {
-            padding-right: 0px;
-          }
-        }
+  a {
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: text-decoration 0.15s;
 
-        @media (max-width: $medium-max-width) {
-          border: none;
-          padding: 0;
-        }
-      }
+    &:hover {
+      color: #ffffff;
+      text-decoration: underline;
     }
   }
+}
+
+.footer-nav-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 24px 0 16px;
+}
+
+.footer-bottom {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
 }

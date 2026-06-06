@@ -88,12 +88,29 @@ const projects = [
 // The portfolio card's href — used to detect which project card should show the "Under the hood" button
 const PORTFOLIO_HREF = "https://www.yanakrukovets.com";
 
+const FILTER_EXCLUDE = new Set(["CSS", "HTML", "Sass"]);
+
+// Derive sorted unique tech tags from all projects combined; "All" is always first
+const ALL_TECHS = ["All", ...Array.from(
+  new Set(
+    [...projects, ...projectsWork]
+      .flatMap((p) => p.tech.split(",").map((t) => t.trim()))
+      .filter((t) => !FILTER_EXCLUDE.has(t))
+  )
+).sort()];
+
+const matchesFilter = (project, filter) =>
+  filter === "All" || project.tech.split(",").map((t) => t.trim()).includes(filter);
+
 const Projects = () => {
   // Swaps between a CSS grid (desktop) and Swiper carousel (mobile ≤768px)
   const [isMobile, setIsMobile] = useState(false);
 
   // Controls visibility of PortfolioModal — only one modal exists in the tree
   const [modalOpen, setModalOpen] = useState(false);
+
+  // Active technology filter — "All" shows every project
+  const [activeFilter, setActiveFilter] = useState("All");
 
   // Separate scroll reveal refs so the title, personal grid, and work grid animate in independently
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal(0.1);
@@ -108,77 +125,111 @@ const Projects = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  const filteredPersonal = projects.filter((p) => matchesFilter(p, activeFilter));
+  const filteredWork = projectsWork.filter((p) => matchesFilter(p, activeFilter));
+
   return (
     <>
     <div id="projects" className="purple py-[40px] font-roboto">
-      <div className="content-wrapper py-[20px]">
+      <div className="content-wrapper pb-[20px] pt-[40px]">
 
-        {/* Section title — animates in when it enters the viewport */}
+        {/* Section header */}
         <div
           ref={titleRef}
-          className={`reveal${titleVisible ? " reveal--visible" : ""}`}
+          className={`reveal pt-[20px] ${titleVisible ? " reveal--visible" : ""}`}
         >
-          <h2 className="pb-[10px] text-[27px]">
-            <b>Projects</b>
-          </h2>
-          <p>A small gallery of my recent projects</p>
+          <div className="projects-page-header">
+            <span className="projects-page-header__label">Portfolio</span>
+            <h1 className="projects-page-header__title">My Projects</h1>
+            <div className="projects-page-header__line" />
+          </div>
+
+          {/* Technology filter bar */}
+          <div className="filter-bar">
+            {ALL_TECHS.map((tech) => (
+              <button
+                key={tech}
+                className={`filter-btn${activeFilter === tech ? " filter-btn--active" : ""}`}
+                onClick={() => setActiveFilter(tech)}
+                aria-pressed={activeFilter === tech}
+              >
+                {tech}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Personal projects — grid on desktop, Swiper carousel on mobile */}
-        <div
-          ref={personalRef}
-          className={`reveal${personalVisible ? " reveal--visible" : ""}`}
-        >
-          {isMobile ? (
-            <Swiper {...SWIPER_PROPS}>
-              {projects.map((project, index) => (
-                <SwiperSlide key={index}>
-                  <Project
-                    {...project}
-                    // Only the portfolio card gets the "Under the hood" button —
-                    // we match by href so no extra flag is needed in the data
-                    onDetails={project.href === PORTFOLIO_HREF ? () => setModalOpen(true) : undefined}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <div className="projects-container flex-disp mt-[20px]">
-              {projects.map((project, index) => (
-                <Project
-                  key={index}
-                  {...project}
-                  onDetails={project.href === PORTFOLIO_HREF ? () => setModalOpen(true) : undefined}
-                />
-              ))}
-            </div>
+        {/* Personal projects — ref always in DOM so observer fires on initial scroll-into-view */}
+        <div ref={personalRef}>
+          {filteredPersonal.length > 0 && (
+            <>
+              <p className="projects-page-header__subtitle mb-[4px]">Personal projects</p>
+              {isMobile ? (
+                <Swiper {...SWIPER_PROPS}>
+                  {filteredPersonal.map((project, index) => (
+                    <SwiperSlide key={index}>
+                      <Project
+                        {...project}
+                        onDetails={project.href === PORTFOLIO_HREF ? () => setModalOpen(true) : undefined}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              ) : (
+                <div className="projects-container flex-disp mt-[20px]">
+                  {filteredPersonal.map((project, index) => (
+                    <div
+                      key={index}
+                      className={`reveal reveal--delay-${index + 1}${personalVisible ? " reveal--visible" : ""}`}
+                    >
+                      <Project
+                        {...project}
+                        onDetails={project.href === PORTFOLIO_HREF ? () => setModalOpen(true) : undefined}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
 
-        <hr className="my-[20px]" />
-
-        {/* Work projects — same layout logic as personal projects above */}
-        <div
-          ref={workRef}
-          className={`reveal${workVisible ? " reveal--visible" : ""}`}
-        >
-          <p className="mb-[8px]">Also I was a part of a team who was working on the next projects</p>
-          {isMobile ? (
-            <Swiper {...SWIPER_PROPS}>
-              {projectsWork.map((project, index) => (
-                <SwiperSlide key={index}>
-                  <Project {...project} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <div className="projects-container flex-disp mt-[20px]">
-              {projectsWork.map((project, index) => (
-                <Project key={index} {...project} />
-              ))}
-            </div>
+        {/* Work projects — ref always in DOM so observer fires on initial scroll-into-view */}
+        <div ref={workRef}>
+          {filteredWork.length > 0 && (
+            <>
+              {filteredPersonal.length > 0 && <hr className="my-[20px]" />}
+              <div className={`reveal${workVisible ? " reveal--visible" : ""}`}>
+                <p className="mb-[8px]">Also I was a part of a team who was working on the next projects</p>
+              </div>
+              {isMobile ? (
+                <Swiper {...SWIPER_PROPS}>
+                  {filteredWork.map((project, index) => (
+                    <SwiperSlide key={index}>
+                      <Project {...project} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              ) : (
+                <div className="projects-container flex-disp mt-[20px]">
+                  {filteredWork.map((project, index) => (
+                    <div
+                      key={index}
+                      className={`reveal reveal--delay-${index + 1}${workVisible ? " reveal--visible" : ""}`}
+                    >
+                      <Project {...project} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
+
+        {/* Empty state — shown when no projects match the active filter */}
+        {filteredPersonal.length === 0 && filteredWork.length === 0 && (
+          <p className="filter-empty">No projects found for &ldquo;{activeFilter}&rdquo;.</p>
+        )}
 
       </div>
     </div>

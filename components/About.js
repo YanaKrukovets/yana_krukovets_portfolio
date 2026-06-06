@@ -111,7 +111,7 @@ const About = () => {
           <p className="mt-[12px]">
             I work across the full stack — from database and API design to
             polished, user-facing front-end work — using React, Next.js,
-            TypeScript, GraphQL, Tailwind CSS, and more. I have hands-on
+            JavaScript, GraphQL, Tailwind CSS, and more. I have hands-on
             experience with Agile/SCRUM teams, full SDLC, and building both
             MVC and MVVM applications.
           </p>
@@ -123,12 +123,10 @@ const About = () => {
 
           {/* Hobbies */}
           <div className="mt-[20px]">
-            <h3 className="pb-[10px] text-[20px]">
-              <b>Hobbies</b>
-            </h3>
-            <p>
-              I like to spend time with my family, play with kids, traveling,
-              cycling, hiking, painting.
+            <p>Outside of work, I enjoy pursuing activities that
+              help me recharge and stay inspired. Whether it&apos;s discovering a great film, painting, hiking, biking,
+              skiing, skating or making memories with my family,
+              I appreciate experiences that bring both excitement and balance to life.
             </p>
           </div>
 
