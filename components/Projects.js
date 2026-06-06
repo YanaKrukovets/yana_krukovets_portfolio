@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Project from "./Project";
 import PortfolioModal from "./PortfolioModal";
+import AlifallxModal from "./AlifallxModal";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, A11y } from "swiper/modules";
@@ -57,6 +58,15 @@ const projectsWork = [
 // Personal projects — shown first in the section
 const projects = [
   {
+    href: "https://www.alifallx.com",
+    src: "/images/components/projects/alifallx.jpg",
+    alt: "Alifallx — a Next.js browser game",
+    text: "Personal Project",
+    year: "2026",
+    tech: "Next.js, Tailwind CSS, SCSS, HTML5 Canvas, Framer Motion",
+    description: "A browser-based game built with Next.js and a raw HTML5 Canvas game loop — no game library.",
+  },
+  {
     href: "https://yanaartgallery.vercel.app",
     src: "/images/components/projects/art-gallery.jpg",
     alt: "Yana Krukovets Art Gallery",
@@ -87,6 +97,7 @@ const projects = [
 
 // The portfolio card's href — used to detect which project card should show the "Under the hood" button
 const PORTFOLIO_HREF = "https://www.yanakrukovets.com";
+const ALIFALLX_HREF = "https://www.alifallx.com";
 
 const FILTER_EXCLUDE = new Set(["CSS", "HTML", "Sass"]);
 
@@ -108,6 +119,9 @@ const Projects = () => {
 
   // Controls visibility of PortfolioModal — only one modal exists in the tree
   const [modalOpen, setModalOpen] = useState(false);
+
+  // Controls visibility of AlifallxModal
+  const [alifallxModalOpen, setAlifallxModalOpen] = useState(false);
 
   // Active technology filter — "All" shows every project
   const [activeFilter, setActiveFilter] = useState("All");
@@ -170,7 +184,11 @@ const Projects = () => {
                     <SwiperSlide key={index}>
                       <Project
                         {...project}
-                        onDetails={project.href === PORTFOLIO_HREF ? () => setModalOpen(true) : undefined}
+                        onDetails={
+                          project.href === PORTFOLIO_HREF ? () => setModalOpen(true) :
+                          project.href === ALIFALLX_HREF ? () => setAlifallxModalOpen(true) :
+                          undefined
+                        }
                       />
                     </SwiperSlide>
                   ))}
@@ -184,7 +202,11 @@ const Projects = () => {
                     >
                       <Project
                         {...project}
-                        onDetails={project.href === PORTFOLIO_HREF ? () => setModalOpen(true) : undefined}
+                        onDetails={
+                          project.href === PORTFOLIO_HREF ? () => setModalOpen(true) :
+                          project.href === ALIFALLX_HREF ? () => setAlifallxModalOpen(true) :
+                          undefined
+                        }
                       />
                     </div>
                   ))}
@@ -236,6 +258,7 @@ const Projects = () => {
 
     {/* Modal is mounted only when open — unmounting it resets internal scroll position */}
     {modalOpen && <PortfolioModal onClose={() => setModalOpen(false)} />}
+    {alifallxModalOpen && <AlifallxModal onClose={() => setAlifallxModalOpen(false)} />}
     </>
   );
 };

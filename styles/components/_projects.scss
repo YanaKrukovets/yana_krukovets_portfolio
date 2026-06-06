@@ -114,6 +114,8 @@
   cursor: pointer;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
+  max-width: 350px;
+  width: 350px;
 }
 
 .project-card:hover,
