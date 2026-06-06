@@ -1,0 +1,178 @@
+@use '../base/variables' as *;
+
+.error-page {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: radial-gradient(ellipse at bottom, $color-bg-gradient-start 0%, $color-bg-gradient-end 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-white;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.error-page--500 {
+  background: radial-gradient(ellipse at bottom, #5a1a0a 0%, $color-bg-gradient-end 100%);
+}
+
+// Star divs must sit at the top-left of the container so their
+// box-shadow offsets spread across the full viewport
+.error-page #stars,
+.error-page #stars2,
+.error-page #stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.error-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-code {
+  font-size: clamp(6rem, 20vw, 12rem);
+  font-weight: 900;
+  line-height: 1;
+  color: $color-accent;
+  text-shadow: 0 0 30px rgba(224, 165, 224, 0.8), 0 0 60px rgba(224, 165, 224, 0.4);
+  animation: error-pulse-glow 3s ease-in-out infinite;
+  letter-spacing: -0.02em;
+}
+
+.error-code--500 {
+  color: #ff8c6e;
+  text-shadow: 0 0 30px rgba(255, 140, 110, 0.8), 0 0 60px rgba(255, 140, 110, 0.4);
+  animation: error-glitch 4s ease-in-out infinite;
+}
+
+.error-emoji {
+  font-size: clamp(3rem, 8vw, 5rem);
+  display: block;
+  margin: 0 auto 0.5rem;
+  animation: error-float 4s ease-in-out infinite;
+  line-height: 1;
+}
+
+.error-title {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
+  margin: 1rem 0 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.error-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 480px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+
+.error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.error-btn {
+  display: inline-block;
+  padding: 13px 30px;
+  border: 2px solid $color-accent;
+  color: $color-accent;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  background: transparent;
+
+  &:hover {
+    background: $color-accent;
+    color: #1a0d1a;
+    box-shadow: 0 0 20px rgba(224, 165, 224, 0.5);
+  }
+}
+
+.error-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.6);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: $color-white;
+    box-shadow: none;
+  }
+}
+
+.error-btn--500 {
+  border-color: #ff8c6e;
+  color: #ff8c6e;
+
+  &:hover {
+    background: #ff8c6e;
+    color: #1a0a00;
+    box-shadow: 0 0 20px rgba(255, 140, 110, 0.5);
+  }
+}
+
+@keyframes error-pulse-glow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(224, 165, 224, 0.8), 0 0 40px rgba(224, 165, 224, 0.4);
+  }
+  50% {
+    text-shadow:
+      0 0 40px rgba(224, 165, 224, 1),
+      0 0 80px rgba(224, 165, 224, 0.6),
+      0 0 120px rgba(224, 165, 224, 0.25);
+  }
+}
+
+@keyframes error-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33%       { transform: translateY(-18px) rotate(-8deg); }
+  66%       { transform: translateY(-8px) rotate(6deg); }
+}
+
+@keyframes error-glitch {
+  0%, 88%, 100% {
+    text-shadow: 0 0 30px rgba(255, 140, 110, 0.8), 0 0 60px rgba(255, 140, 110, 0.4);
+    transform: translate(0);
+  }
+  90% {
+    text-shadow: -5px 0 #ff0055, 5px 0 #00ffe0;
+    transform: translate(-4px, 0);
+  }
+  92% {
+    text-shadow: 5px 0 #ff0055, -5px 0 #00ffe0;
+    transform: translate(4px, 0);
+  }
+  94% {
+    text-shadow: -3px 0 #ff0055, 3px 0 #00ffe0;
+    transform: translate(-2px, 2px);
+  }
+  96% {
+    text-shadow: 3px 0 #ff0055, -3px 0 #00ffe0;
+    transform: translate(2px, -2px);
+  }
+  98% {
+    text-shadow: 0 0 30px rgba(255, 140, 110, 0.8), 0 0 60px rgba(255, 140, 110, 0.4);
+    transform: translate(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error-code,
+  .error-code--500,
+  .error-emoji {
+    animation: none;
+  }
+}

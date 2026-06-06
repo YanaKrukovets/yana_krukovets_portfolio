@@ -1,43 +1,29 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-
-// Section IDs that IntersectionObserver watches to highlight the matching nav link
-const SECTIONS = ["about", "projects", "contact"];
+import { useRouter } from "next/router";
 
 // Nav link data — keeping it in an array avoids repeating the Link markup three times
 // mobileClass lets individual items adjust their max-width on small screens
 const NAV_ITEMS = [
   { label: "About",    aria: "Link About Yana Krukovets",         href: "/#about",    section: "about",    mobileClass: "max-w-[200px]" },
-  { label: "Projects", aria: "Link to Yana Krukovets Projects",   href: "/#projects", section: "projects", mobileClass: "xmd:max-w-[240px]" },
-  { label: "Contact",  aria: "Link to Contact Yana Krukovets",    href: "/#contact",  section: "contact",  mobileClass: "" },
+  { label: "Projects", aria: "Link to Yana Krukovets Projects",   href: "/projects",  section: "projects", mobileClass: "xmd:max-w-[240px]" },
+  { label: "Contact",  aria: "Link to Contact Yana Krukovets",    href: "/contact",   section: "contact",  mobileClass: "" },
 ];
 
+// Maps pathname to the active nav section
+function getActiveSection(pathname) {
+  if (pathname === "/projects") return "projects";
+  if (pathname === "/contact") return "contact";
+  return "about";
+}
+
 export default function Navbar() {
+  const router = useRouter();
   // Controls whether the mobile fullscreen menu is shown
   const [mobileNavExpanded, setMobileNavExpanded] = useState(false);
 
-  // Tracks which section is currently in view — used to apply the nav-active highlight class
-  const [activeSection, setActiveSection] = useState("");
-
-  // Watch each section with IntersectionObserver so the active nav link updates as the user scrolls.
-  // threshold: 0.35 means the link activates when 35% of the section is visible —
-  // low enough to trigger before the section fully fills the screen.
-  useEffect(() => {
-    const observers = [];
-    SECTIONS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.35 }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-    // Disconnect all observers on unmount to prevent memory leaks
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  const activeSection = getActiveSection(router.pathname);
 
   // Lock page scroll when the mobile nav is open so the background doesn't scroll behind it.
   // The scrollY snapshot + restoration pattern prevents iOS from jumping to the top on close.
@@ -88,7 +74,7 @@ export default function Navbar() {
                   aria-label={item.aria}
                   href={item.href}
                   // nav-active adds the underline/highlight for the currently visible section
-                  className={`${activeSection === item.section ? "nav-active" : ""} text-white hover:underline menu-a`}
+                  className={`${activeSection === item.section ? "nav-active" : ""} text-white menu-a`}
                 >
                   <span className="whitespace-nowrap lg:whitespace-normal text-[20px] !flex flex-col xmd:inline-block">
                     {item.label}
@@ -99,13 +85,14 @@ export default function Navbar() {
           </div>
 
           {/* Mobile nav — full-screen overlay, shown when hamburger is toggled */}
-          <div id="mobile-nav" className={`mobile-nav ${mobileNavExpanded ? "block h-full" : ""}`}>
+          <div id="mobile-nav" aria-hidden={!mobileNavExpanded} className={`mobile-nav ${mobileNavExpanded ? "block h-full" : ""}`}>
             {NAV_ITEMS.map((item) => (
               <div key={item.section}>
                 <Link
                   href={item.href}
                   className="mobile-nav-item"
                   aria-label={item.aria}
+                  tabIndex={mobileNavExpanded ? 0 : -1}
                   // Close the mobile menu when the user taps a link
                   onClick={() => setMobileNavExpanded(false)}
                 >

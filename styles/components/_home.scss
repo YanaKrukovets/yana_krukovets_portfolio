@@ -75,6 +75,17 @@
     background: linear-gradient(360deg, transparent, $color-accent);
   }
 
+  @media (max-width: $small-max-width) {
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding: 12px 22px;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+  }
+
   &:hover {
     color: $color-btn-hover-text;
     background: $color-accent;
@@ -123,6 +134,11 @@
     color: $color-btn-hover-text;
     background: $color-accent;
     box-shadow: 0 0 10px $color-accent, 0 0 40px $color-accent, 0 0 80px $color-accent;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
   }
 }
 

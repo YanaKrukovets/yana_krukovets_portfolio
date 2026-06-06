@@ -1,27 +1,57 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
-
-// Locale string bundles — imported for potential future use when the language toggle is re-enabled.
-// Currently the FR locale is placeholder text, so `t` is not used in the JSX below.
-import en from "../locales/en";
-import fr from "../locales/fr";
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 
 export default function Footer() {
-  const router = useRouter();
-  const { locale } = router;
-  // t holds the active locale bundle — ready to use once i18n strings are wired up
-  const t = locale === "en" ? en : fr;
-
   return (
-    <footer className="max-w-inner xxxl:px-0 purple">
-      <div className="footer-wrapper">
-        <div className="content-wrapper">
-          <div>
-            © Yana Krukovets, 2026
+    <footer className="site-footer purple">
+      <div className="footer-inner">
+
+        <div className="footer-top">
+          {/* Left — brand */}
+          <div className="footer-brand">
+            <span className="footer-name">Yana Krukovets</span>
+            <span className="footer-tagline">Full Stack Developer — Ottawa, Canada</span>
           </div>
+
+          {/* Right — two-column nav */}
+          <nav className="footer-nav" aria-label="Footer navigation">
+            <div className="footer-nav-col">
+              <Link href="/#about">About</Link>
+              <Link href="/projects">Projects</Link>
+              <Link href="/contact">Contact</Link>
+            </div>
+            <div className="footer-nav-col">
+              <a href="/Yana_Krukovets_CV.pdf" download aria-label="Download resume">Resume</a>
+              <Link href="/privacy-policy">Privacy Policy</Link>
+              <div className="footer-social">
+                <a
+                  href="https://github.com/YanaKrukovets"
+                  aria-label="GitHub profile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <AiFillGithub size={20} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/yana-krukovets-25658260/"
+                  aria-label="LinkedIn profile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <AiFillLinkedin size={20} />
+                </a>
+              </div>
+            </div>
+          </nav>
         </div>
+
+        <hr className="footer-divider" />
+
+        <div className="footer-bottom text-center">
+          <span>© Yana Krukovets, 2026</span>
+        </div>
+
       </div>
     </footer>
   );

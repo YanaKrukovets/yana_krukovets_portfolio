@@ -16,7 +16,7 @@ const Project = ({ href, src, alt, tech, text, year, description, onDetails }) =
     <div>
       <div className="project-card">
         {/* Clicking the image opens the live site in a new tab */}
-        <a href={href} target="_blank" rel="noreferrer">
+        <a href={href} target="_blank" rel="noreferrer" aria-label={`${alt} — view live (opens in new tab)`}>
           <div className="imageContainer">
             <Image
               src={src}
