@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
       </Head>
       <div className="max-w-inner xxxl:px-0">
         <div className="content-wrapper font-roboto py-[60px] text-black">
-          <h1 className="text-[32px] font-bold mb-[30px]">Privacy Policy</h1>
+          <h1 className="text-[32px] font-bold mb-[30px] pt-[40px]">Privacy Policy</h1>
           <p className="text-[14px] text-gray-500 mb-[40px]">Last updated: June 5, 2026</p>
 
           <section className="mb-[40px]">
