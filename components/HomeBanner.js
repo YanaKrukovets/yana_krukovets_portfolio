@@ -58,17 +58,17 @@ const HeaderBanner = () => {
               <div className="mt-[20px]">
                 {/* Four empty <span>s are required by the CSS animated border trick */}
                 <Link className="my-work-btn sm:my-[20px]" href="/projects">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
                   Check my work
                 </Link>
                 <Link className="my-work-btn" href="/contact">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
                   Contact me
                 </Link>
               </div>

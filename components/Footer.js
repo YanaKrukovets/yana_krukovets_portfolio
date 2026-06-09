@@ -22,7 +22,7 @@ export default function Footer() {
               <Link href="/contact">Contact</Link>
             </div>
             <div className="footer-nav-col">
-              <a href="/Yana_Krukovets_CV.pdf" download aria-label="Download resume">Resume</a>
+              <a href="/Yana_Krukovets_CV.pdf" download aria-label="Download resume (PDF)">Resume</a>
               <Link href="/privacy-policy">Privacy Policy</Link>
               <div className="footer-social">
                 <a

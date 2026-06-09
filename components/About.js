@@ -95,7 +95,7 @@ const About = () => {
             src="/images/components/about/yana_krukovets.jpg"
             height={270}
             width={270}
-            alt="Yana Krukovets photo"
+            alt="Portrait of Yana Krukovets, Full Stack Developer"
           />
         </div>
         <div className="max-w-[65%] md:max-w-full md:mt-[10px]">
@@ -189,7 +189,8 @@ const About = () => {
                     href={item.href}
                     className="underline"
                     target="_blank"
-                    rel="noreferrer"  // noreferrer prevents the new tab from accessing window.opener
+                    rel="noreferrer"
+                    aria-label={`${item.company} (opens in new tab)`}
                   >
                     <i>{item.company}</i>
                   </a>

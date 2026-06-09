@@ -133,7 +133,7 @@ const ChatWidget = () => {
           </div>
 
           {/* role="log" + aria-live="polite" — screen readers announce new messages without interrupting */}
-          <div className="chat-messages" role="log" aria-live="polite">
+          <div className="chat-messages" role="log" aria-live="polite" aria-label="Chat messages">
             {messages.map((msg) => (
               // User messages are right-aligned (--user), bot messages left-aligned (--bot)
               <div key={msg.id} className={`chat-message chat-message--${msg.role === "user" ? "user" : "bot"}`}>
@@ -143,7 +143,7 @@ const ChatWidget = () => {
 
             {/* Suggested questions — only visible before the first user message */}
             {showSuggestions && (
-              <div className="chat-suggestions">
+              <div className="chat-suggestions" role="group" aria-label="Suggested questions">
                 {SUGGESTED_QUESTIONS.map((q) => (
                   <button key={q} className="chat-suggestion-btn" onClick={() => sendMessage(q)}>
                     {q}
@@ -155,8 +155,8 @@ const ChatWidget = () => {
             {/* Typing indicator — three animated dots while waiting for the API response */}
             {isLoading && (
               <div className="chat-message chat-message--bot">
-                <div className="chat-typing">
-                  <span /><span /><span />
+                <div className="chat-typing" aria-label="Yana's assistant is typing">
+                  <span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" />
                 </div>
               </div>
             )}

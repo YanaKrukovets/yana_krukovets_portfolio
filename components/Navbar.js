@@ -53,7 +53,7 @@ export default function Navbar() {
           {/* Logo — links back to the homepage */}
           <div className="flex justify-between">
             <div className="w-[60px] md:w-[50px]">
-              <Link href="/" passHref>
+              <Link href="/" passHref aria-label="Go to homepage">
                 <Image
                   src="/images/logos/logo-en.png"
                   className="w-full max-w-[60px] object-cover my-[15px]"
@@ -118,9 +118,9 @@ export default function Navbar() {
               onClick={() => setMobileNavExpanded(!mobileNavExpanded)}
             >
               {/* Three spans are the three lines of the hamburger icon */}
-              <span></span>
-              <span></span>
-              <span></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
             </button>
           </div>
 

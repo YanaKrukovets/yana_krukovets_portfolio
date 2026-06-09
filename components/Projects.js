@@ -22,6 +22,62 @@ const SWIPER_PROPS = {
 // Professional projects — work done at Elite Digital; shown below personal projects
 const projectsWork = [
   {
+    href: "https://sleeveclinic.ca/",
+    src: "/images/components/projects/sleeve.png",
+    alt: "Sleeve website",
+    year: "2026",
+    text: "Elite Digital Project",
+    tech: "Next.js, Tailwind CSS, Calendly, Tidio",
+  },
+  {
+    href: "https://www.eastpenncanada.com/",
+    src: "/images/components/projects/eastpenn.png",
+    alt: "East Penn Canada website",
+    year: "2026",
+    text: "Elite Digital Project",
+    tech: "Next.js, Sanity, Tailwind CSS",
+  },
+  {
+    href: "https://harmonyorganon.ca/",
+    src: "/images/components/projects/harmony.png",
+    alt: "Harmony Organon website",
+    year: "2026",
+    text: "Elite Digital Project",
+    tech: "WordPress, JavaScript, jQuery, PHP",
+  },
+  {
+    href: "https://vivalife.ca/",
+    src: "/images/components/projects/viva.png",
+    alt: "Viva Life website",
+    year: "2026",
+    text: "Elite Digital Project",
+    tech: "jQuery, WordPress, JavaScript, PHP",
+  },
+  {
+    href: "https://firstfrontier.ca/",
+    src: "/images/components/projects/firstfrontier.png",
+    alt: "First Frontier website",
+    year: "2025",
+    text: "Elite Digital Project",
+    tech: "WordPress, JavaScript, PHP, jQuery",
+  },
+  {
+    href: "https://www.rexulti.ca/",
+    src: "/images/components/projects/rexulti.png",
+    alt: "Rexulti website",
+    year: "2025",
+    text: "Elite Digital Project",
+    tech: "Next.js, Tailwind CSS",
+  },
+  {
+    href: "https://nudestix.ca/",
+    src: "/images/components/projects/nudestix.png",
+    alt: "Nudestix website",
+    year: "2025",
+    text: "Elite Digital Project",
+    tech: "Shopify, Shopify Liquid, jQuery",
+  },
+  {
     href: "https://elitedigitalagency.com/health",
     src: "/images/components/projects/healthElite.jpg",
     alt: "Elite Digital Health website",
@@ -43,7 +99,7 @@ const projectsWork = [
     alt: "Orijin website",
     year: "2023",
     text: "Elite Digital Project",
-    tech: "WordPress, PHP, CSS",
+    tech: "WordPress, JavaScript, PHP, CSS",
   },
   {
     href: "https://bloombyorganon.ca",
@@ -51,7 +107,15 @@ const projectsWork = [
     alt: "Bloom website",
     year: "2023",
     text: "Elite Digital Project",
-    tech: "WordPress, PHP, CSS",
+    tech: "WordPress, JavaScript, PHP, CSS",
+  },
+  {
+    href: "https://kyleenaandmirena.ca/",
+    src: "/images/components/projects/kyleena.png",
+    alt: "Kyleena and Mirena website",
+    year: "2023",
+    text: "Elite Digital Project",
+    tech: "Next.js, Tailwind CSS",
   },
 ];
 
@@ -99,7 +163,7 @@ const projects = [
 const PORTFOLIO_HREF = "https://www.yanakrukovets.com";
 const ALIFALLX_HREF = "https://www.alifallx.com";
 
-const FILTER_EXCLUDE = new Set(["CSS", "HTML", "Sass"]);
+const FILTER_EXCLUDE = new Set(["CSS", "HTML", "Sass", "Calendly", "Tidio"]);
 
 // Derive sorted unique tech tags from all projects combined; "All" is always first
 const ALL_TECHS = ["All", ...Array.from(
@@ -166,6 +230,7 @@ const Projects = () => {
                 className={`filter-btn${activeFilter === tech ? " filter-btn--active" : ""}`}
                 onClick={() => setActiveFilter(tech)}
                 aria-pressed={activeFilter === tech}
+                aria-label={tech === "All" ? "Show all projects" : `Filter projects by ${tech}`}
               >
                 {tech}
               </button>
