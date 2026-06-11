@@ -19,6 +19,7 @@ export default function Footer() {
             <div className="footer-nav-col">
               <Link href="/#about">About</Link>
               <Link href="/projects">Projects</Link>
+              <Link href="/blog">Blog</Link>
               <Link href="/contact">Contact</Link>
             </div>
             <div className="footer-nav-col">

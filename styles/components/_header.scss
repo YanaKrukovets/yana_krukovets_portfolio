@@ -7,10 +7,6 @@ header {
   line-height: 18px;
   position: relative;
   z-index: 90;
-  height: 100vh;
-
-  background: radial-gradient(ellipse at bottom, $color-bg-gradient-start 0%, $color-bg-gradient-end 100%);
-  overflow: hidden;
 
   nav {
     position: relative;
@@ -292,11 +288,11 @@ header {
   }
 }
 
-// On inner pages the hero is hidden — collapse the header so it takes no space
-header.header-inner {
-  height: auto;
-  background: none;
-  overflow: visible;
+// Home page only: full-viewport hero with the dark gradient background
+header.home-header {
+  height: 100vh;
+  background: radial-gradient(ellipse at bottom, $color-bg-gradient-start 0%, $color-bg-gradient-end 100%);
+  overflow: hidden;
 }
 
 ul.submenu {

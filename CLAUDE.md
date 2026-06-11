@@ -19,11 +19,13 @@ Personal portfolio website for Yana Krukovets, a Full Stack Developer based in O
 ```
 components/       Flat directory — all components at top level, no subdirectories
 hooks/            useScrollReveal.js, useTypewriter.js — custom React hooks
+lib/              blogPosts.js — shared BLOG_POSTS metadata array (single source of truth for blog posts)
 locales/          en.js and fr.js — plain JS export objects for i18n strings
-pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, api/hello.js, api/chat.js
+pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, contact.js, projects.js, privacy-policy.js, api/hello.js, api/chat.js
+pages/blog/       index.js (blog listing), why-avoid-page-builders.js (first post)
 tests/            portfolio.spec.js — Playwright end-to-end tests (SEO, a11y, responsiveness, content)
 playwright.config.js  Playwright config — runs against localhost:3000, Chromium only
-public/images/    components/about/ and components/projects/ for all site images
+public/images/    components/about/ and components/projects/ for all site images; blogs/ for blog post banners
 public/           Yana_Krukovets_CV.pdf — resume download
 styles/           Global SCSS only — no CSS Modules
   styles.scss     Master entry point (imports Tailwind directives + all partials)
@@ -62,6 +64,8 @@ styles/           Global SCSS only — no CSS Modules
 | `ChatWidget.js` | AI chat assistant — floating button, opens chat panel; rendered in `_app.js` on homepage only (`router.pathname === "/"`) |
 | `PortfolioModal.js` | Info modal with tabs (Tech Stack, Architecture, Claude Setup) — explains how the portfolio site was built; opened from within ChatWidget; uses ProjectModal |
 | `ProjectModal.js` | Reusable modal shell — props: `title`, `tabs` (array of `{ label, content }`), `onClose`; handles Escape key, scroll lock, tab switching |
+| `RelatedPosts.js` | "You May Also Be Interested In" card grid at the bottom of each blog post — prop: `currentSlug`; reads `lib/blogPosts.js` and filters out the current post |
+| `BlogCta.js` | Centered CTA card in each blog post footer ("Need a developer for your next project?") — outlined buttons to `/projects`, `/#about`, `/contact` |
 
 ### Inactive / Legacy (do not use without explicit intent)
 
@@ -101,6 +105,37 @@ All content is in `components/About.js`. Structure:
 ## i18n Notes
 
 French (`fr`) locale content is largely placeholder (identical to English or stub text like "link1"). The language toggle (`NavLangToggle`) is commented out. Do not invest in French translations until the toggle is re-enabled.
+
+## Blog
+
+Blog posts live in `pages/blog/`. Each post is its own `.js` file (Pages Router — no dynamic routes yet).
+
+**Post metadata** lives in the shared `BLOG_POSTS` array in `lib/blogPosts.js` — used by both the blog index (`pages/blog/index.js`) and the `RelatedPosts` component. Add a new entry there whenever a new post is published:
+```js
+{
+  slug: "post-slug",               // matches the filename (without .js)
+  title: "Post title",
+  date: "Month DD, YYYY",
+  isoDate: "YYYY-MM-DD",           // machine-readable date for <time dateTime>
+  readTime: "X min read",
+  category: "Category label",
+  image: "/images/blogs/filename.png",
+  description: "One-sentence teaser shown on the listing page.",
+}
+```
+
+**Each post page** should include:
+- `BlogPosting` JSON-LD (structured data for Google)
+- `FAQPage` JSON-LD if the post has clear Q&A sections (helps rich snippets)
+- `og:image`, `og:title`, `og:description`, `og:url` with `key` props to override Layout defaults
+- Twitter card overrides: `twitter:title`, `twitter:description`, `twitter:image`, `twitter:url` with `key` props
+- `<BlogCta />` in the article footer — CTA card linking to `/projects`, `/#about`, and `/contact`
+- `<RelatedPosts currentSlug="post-slug" />` after the article footer (inside `blog-article__inner`)
+- Inline contextual links to other posts where topics naturally overlap
+
+**Sitemap** (`public/sitemap.xml`) — manually maintained. Add `/blog` and each new post URL when publishing. Set `changefreq: yearly` and `priority: 0.7` for posts.
+
+**Images** — place blog banners in `public/images/blogs/`. Recommended size: 760×400px (used in OG tags and article banner).
 
 ## Known Quirks
 

@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 const NAV_ITEMS = [
   { label: "About",    aria: "Link About Yana Krukovets",         href: "/#about",    section: "about",    mobileClass: "max-w-[200px]" },
   { label: "Projects", aria: "Link to Yana Krukovets Projects",   href: "/projects",  section: "projects", mobileClass: "xmd:max-w-[240px]" },
+  { label: "Blog",     aria: "Link to Yana Krukovets Blog",       href: "/blog",      section: "blog",     mobileClass: "" },
   { label: "Contact",  aria: "Link to Contact Yana Krukovets",    href: "/contact",   section: "contact",  mobileClass: "" },
 ];
 
@@ -15,6 +16,7 @@ const NAV_ITEMS = [
 function getActiveSection(pathname) {
   if (pathname === "/projects") return "projects";
   if (pathname === "/contact") return "contact";
+  if (pathname.startsWith("/blog")) return "blog";
   return "about";
 }
 

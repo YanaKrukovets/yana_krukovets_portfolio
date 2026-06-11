@@ -48,14 +48,14 @@ export default function Layout({ children }) {
 
         {/* Open Graph — controls how the link preview looks when shared on social media */}
         <meta property="og:url" key="og:url" content={canonicalUrl} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" key="og:type" content="website" />
         <meta property="og:site_name" content="Yana Krukovets" />
         <meta property="og:title" key="og:title" content="Yana Krukovets | Full Stack & Front-End Developer — Ottawa" />
         <meta property="og:description" key="og:description" content={DESCRIPTION} />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Yana Krukovets — Full Stack Developer portfolio" />
+        <meta property="og:image" key="og:image" content={OG_IMAGE} />
+        <meta property="og:image:width" key="og:image:width" content="1200" />
+        <meta property="og:image:height" key="og:image:height" content="630" />
+        <meta property="og:image:alt" key="og:image:alt" content="Yana Krukovets — Full Stack Developer portfolio" />
         <meta property="og:locale" content="en_CA" />
 
         {/* Twitter / X card — summary_large_image shows the full-width preview image */}
@@ -64,8 +64,8 @@ export default function Layout({ children }) {
         <meta property="twitter:url" key="twitter:url" content={canonicalUrl} />
         <meta name="twitter:title" key="twitter:title" content="Yana Krukovets | Full Stack & Front-End Developer — Ottawa" />
         <meta name="twitter:description" key="twitter:description" content={DESCRIPTION} />
-        <meta name="twitter:image" content={OG_IMAGE} />
-        <meta name="twitter:image:alt" content="Yana Krukovets — Full Stack Developer portfolio" />
+        <meta name="twitter:image" key="twitter:image" content={OG_IMAGE} />
+        <meta name="twitter:image:alt" key="twitter:image:alt" content="Yana Krukovets — Full Stack Developer portfolio" />
 
         <meta name="author" content="Yana Krukovets" />
         {/* Pinterest domain verification tokens */}
@@ -92,7 +92,7 @@ export default function Layout({ children }) {
       </a>
 
       {/* Hero / nav lives in <header> outside <main> so landmark navigation is correct for assistive tech */}
-      <header className={`max-w-inner${isHome ? "" : " header-inner"}`}>
+      <header className={`max-w-inner${isHome ? " home-header" : ""}`}>
         <HeaderBanner />
       </header>
       <main className="overflow-x-hidden w-full text-black" id="main">
