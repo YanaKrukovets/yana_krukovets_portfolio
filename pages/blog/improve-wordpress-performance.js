@@ -127,7 +127,7 @@ export default function ImproveWordPressPerformance() {
             the client runs PageSpeed Insights, sees a red number, and assumes
             the fix is &ldquo;install a caching plugin.&rdquo; Sometimes that&apos;s
             true. But just as often the real culprit is something almost every
-            business site has — Google Tag Manager — quietly loading hundreds
+            business site has: Google Tag Manager, loading hundreds
             of kilobytes of third-party JavaScript on every single page.
             Here&apos;s how I approach WordPress performance: what to measure,
             which plugins actually help, and how to stop GTM from dragging
@@ -145,24 +145,24 @@ export default function ImproveWordPressPerformance() {
               </p>
               <ul>
                 <li>
-                  <strong>Field data (Core Web Vitals)</strong> — what real
+                  <strong>Field data (Core Web Vitals):</strong> what real
                   Chrome users experienced over the last 28 days. This is the
                   data Google uses when evaluating Core Web Vitals as part of
                   its ranking systems.
                 </li>
                 <li>
-                  <strong>Lab data (Lighthouse score)</strong> — a simulated
+                  <strong>Lab data (Lighthouse score):</strong> a simulated
                   test on a throttled connection. Useful for diagnosis, but the
                   number itself is not a ranking factor.
                 </li>
               </ul>
               <p>
                 The three metrics that matter most: <strong>LCP</strong>{" "}
-                (Largest Contentful Paint — how fast your main content appears,
+                (Largest Contentful Paint, how fast your main content appears;
                 target under 2.5s), <strong>INP</strong> (Interaction to Next
-                Paint — how fast the page responds to clicks, target under
-                200ms), and <strong>CLS</strong> (Cumulative Layout Shift — how
-                much the layout jumps around, target under 0.1).
+                Paint, how fast the page responds to clicks; target under
+                200ms), and <strong>CLS</strong> (Cumulative Layout Shift, how
+                much the layout jumps around; target under 0.1).
               </p>
               <p>
                 Then open the &ldquo;Reduce the impact of third-party
@@ -173,19 +173,19 @@ export default function ImproveWordPressPerformance() {
             </section>
 
             <section>
-              <h2>The Plugins That Actually Move the Needle</h2>
+              <h2>The Plugins That Actually Make a Difference</h2>
 
               <h3>1. Caching &amp; Optimization: WP Rocket (or LiteSpeed Cache)</h3>
               <p>
                 If you install only one performance plugin, make it{" "}
                 <strong>WP Rocket</strong>. Out of the box it gives you page
                 caching, and it helps configure browser caching and compression
-                where the hosting environment supports it — and with a few
+                where the hosting environment supports it. With a few
                 checkboxes you add:
               </p>
               <ul>
                 <li>
-                  <strong>Remove Unused CSS</strong> — generates a minimal
+                  <strong>Remove Unused CSS:</strong> generates a minimal
                   stylesheet per page. Frequently one of the largest Lighthouse
                   improvements on theme-heavy or{" "}
                   <Link href="/blog/why-avoid-page-builders">
@@ -194,7 +194,7 @@ export default function ImproveWordPressPerformance() {
                   .
                 </li>
                 <li>
-                  <strong>Delay JavaScript Execution</strong> — postpones
+                  <strong>Delay JavaScript Execution:</strong> postpones
                   non-critical scripts until the user interacts with the page.
                   This is the feature that neutralizes most third-party script
                   damage.
@@ -212,8 +212,8 @@ export default function ImproveWordPressPerformance() {
                 PHP. And if you want a modern WP Rocket alternative built
                 specifically around Core Web Vitals, <strong>FlyingPress</strong>{" "}
                 is excellent. What I&apos;d avoid: running W3 Total Cache,
-                Autoptimize, and a host-provided cache simultaneously —
-                overlapping optimization plugins fight each other and break
+                Autoptimize, and a host-provided cache simultaneously.
+                Overlapping optimization plugins fight each other and break
                 sites more often than they speed them up. Pick one stack.
               </p>
               <p>
@@ -221,12 +221,12 @@ export default function ImproveWordPressPerformance() {
                 often comes pre-installed with agency hosting: the free version
                 covers page caching and minification but lacks the two features
                 that produce the biggest gains on modern audits.{" "}
-                <strong>Hummingbird Pro</strong> does add both — Delay
-                JavaScript Execution and automatic Critical CSS generation — so
+                <strong>Hummingbird Pro</strong> does add both (Delay
+                JavaScript Execution and automatic Critical CSS generation), so
                 if a client already pays for the WPMU DEV bundle, it&apos;s a
                 capable choice. Just never run it alongside WP Rocket or
                 LiteSpeed Cache. That&apos;s been the typical setup in my own
-                work, too — most of the client projects I&apos;ve worked on
+                work, too: most of the client projects I&apos;ve worked on
                 came with Hummingbird Pro already installed as part of the
                 WPMU DEV bundle, so the job was usually configuring it
                 properly rather than replacing it.
@@ -237,7 +237,7 @@ export default function ImproveWordPressPerformance() {
                 Oversized images are the most common cause of bad LCP.{" "}
                 <strong>ShortPixel</strong> or <strong>Imagify</strong> will
                 compress your media library and serve <strong>WebP/AVIF</strong>{" "}
-                versions automatically — often a dramatic size reduction,
+                versions automatically, often a dramatic size reduction,
                 sometimes 50% or more, depending on the image type and how well
                 the originals were optimized. Whichever you choose, also make sure
                 your hero image is <em>excluded</em> from lazy loading and, ideally,
@@ -246,14 +246,14 @@ export default function ImproveWordPressPerformance() {
               </p>
               <p>
                 <strong>Smush</strong> (and Smush Pro) is the popular
-                alternative here, and it&apos;s serviceable — but the free
+                alternative here, and it&apos;s serviceable, but the free
                 version only does lossless compression, which saves far less
                 than ShortPixel&apos;s or Imagify&apos;s smart lossy modes, and
                 WebP conversion sits behind the Pro subscription. If a client
                 already pays for the WPMU DEV bundle, Smush Pro does the job;
                 I wouldn&apos;t buy it standalone. As with Hummingbird, that
                 was the usual setup on the client projects I&apos;ve worked
-                on — Smush Pro came preinstalled with the WPMU DEV bundle, so
+                on: Smush Pro came preinstalled with the WPMU DEV bundle, so
                 it was a matter of configuring it well rather than replacing
                 it.
               </p>
@@ -264,7 +264,7 @@ export default function ImproveWordPressPerformance() {
                 contact form plugin loads CSS and JS on every page. Your slider
                 plugin loads on pages with no slider. <strong>Perfmatters</strong>{" "}
                  or <strong>Asset CleanUp</strong> let you disable
-                scripts per page — so the form plugin only loads on the contact
+                scripts per page, so the form plugin only loads on the contact
                 page, and WooCommerce assets only load on shop pages. Perfmatters
                 also disables WordPress&apos;s own baggage: emoji scripts,
                 embeds, dashicons for logged-out users, and an overly chatty
@@ -275,8 +275,8 @@ export default function ImproveWordPressPerformance() {
                 families with six weights each can easily add more
                 render-blocking requests than the rest of your theme combined,
                 and on many modern audits fonts hurt LCP almost as much as
-                images. Self-hosting only the weights you actually use —
-                Perfmatters can host Google Fonts locally for you — often
+                images. Self-hosting only the weights you actually use
+                (Perfmatters can host Google Fonts locally for you) often
                 improves LCP more than another optimization plugin would.
               </p>
 
@@ -285,7 +285,7 @@ export default function ImproveWordPressPerformance() {
                 Years of post revisions, expired transients, and accumulated
                 junk data can gradually increase database overhead and slow
                 some queries. <strong>WP-Optimize</strong> on a weekly schedule
-                keeps the database lean. Not a dramatic Lighthouse win, but it
+                keeps the database lean. Not a dramatic Lighthouse improvement, but it
                 keeps the time-to-first-byte from creeping up as the site ages.
               </p>
 
@@ -293,7 +293,7 @@ export default function ImproveWordPressPerformance() {
               <p>
                 One caveat before moving on: no optimization plugin can fully
                 compensate for slow hosting, an overloaded database, or poorly
-                written custom code. Performance starts with infrastructure —
+                written custom code. Performance starts with infrastructure:
                 that entire stack on cheap, oversold shared hosting can still
                 be slower than an unoptimized site on a fast VPS or managed
                 WordPress host. If your TTFB stays high after page caching is
@@ -306,13 +306,13 @@ export default function ImproveWordPressPerformance() {
               <h2>Why Google Tag Manager Lowers Your Score</h2>
               <p>
                 Here&apos;s the part that surprises clients: you can do
-                everything above perfectly and still score in the 60s — because
+                everything above perfectly and still score in the 60s, because
                 of the marketing stack.
               </p>
               <p>
                 Google Tag Manager itself is a small script. The problem is what
                 it does: it&apos;s a <em>container</em> that loads other
-                scripts — Google Analytics, ads pixels, Facebook/Meta pixel,
+                scripts: Google Analytics, ads pixels, Facebook/Meta pixel,
                 Hotjar, LinkedIn Insight, chat widgets. Every tag someone has
                 ever added through the GTM interface ships to every visitor,
                 and marketing teams add tags far more often than they remove
@@ -325,9 +325,9 @@ export default function ImproveWordPressPerformance() {
               </p>
               <ul>
                 <li>
-                  <strong>Total Blocking Time in Lighthouse — and poorer INP
+                  <strong>Total Blocking Time in Lighthouse, and poorer INP
                   for real users.</strong> Each tag executes
-                  JavaScript on the browser&apos;s main thread — the same thread
+                  JavaScript on the browser&apos;s main thread, the same thread
                   that handles clicks and scrolling. A GTM container loaded with
                   analytics, pixels, heatmaps, chat widgets, and marketing
                   scripts can add over a second of main-thread blocking on a
@@ -351,20 +351,20 @@ export default function ImproveWordPressPerformance() {
                 <li>
                   <strong>Delay it.</strong> WP Rocket&apos;s &ldquo;Delay
                   JavaScript Execution&rdquo; (or FlyingPress&apos;s equivalent)
-                  holds GTM until the first user interaction — scroll, tap, or
-                  mouse move. This often improves Lighthouse and real-user
+                  holds GTM until the first user interaction (scroll, tap, or
+                  mouse move). This often improves Lighthouse and real-user
                   responsiveness, because non-critical scripts are deferred
                   until after the initial interaction. The trade-off: delaying
                   GTM can reduce analytics fidelity, since visitors who leave
                   before interacting may never trigger tracking scripts.
                 </li>
                 <li>
-                  <strong>Server-side tagging</strong> for bigger sites — GTM&apos;s
+                  <strong>Server-side tagging</strong> for bigger sites: GTM&apos;s
                   server container significantly reduces the amount of
                   third-party processing happening in the visitor&apos;s
                   browser (some client-side collection still remains). More
                   setup (it needs its own hosting), but for tag-heavy
-                  organizations it&apos;s often the most scalable long-term
+                  organizations it&apos;s often the most sustainable long-term
                   solution.
                 </li>
               </ul>
@@ -373,7 +373,7 @@ export default function ImproveWordPressPerformance() {
                 <p>
                   The root problem is always the same: third-party JavaScript
                   that loads before your content needs it. The strategy is
-                  always the same too — remove what you can, delay what you
+                  always the same too: remove what you can, delay what you
                   can&apos;t, and replace the heaviest offenders with lighter
                   equivalents.
                 </p>
@@ -384,7 +384,7 @@ export default function ImproveWordPressPerformance() {
               <h2>A Realistic Order of Operations</h2>
               <p>
                 If you&apos;re starting from a slow site, this is the sequence
-                I&apos;d follow — each step builds on the previous one:
+                I&apos;d follow; each step builds on the previous one:
               </p>
               <ul>
                 <li>Run PageSpeed Insights and save the baseline report.</li>
@@ -408,7 +408,7 @@ export default function ImproveWordPressPerformance() {
               </ul>
               <p>
                 On many business sites, this sequence produces substantial
-                improvements in Lighthouse and Core Web Vitals — and more
+                improvements in Lighthouse and Core Web Vitals. More
                 importantly, it improves the field metrics that actually affect
                 rankings, not just the lab number.
               </p>
@@ -422,7 +422,7 @@ export default function ImproveWordPressPerformance() {
                   What is the best caching plugin for WordPress?
                 </summary>
                 <p className="blog-article__faq-answer">
-                  WP Rocket is the best all-in-one option for most sites — it
+                  WP Rocket is the best all-in-one option for most sites: it
                   handles page caching, CSS/JS optimization, lazy loading, and
                   delayed JavaScript execution out of the box. If your host runs
                   a LiteSpeed server, LiteSpeed Cache is free and just as
@@ -436,7 +436,7 @@ export default function ImproveWordPressPerformance() {
                   Why does Google Tag Manager lower my PageSpeed score?
                 </summary>
                 <p className="blog-article__faq-answer">
-                  GTM is a container that loads other scripts — analytics, ad
+                  GTM is a container that loads other scripts: analytics, ad
                   pixels, heatmaps, chat widgets. Each tag adds third-party
                   JavaScript that blocks the browser&apos;s main thread, hurting
                   Total Blocking Time and INP. The container itself is small,
@@ -450,8 +450,8 @@ export default function ImproveWordPressPerformance() {
                   How do I optimize images on a WordPress site?
                 </summary>
                 <p className="blog-article__faq-answer">
-                  Use ShortPixel or Imagify — or Smush Pro if the site already
-                  runs on the WPMU DEV bundle — to compress images and convert
+                  Use ShortPixel or Imagify (or Smush Pro if the site already
+                  runs on the WPMU DEV bundle) to compress images and convert
                   them to WebP or AVIF automatically. Keep lazy loading on for
                   below-the-fold images, but exclude (and ideally preload) your
                   hero image so it doesn&apos;t hurt Largest Contentful Paint.
@@ -472,9 +472,8 @@ export default function ImproveWordPressPerformance() {
                 change to the site, and audit the GTM container twice a year.
               </p>
               <p>
-                And keep the priorities straight: the goal isn&apos;t a vanity
-                100 in Lighthouse — it&apos;s green field Core Web Vitals from
-                real visitors. A site that loads its content in under two
+                And keep the priorities straight: the goal is green field Core Web
+                Vitals from real visitors, not a vanity 100 in Lighthouse. A site that loads its content in under two
                 seconds, responds instantly to taps, and doesn&apos;t shift
                 layout will rank better and convert better, whatever the lab
                 number says.

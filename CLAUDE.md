@@ -22,9 +22,9 @@ hooks/            useScrollReveal.js, useTypewriter.js — custom React hooks
 lib/              blogPosts.js — shared BLOG_POSTS metadata array (single source of truth for blog posts)
 locales/          en.js and fr.js — plain JS export objects for i18n strings
 pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, contact.js, projects.js, privacy-policy.js, api/hello.js, api/chat.js
-pages/blog/       index.js (blog listing), why-avoid-page-builders.js (first post)
+pages/blog/       index.js (blog listing) + one .js file per post (currently 4 posts)
 tests/            portfolio.spec.js — Playwright end-to-end tests (SEO, a11y, responsiveness, content)
-playwright.config.js  Playwright config — runs against localhost:3000, Chromium only
+playwright.config.js  Playwright config — Chromium only; port defaults to 3000, override with PORT env var (e.g. `PORT=3105 npx playwright test`)
 public/images/    components/about/ and components/projects/ for all site images; blogs/ for blog post banners
 public/           Yana_Krukovets_CV.pdf — resume download
 styles/           Global SCSS only — no CSS Modules
@@ -64,7 +64,7 @@ styles/           Global SCSS only — no CSS Modules
 | `ChatWidget.js` | AI chat assistant — floating button, opens chat panel; rendered in `_app.js` on homepage only (`router.pathname === "/"`) |
 | `PortfolioModal.js` | Info modal with tabs (Tech Stack, Architecture, Claude Setup) — explains how the portfolio site was built; opened from within ChatWidget; uses ProjectModal |
 | `ProjectModal.js` | Reusable modal shell — props: `title`, `tabs` (array of `{ label, content }`), `onClose`; handles Escape key, scroll lock, tab switching |
-| `RelatedPosts.js` | "You May Also Be Interested In" card grid at the bottom of each blog post — prop: `currentSlug`; reads `lib/blogPosts.js` and filters out the current post |
+| `RelatedPosts.js` | "You May Also Be Interested In" card grid at the bottom of each blog post — prop: `currentSlug`; reads `lib/blogPosts.js`, filters out the current post, and picks 2 at random client-side (shuffle happens in `useEffect` to avoid SSR hydration mismatch) |
 | `BlogCta.js` | Centered CTA card in each blog post footer ("Need a developer for your next project?") — outlined buttons to `/projects`, `/#about`, `/contact` |
 
 ### Inactive / Legacy (do not use without explicit intent)
@@ -109,6 +109,8 @@ French (`fr`) locale content is largely placeholder (identical to English or stu
 ## Blog
 
 Blog posts live in `pages/blog/`. Each post is its own `.js` file (Pages Router — no dynamic routes yet).
+
+When writing a new post, use the `new-blog-post` skill (`.claude/skills/new-blog-post/SKILL.md`) — it enforces the full checklist below plus accessibility requirements, a mandatory FAQ section with matching `FAQPage` schema, and a `write-like-a-human` final pass on the prose.
 
 **Post metadata** lives in the shared `BLOG_POSTS` array in `lib/blogPosts.js` — used by both the blog index (`pages/blog/index.js`) and the `RelatedPosts` component. Add a new entry there whenever a new post is published:
 ```js

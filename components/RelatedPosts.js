@@ -1,9 +1,17 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { BLOG_POSTS } from "../lib/blogPosts";
 
 export default function RelatedPosts({ currentSlug }) {
-  const posts = BLOG_POSTS.filter((post) => post.slug !== currentSlug).slice(0, 3);
+  const [posts, setPosts] = useState([]);
+
+  // Shuffle on the client only — random picks during SSR would mismatch on hydration
+  useEffect(() => {
+    const candidates = BLOG_POSTS.filter((post) => post.slug !== currentSlug);
+    const shuffled = [...candidates].sort(() => Math.random() - 0.5);
+    setPosts(shuffled.slice(0, 2));
+  }, [currentSlug]);
 
   if (posts.length === 0) return null;
 

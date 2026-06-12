@@ -127,15 +127,15 @@ export default function ImproveNextjsReactPerformance() {
             sites. There&apos;s no{" "}
             <Link href="/blog/improve-wordpress-performance">plugin bloat</Link>{" "}
             and no{" "}
-            <Link href="/blog/why-avoid-page-builders">page builder markup</Link>{" "}
-            — instead, the weight is JavaScript you wrote yourself: oversized
+            <Link href="/blog/why-avoid-page-builders">page builder markup</Link>.
+            Instead, the weight is JavaScript you wrote yourself: oversized
             bundles, third-party scripts loaded at the wrong time, and images
             the browser discovers too late. The good news is that Next.js ships
-            most of the fixes built in — you just have to use them
+            most of the fixes built in; you just have to use them
             deliberately. Here&apos;s how I approach it on real projects:
             when to <code>defer</code>, what to <code>preload</code>, what to{" "}
-            <code>prefetch</code>, and where the biggest wins actually come
-            from.
+            <code>prefetch</code>, and where the biggest improvements actually
+            come from.
           </p>
 
           <div className="blog-article__body">
@@ -148,21 +148,21 @@ export default function ImproveNextjsReactPerformance() {
                 discovers resources by parsing HTML top to bottom, and by
                 default it treats everything as equally urgent. Your job is to
                 tell it what&apos;s critical now, what can wait, and what it
-                should quietly fetch for later:
+                should fetch in the background for later:
               </p>
               <ul>
                 <li>
-                  <strong>Critical now</strong> — the hero image, the fonts,
+                  <strong>Critical now:</strong> the hero image, the fonts,
                   the CSS for above-the-fold content. These deserve{" "}
                   <code>preload</code> and high priority.
                 </li>
                 <li>
-                  <strong>Can wait</strong> — analytics, chat widgets, anything
+                  <strong>Can wait:</strong> analytics, chat widgets, anything
                   below the fold. These get <code>defer</code>, lazy loading,
                   or an idle-time strategy.
                 </li>
                 <li>
-                  <strong>Needed soon</strong> — the next page the user will
+                  <strong>Needed soon:</strong> the next page the user will
                   visit. This is what <code>prefetch</code> is for.
                 </li>
               </ul>
@@ -172,7 +172,7 @@ export default function ImproveNextjsReactPerformance() {
                 and note the three Core Web Vitals: <strong>LCP</strong>{" "}
                 (target under 2.5s), <strong>INP</strong> (under 200ms), and{" "}
                 <strong>CLS</strong> (under 0.1). Keep in mind that Lighthouse
-                measures a simulated page load — validate improvements against
+                measures a simulated page load, so validate improvements against
                 real-user Core Web Vitals data too (the field data in
                 PageSpeed Insights, when available). Each technique below maps
                 to one of those numbers.
@@ -204,25 +204,24 @@ export default function ImproveNextjsReactPerformance() {
               </p>
               <ul>
                 <li>
-                  <strong><code>lazyOnload</code></strong> — loads during
+                  <strong><code>lazyOnload</code>:</strong> loads during
                   browser idle time, after everything else. The right choice
                   for analytics, ad pixels, chat widgets, and social embeds.
                   This is the Next.js equivalent of the &ldquo;delay
                   JavaScript&rdquo; feature that{" "}
                   <Link href="/blog/improve-wordpress-performance">
                     caching plugins sell for WordPress
-                  </Link>{" "}
-                  — and here it&apos;s free.
+                  </Link>, and here it&apos;s free.
                 </li>
                 <li>
-                  <strong><code>afterInteractive</code></strong> (default) —
-                  the closest Next.js equivalent to a deferred script: it
+                  <strong><code>afterInteractive</code></strong> (default): the
+                  closest Next.js equivalent to a deferred script. It
                   loads without blocking rendering and executes once the page
                   becomes interactive. Fine for scripts the page genuinely
                   needs, but not before paint.
                 </li>
                 <li>
-                  <strong><code>beforeInteractive</code></strong> — injected
+                  <strong><code>beforeInteractive</code>:</strong> injected
                   before any Next.js code runs. Reserve it for the rare script
                   that must run first, like a consent manager or a bot
                   detector. Every script here delays interactivity for the
@@ -235,7 +234,7 @@ export default function ImproveNextjsReactPerformance() {
                 or <code>Head</code> because that&apos;s what the third-party
                 vendor&apos;s instructions said. That bypasses Next.js&apos;s
                 scheduling entirely. If a script can use{" "}
-                <code>next/script</code> — and almost all of them can — it
+                <code>next/script</code> (and almost all of them can), it
                 should.
               </p>
             </section>
@@ -248,7 +247,7 @@ export default function ImproveNextjsReactPerformance() {
                 soon, so start fetching it at high priority before you&apos;d
                 naturally discover it.&rdquo; The classic use case is the LCP image.
                 With server-rendered HTML the browser often discovers the
-                hero image early on its own — but preloading still matters,
+                hero image early on its own. But preloading still matters,
                 because it fetches that image at the highest priority and
                 disables lazy loading, which on image-heavy pages is often
                 the difference between a passing and a failing LCP.
@@ -271,7 +270,7 @@ export default function ImproveNextjsReactPerformance() {
 />`}</code></pre>
               <ul>
                 <li>
-                  <strong>Images</strong> — add <code>priority</code> to the
+                  <strong>Images:</strong> add <code>priority</code> to the
                   LCP image (and only that one). Every other{" "}
                   <code>next/image</code> stays lazy-loaded by default, which
                   is what you want. Under the hood, <code>priority</code>{" "}
@@ -283,7 +282,7 @@ export default function ImproveNextjsReactPerformance() {
                   when you want the priority boost without a preload tag.
                 </li>
                 <li>
-                  <strong>Fonts</strong> — use <code>next/font</code>. It
+                  <strong>Fonts:</strong> use <code>next/font</code>. It
                   self-hosts the font files, preloads them, and sets{" "}
                   <code>font-display</code> automatically, which removes both
                   the flash of invisible text and the layout shift that
@@ -292,7 +291,7 @@ export default function ImproveNextjsReactPerformance() {
                   a visible payoff.
                 </li>
                 <li>
-                  <strong>Anything else critical</strong> — a manual{" "}
+                  <strong>Anything else critical:</strong> a manual{" "}
                   <code>&lt;link rel=&quot;preload&quot;&gt;</code> in{" "}
                   <code>Head</code> still works for cases the framework
                   doesn&apos;t cover, like a video poster or a critical API
@@ -302,7 +301,7 @@ export default function ImproveNextjsReactPerformance() {
               <blockquote className="blog-article__callout">
                 <p>
                   Preload is a budget, not a free upgrade. Every preloaded
-                  resource competes with everything else for bandwidth — if you
+                  resource competes with everything else for bandwidth. If you
                   preload five things, you&apos;ve preloaded nothing.
                 </p>
               </blockquote>
@@ -320,18 +319,17 @@ export default function ImproveNextjsReactPerformance() {
               <h2>Prefetch: Make the Next Page Feel Instant</h2>
               <p>
                 Where preload is about <em>this</em> page, <code>prefetch</code>{" "}
-                is about the <em>next</em> one — fetching at low priority,
+                is about the <em>next</em> one: it fetches at low priority,
                 during idle time, so the resource is already cached when the
                 user navigates.
               </p>
               <p>
-                This is the feature Next.js is quietly famous for: in
+                This is the feature Next.js is famous for: in
                 production, links rendered with <code>next/link</code> are
-                prefetched automatically as they enter the viewport (the
-                exact behavior depends on the router — the App Router
-                prefetches more selectively than the Pages Router). By the
+                prefetched automatically as they enter the viewport (the App
+                Router prefetches more selectively than the Pages Router). By the
                 time the user clicks, the code for that route is usually
-                already downloaded — which is why navigation in a well-built
+                already downloaded, which is why navigation in a well-built
                 Next.js app feels nearly instant.
               </p>
               <pre className="blog-article__code"><code>{`import Link from "next/link";
@@ -372,8 +370,8 @@ export default function ImproveNextjsReactPerformance() {
               <h2>Ship Less JavaScript in the First Place</h2>
               <p>
                 Resource hints schedule the work; code splitting removes it.
-                On most React apps I audit, the single biggest win isn&apos;t a
-                hint — it&apos;s a component or library that shouldn&apos;t be
+                On most React apps I audit, the biggest improvement comes from
+                removing a component or library that shouldn&apos;t be
                 in the initial bundle at all.
               </p>
               <p>
@@ -394,7 +392,7 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
               <p>
                 One caveat on <code>ssr: false</code>: reach for it only when
                 the component depends on browser-only APIs or server
-                rendering adds little value — like a chat widget. Disabling
+                rendering adds little value, like a chat widget. Disabling
                 SSR on large chunks of a page removes them from the
                 server-rendered HTML, which hurts both SEO and LCP.
               </p>
@@ -410,14 +408,14 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
                 Server Components wherever possible and add{" "}
                 <code>&quot;use client&quot;</code> only where interactivity
                 is actually required. Every component that stays on the
-                server is JavaScript the browser never has to download —
-                often a bigger win than any preload or prefetch tweak.
+                server is JavaScript the browser never has to download, which
+                often saves more kilobytes than any preload or prefetch tweak.
               </p>
               <p>
                 To find what&apos;s actually heavy, run{" "}
                 <strong><code>@next/bundle-analyzer</code></strong> once and
                 look at the treemap. Almost every project has a surprise in
-                there — a date library imported whole for one formatting call,
+                there: a date library imported whole for one formatting call,
                 an icon pack shipping a thousand unused icons, lodash imported
                 without tree shaking. Fixing two or three of those routinely
                 cuts more kilobytes than every resource hint combined.
@@ -428,7 +426,7 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
                 typing in an input doesn&apos;t re-render the page, reach for{" "}
                 <code>useMemo</code> when profiling shows a genuinely
                 expensive computation being recomputed unnecessarily (not as
-                a default — overusing it adds complexity for no gain), and
+                a default; overusing it adds complexity for no gain), and
                 virtualize long lists. These don&apos;t show up in Lighthouse
                 directly, but they&apos;re what keeps INP under 200ms once
                 real users start interacting.
@@ -438,7 +436,7 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
             <section>
               <h2>A Realistic Order of Operations</h2>
               <p>
-                If I&apos;m handed a slow Next.js app, this is the sequence —
+                If I&apos;m handed a slow Next.js app, this is the sequence,
                 ordered by payoff per hour of work:
               </p>
               <ul>
@@ -455,7 +453,7 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
                 </li>
                 <li>
                   Move every third-party <code>&lt;script&gt;</code> tag to{" "}
-                  <code>next/script</code> — analytics and widgets get{" "}
+                  <code>next/script</code>: analytics and widgets get{" "}
                   <code>lazyOnload</code>.
                 </li>
                 <li>
@@ -483,9 +481,9 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
                 </summary>
                 <p className="blog-article__faq-answer">
                   Preload fetches a resource the current page needs right now,
-                  at high priority — a hero image, a critical font. Prefetch
+                  at high priority: a hero image, a critical font. Prefetch
                   fetches a resource the user will probably need soon, at low
-                  priority during idle time — like the JavaScript for the next
+                  priority during idle time, like the JavaScript for the next
                   page. Preload is for this page&apos;s critical path; prefetch
                   is for the next navigation.
                 </p>
@@ -498,7 +496,7 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
                 <p className="blog-article__faq-answer">
                   Use the next/script component instead of a plain script tag.
                   The default strategy, afterInteractive, is the closest
-                  Next.js equivalent to a deferred script — it loads without
+                  Next.js equivalent to a deferred script: it loads without
                   blocking rendering and executes once the page becomes
                   interactive. For
                   analytics, chat widgets, and other non-critical scripts, use
@@ -512,7 +510,7 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
                   Does Next.js prefetch pages automatically?
                 </summary>
                 <p className="blog-article__faq-answer">
-                  Yes — in production builds, Next.js automatically prefetches
+                  Yes. In production builds, Next.js automatically prefetches
                   links rendered with next/link as they enter the viewport, so
                   navigation feels nearly instant (the App Router prefetches
                   more selectively than the Pages Router). You can disable it
@@ -527,17 +525,17 @@ const ChatWidget = dynamic(() => import("../components/ChatWidget"), {
             <section>
               <h2>The Framework Does the Heavy Lifting — If You Let It</h2>
               <p>
-                The pattern across everything above: Next.js already contains
-                the optimization machinery — automatic code splitting, link
+                The pattern across everything above is that Next.js already
+                contains the optimization machinery: automatic code splitting, link
                 prefetching, image lazy loading, script scheduling, font
                 preloading. Most slow Next.js apps aren&apos;t slow because the
                 framework failed; they&apos;re slow because something bypassed
-                it — a raw script tag, an unoptimized image, a 300 KB library
+                it: a raw script tag, an unoptimized image, a 300 KB library
                 in the shared bundle.
               </p>
               <p>
-                So the discipline is less about adding clever tricks and more
-                about staying on the paved road: one preloaded hero, deferred
+                The discipline is staying on the paved road: one preloaded
+                hero, deferred
                 everything-else, prefetched navigation, and a bundle you&apos;ve
                 actually looked at. Do that, and green Core Web Vitals stop
                 being a project and start being the default.
