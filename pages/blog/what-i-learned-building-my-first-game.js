@@ -126,8 +126,12 @@ export default function WhatILearnedBuildingMyFirstGame() {
             A devlog about{" "}
             <a href="https://www.alifallx.com/" target="_blank" rel="noopener noreferrer">
               AlifallX: Don&apos;t Leave Them Behind
+            </a>{" "}
+            (
+            <a href="https://github.com/YanaKrukovets/aliencatcher" target="_blank" rel="noopener noreferrer">
+              GitHub
             </a>
-            , a space arcade game built with Next.js, an HTML5 canvas, Claude,
+            ), a space arcade game built with Next.js, an HTML5 canvas, Claude,
             and a lot of stubbornness.
           </p>
 
@@ -237,16 +241,7 @@ export default function WhatILearnedBuildingMyFirstGame() {
                 asynchronous state updates settling whenever React gets around
                 to them.
               </p>
-              <p>
-                The general principle, keeping
-                expensive work out of React&apos;s render cycle, is the same
-                one behind{" "}
-                <Link href="/blog/improve-nextjs-react-performance">
-                  most React performance fixes
-                </Link>
-                ; a game just punishes you for ignoring it 60 times per
-                second.
-              </p>
+              
             </section>
 
             <section>
@@ -414,7 +409,11 @@ export default function WhatILearnedBuildingMyFirstGame() {
               <p>
                With the help of Claude&apos;s latest model, Fable 5, I
                 converted the whole game to a{" "}
-                <strong>native Swift mobile game</strong>. Porting a JavaScript canvas game to Swift
+                <strong>native Swift mobile game</strong> (
+                <a href="https://github.com/YanaKrukovets/alifallX" target="_blank" rel="noopener noreferrer">
+                  GitHub
+                </a>
+                ). Porting a JavaScript canvas game to Swift
                 means re-thinking the rendering, the input, the audio, the
                 loop.
               </p>

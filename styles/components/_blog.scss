@@ -251,6 +251,17 @@
     padding-left: 20px;
     margin-bottom: 48px;
 
+    a {
+      color: v.$color-bg-gradient-start;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: v.$color-accent;
+      }
+    }
+
     @media (max-width: v.$medium-max-width) {
       font-size: 16px;
     }
