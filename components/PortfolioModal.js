@@ -64,25 +64,6 @@ const HOOKS = [
   },
 ];
 
-const COMMANDS = [
-  {
-    name: "/update-content",
-    desc: "Asks which section to update (bio, skills, experience, hobbies), then edits About.js directly and shows a diff.",
-  },
-  {
-    name: "/add-project",
-    desc: "Walks through 7 questions (URL, image, alt, label, tech, year, array), then adds the entry to Projects.js and reminds about the screenshot.",
-  },
-  {
-    name: "/commit",
-    desc: "Reads the staged git diff and generates a typed + scoped commit message (feat/update/fix, scope: projects/about/styles…) ready to paste.",
-  },
-  {
-    name: "/sync-claude-md",
-    desc: "Diffs the current branch against main, checks for structural changes (new/removed components, SCSS partials, dependencies, conventions), and updates CLAUDE.md only where needed.",
-  },
-];
-
 const TABS = [
   {
     label: "Tech Stack",
@@ -149,50 +130,6 @@ const TABS = [
               </li>
             ))}
           </ul>
-        </div>
-      </div>
-    ),
-  },
-  {
-    label: "Claude Setup",
-    content: (
-      <div className="portfolio-modal__claude">
-        <div className="portfolio-modal__claude-section">
-          <h4 className="portfolio-modal__claude-heading">CLAUDE.md</h4>
-          <p className="portfolio-modal__claude-text">
-            A project context file checked into the repo and always injected into Claude&apos;s
-            context automatically. Documents the flat component structure, SCSS-not-CSS-Modules
-            rule, both project arrays, inactive components, i18n status, and known quirks —
-            so Claude doesn&apos;t have to re-derive them every conversation.
-          </p>
-        </div>
-
-        <div className="portfolio-modal__claude-section">
-          <h4 className="portfolio-modal__claude-heading">Custom Commands</h4>
-          <p className="portfolio-modal__claude-text portfolio-modal__claude-text--sub">
-            Slash commands stored in <code>.claude/commands/</code> — invoked on demand, scoped to this project.
-          </p>
-          <ul className="portfolio-modal__cmd-list">
-            {COMMANDS.map((cmd) => (
-              <li key={cmd.name} className="portfolio-modal__cmd-item">
-                <span className="portfolio-modal__cmd-name">{cmd.name}</span>
-                <span className="portfolio-modal__cmd-desc">{cmd.desc}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="portfolio-modal__claude-section">
-          <h4 className="portfolio-modal__claude-heading">Skills</h4>
-          <p className="portfolio-modal__claude-text portfolio-modal__claude-text--sub">
-            Stored in <code>.claude/skills/</code> — reference docs Claude reads passively.
-          </p>
-          <div className="portfolio-modal__cmd-item">
-            <span className="portfolio-modal__cmd-name">run-tests</span>
-            <span className="portfolio-modal__cmd-desc">
-              Documents the Playwright suite — what&apos;s covered, which files, and all run commands. Claude reads this when helping with tests.
-            </span>
-          </div>
         </div>
       </div>
     ),

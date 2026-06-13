@@ -27,7 +27,7 @@ export default function RelatedPosts({ currentSlug }) {
               <div className="related-posts__image-wrap">
                 <Image
                   src={post.image}
-                  alt=""
+                  alt={`${post.title} — article banner`}
                   width={480}
                   height={270}
                   className="related-posts__image"

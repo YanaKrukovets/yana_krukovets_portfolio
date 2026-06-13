@@ -6,8 +6,9 @@ import { useRouter } from "next/router";
 
 // Strings the typewriter cycles through in the hero h2 — edit here to add/remove/reorder roles
 const ROLES = [
-  "Front-End Developer",
+  "Frontend Developer",
   "Full Stack Developer",
+  "AI-Assisted Developer",
   "Next.js Developer",
   "UI Developer",
 ];

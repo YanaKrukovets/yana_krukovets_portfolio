@@ -7,7 +7,6 @@ export default function Custom404() {
       <Head>
         <title>404 — Page Not Found | Yana Krukovets — Web Developer</title>
         <meta name="description" content="The page you are looking for does not exist." />
-        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="error-page">
         <div id="stars" aria-hidden="true"></div>

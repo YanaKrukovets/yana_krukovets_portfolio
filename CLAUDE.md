@@ -22,7 +22,7 @@ hooks/            useScrollReveal.js, useTypewriter.js — custom React hooks
 lib/              blogPosts.js — shared BLOG_POSTS metadata array (single source of truth for blog posts)
 locales/          en.js and fr.js — plain JS export objects for i18n strings
 pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, contact.js, projects.js, privacy-policy.js, api/hello.js, api/chat.js
-pages/blog/       index.js (blog listing) + one .js file per post (currently 4 posts)
+pages/blog/       index.js (blog listing) + one .js file per post (currently 5 posts)
 tests/            portfolio.spec.js — Playwright end-to-end tests (SEO, a11y, responsiveness, content)
 playwright.config.js  Playwright config — Chromium only; port defaults to 3000, override with PORT env var (e.g. `PORT=3105 npx playwright test`)
 public/images/    components/about/ and components/projects/ for all site images; blogs/ for blog post banners

@@ -65,6 +65,9 @@ export default function ImproveNextjsReactPerformance() {
           content="A practical guide to making Next.js and React applications faster: script loading strategies, resource hints like preload and prefetch, image priorities, and code splitting that actually moves Core Web Vitals."
         />
         <meta property="og:type" key="og:type" content="article" />
+        <meta property="article:published_time" content="2026-06-05" />
+        <meta property="article:modified_time" content="2026-06-05" />
+        <meta property="article:author" content={SITE_URL} />
         <meta property="og:title" key="og:title" content="Improve Next.js & React Performance — defer, preload, prefetch | Yana Krukovets" />
         <meta
           property="og:description"

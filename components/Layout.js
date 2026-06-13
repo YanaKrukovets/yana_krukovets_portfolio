@@ -11,7 +11,7 @@ import Footer from "./Footer";
 const SITE_URL = "https://www.yanakrukovets.com";
 const OG_IMAGE = `${SITE_URL}/images/og-image.png`;
 const DESCRIPTION =
-  "Full Stack & Front-End Developer based in Ottawa, Canada. 4+ years of experience building web apps with React, Next.js, TypeScript, GraphQL, Tailwind CSS, WordPress, and more.";
+  "Full Stack & Frontend Developer in Ottawa, Canada — available for remote, freelance, and onsite work. React, Next.js, TypeScript, and AI-assisted development.";
 
 // Schema.org Person structured data — helps search engines understand who owns this site
 // and surfaces rich results (job title, location, social profiles) in Google Search
@@ -20,14 +20,16 @@ const jsonLd = {
   "@type": "Person",
   name: "Yana Krukovets",
   url: SITE_URL,
-  jobTitle: ["Full Stack Developer", "Front-End Developer"],
+  jobTitle: ["Full Stack Developer", "Frontend Developer"],
+  description:
+    "Full Stack and Frontend Developer in Ottawa, Canada specializing in React, Next.js, and AI-assisted development. Available for remote, freelance, and onsite work.",
   worksFor: { "@type": "Organization", name: "Elite Digital" },
   address: { "@type": "PostalAddress", addressLocality: "Ottawa", addressRegion: "ON", addressCountry: "CA" },
   sameAs: [
     "https://github.com/YanaKrukovets",
     "https://www.linkedin.com/in/yana-krukovets-25658260/",
   ],
-  knowsAbout: ["React", "Next.js", "TypeScript", "JavaScript", "GraphQL", "Tailwind CSS", "WordPress", "PHP", "MySQL"],
+  knowsAbout: ["React", "Next.js", "TypeScript", "JavaScript", "GraphQL", "Tailwind CSS", "WordPress", "PHP", "MySQL", "AI-Assisted Development"],
 };
 
 // Serialised once at module level — avoids re-stringifying on every render
@@ -45,12 +47,13 @@ export default function Layout({ children }) {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content={isErrorPage ? "noindex,nofollow" : "index,follow"} />
 
         {/* Open Graph — controls how the link preview looks when shared on social media */}
         <meta property="og:url" key="og:url" content={canonicalUrl} />
         <meta property="og:type" key="og:type" content="website" />
         <meta property="og:site_name" content="Yana Krukovets" />
-        <meta property="og:title" key="og:title" content="Yana Krukovets | Full Stack & Front-End Developer — Ottawa" />
+        <meta property="og:title" key="og:title" content="Yana Krukovets | Full Stack & Frontend Developer — Ottawa" />
         <meta property="og:description" key="og:description" content={DESCRIPTION} />
         <meta property="og:image" key="og:image" content={OG_IMAGE} />
         <meta property="og:image:width" key="og:image:width" content="1200" />
@@ -62,11 +65,12 @@ export default function Layout({ children }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="yanakrukovets.com" />
         <meta property="twitter:url" key="twitter:url" content={canonicalUrl} />
-        <meta name="twitter:title" key="twitter:title" content="Yana Krukovets | Full Stack & Front-End Developer — Ottawa" />
+        <meta name="twitter:title" key="twitter:title" content="Yana Krukovets | Full Stack & Frontend Developer — Ottawa" />
         <meta name="twitter:description" key="twitter:description" content={DESCRIPTION} />
         <meta name="twitter:image" key="twitter:image" content={OG_IMAGE} />
         <meta name="twitter:image:alt" key="twitter:image:alt" content="Yana Krukovets — Full Stack Developer portfolio" />
 
+        <meta name="theme-color" content="#663b66" />
         <meta name="author" content="Yana Krukovets" />
         {/* Pinterest domain verification tokens */}
         <meta name="p:domain_verify" content="155e6479dee7fb2c5ff84b2e5da8957f" />

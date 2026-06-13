@@ -103,10 +103,10 @@ const About = () => {
             <b>Who am I?</b>
           </h3>
           <p>
-            My name is Yana Krukovets. I&rsquo;m a Full Stack Developer based
-            in Ottawa, Canada, with 4+ years of professional experience. I like
-            to code things from scratch and enjoy bringing ideas to life in the
-            browser.
+            My name is Yana Krukovets. I&rsquo;m a Full Stack and Frontend
+            Developer based in Ottawa, Canada, with 5+ years of professional
+            experience. I like to code things from scratch and enjoy bringing
+            ideas to life in the browser.
           </p>
           <p className="mt-[12px]">
             I work across the full stack — from database and API design to
@@ -116,9 +116,14 @@ const About = () => {
             MVC and MVVM applications.
           </p>
           <p className="mt-[12px]">
-            Beyond the code, I&rsquo;m genuinely excited about AI — keeping up
-            with the evolving landscape of models and tooling, and finding
-            practical ways to integrate AI into everyday development workflows.
+            Beyond the code, I&rsquo;m genuinely excited about AI. I practice
+            AI-assisted development daily — working with tools like Claude Code, Codex,
+            Gemini, Grok to speed up everyday workflows without cutting corners
+            on code quality.
+          </p>
+          <p className="mt-[12px]">
+            I&rsquo;m open to freelance projects, contract work, and full-time
+            roles — working remotely with teams anywhere, or onsite in Ottawa.
           </p>
 
           {/* Hobbies */}

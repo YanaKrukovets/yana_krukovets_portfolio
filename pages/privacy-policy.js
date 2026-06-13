@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
       <Head>
         <title>Privacy Policy | Yana Krukovets — Web Developer</title>
         <meta name="description" content="Privacy Policy for yanakrukovets.com — how your data is handled when you use the contact form." />
-        <meta name="robots" content="noindex" />
+        <meta name="robots" key="robots" content="noindex,nofollow" />
       </Head>
       <div className="max-w-inner xxxl:px-0">
         <div className="content-wrapper font-roboto py-[60px] text-black">

@@ -7,7 +7,6 @@ export default function Custom500() {
       <Head>
         <title>500 — Server Error | Yana Krukovets — Web Developer</title>
         <meta name="description" content="An unexpected server error occurred." />
-        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="error-page error-page--500">
         <div id="stars" aria-hidden="true"></div>

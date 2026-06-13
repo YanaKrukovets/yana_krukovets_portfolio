@@ -44,7 +44,7 @@ export default function Blog() {
                   <div className="blog-card__image-wrap">
                     <Image
                       src={post.image}
-                      alt=""
+                      alt={`${post.title} — article banner`}
                       width={800}
                       height={420}
                       className="blog-card__image"

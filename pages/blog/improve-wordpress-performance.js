@@ -65,6 +65,9 @@ export default function ImproveWordPressPerformance() {
           content="A practical guide to speeding up a WordPress site: which caching and optimization plugins actually work, and why Google Tag Manager is quietly destroying your PageSpeed score."
         />
         <meta property="og:type" key="og:type" content="article" />
+        <meta property="article:published_time" content="2026-06-01" />
+        <meta property="article:modified_time" content="2026-06-01" />
+        <meta property="article:author" content={SITE_URL} />
         <meta property="og:title" key="og:title" content="How to Improve WordPress Performance — Plugins & GTM | Yana Krukovets" />
         <meta
           property="og:description"

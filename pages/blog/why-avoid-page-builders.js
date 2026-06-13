@@ -73,6 +73,9 @@ export default function WhyAvoidPageBuilders() {
           content="Elementor, WPBakery, and Divi promise design freedom but deliver slow sites, locked-in content, and painful developer handoffs. Here's what I learned on real WordPress projects, and why Gutenberg is the better path."
         />
         <meta property="og:type" key="og:type" content="article" />
+        <meta property="article:published_time" content="2026-05-25" />
+        <meta property="article:modified_time" content="2026-05-25" />
+        <meta property="article:author" content={SITE_URL} />
         <meta property="og:title" key="og:title" content="Why I Avoid Using Page Builders — And What I Use Instead | Yana Krukovets" />
         <meta
           property="og:description"

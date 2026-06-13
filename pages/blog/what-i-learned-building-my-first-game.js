@@ -65,6 +65,9 @@ export default function WhatILearnedBuildingMyFirstGame() {
           content="A devlog about AlifallX, a space arcade game built with Next.js, an HTML5 canvas, and Claude — no game engine. Eight lessons on game loops vs React, difficulty math, mobile controls, and AI pair programming."
         />
         <meta property="og:type" key="og:type" content="article" />
+        <meta property="article:published_time" content="2026-06-09" />
+        <meta property="article:modified_time" content="2026-06-09" />
+        <meta property="article:author" content={SITE_URL} />
         <meta property="og:title" key="og:title" content="What I Learned Building My First Game (Without a Game Engine) | Yana Krukovets" />
         <meta
           property="og:description"
