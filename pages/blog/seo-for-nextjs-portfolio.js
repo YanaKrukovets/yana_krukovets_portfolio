@@ -58,7 +58,7 @@ const faqJsonLd = JSON.stringify({
       name: "Do I need a sitemap for a small portfolio site?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes, even for a small site. A sitemap tells Google which pages exist and how often they change, which speeds up indexing when you publish new content. For a Next.js Pages Router project, the easiest approach is a static sitemap.xml in the public folder, maintained by hand. Submit it once through Google Search Console; in my experience new pages then get indexed within a day or two of publishing.",
+        text: "Yes, even for a small site. A sitemap helps Google discover your URLs efficiently — especially useful on smaller sites where internal linking is limited. For a Next.js Pages Router project, the easiest approach is a static sitemap.xml in the public folder, maintained by hand. Submit it once through Google Search Console; on this site new pages have often been indexed within a day or two of publishing, though indexing times vary and aren't guaranteed.",
       },
     },
     {
@@ -66,7 +66,7 @@ const faqJsonLd = JSON.stringify({
       name: "Do Core Web Vitals affect SEO in a Next.js site?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Since 2021, Core Web Vitals (LCP, CLS, and INP) are explicit Google ranking signals. Next.js helps with several of them by default: next/image handles width and height automatically to prevent layout shift (CLS), serves WebP where supported, and lazy-loads below-the-fold images. Static generation means pages are served as pre-built HTML from the CDN edge, which lowers LCP. The fastest way to check your actual scores is PageSpeed Insights — it runs against your live URL and shows both field data from real Chrome users and lab data.",
+        text: "Yes. Since 2021, Core Web Vitals (LCP, CLS, and INP) are explicit Google ranking signals as part of the page experience update — though content relevance generally outweighs performance differences in most ranking decisions. Next.js helps with several of them by default: next/image reserves space for images before they load to prevent layout shift (CLS), serves modern formats like WebP or AVIF where supported, and lazy-loads below-the-fold images. When deployed on Vercel, statically generated pages are distributed through Vercel's global edge network, which lowers LCP. The fastest way to check your actual scores is PageSpeed Insights — it runs against your live URL and shows both field data from real Chrome users and lab data.",
       },
     },
   ],
@@ -212,12 +212,13 @@ export default function SeoForNextjsPortfolio() {
                 <p>
                   Next.js Pages Router generates HTML by default, either
                   statically at build time or on the server depending on how the
-                  page is configured. Either way, Google receives fully rendered
-                  HTML immediately, reducing reliance on JavaScript rendering and
-                  making crawling more reliable and efficient. That&apos;s the
-                  framework&apos;s biggest SEO advantage over a traditional
-                  client-rendered React SPA, and you get it without any
-                  SEO-specific configuration.
+                  page is configured. For both, crawlers receive rendered HTML
+                  rather than having to execute JavaScript to see the content —
+                  a meaningful advantage over a traditional client-rendered React
+                  SPA that you get without any SEO-specific configuration. Some
+                  content may still hydrate client-side after the initial HTML
+                  loads, but the core page content is in the document from the
+                  start.
                 </p>
                 <p>
                   What you don&apos;t get for free: meta tags, structured data,
@@ -305,8 +306,9 @@ export default function SeoForNextjsPortfolio() {
                   </li>
                   <li>
                     <code>og:image:width</code> and{" "}
-                    <code>og:image:height</code> — lets crawlers skip downloading
-                    the image just to check its dimensions
+                    <code>og:image:height</code> — can help crawlers process the
+                    image more efficiently and avoid extra inspection requests,
+                    though some platforms fetch the image regardless
                   </li>
                   <li>
                     <code>og:image:alt</code> — a text description of the image
@@ -320,7 +322,11 @@ export default function SeoForNextjsPortfolio() {
                   canonical tag tells Google which URL is the definitive version
                   of the page. Skip it and Google may index multiple variants as
                   separate pages — with and without a trailing slash, or with
-                  query parameters appended by analytics tools.
+                  query parameters appended by analytics tools. One thing worth
+                  knowing: Google treats canonicals as strong hints rather than
+                  directives. If other signals conflict (for example, a different
+                  URL accumulating more inbound links), Google may select a
+                  different canonical than the one you specified.
                 </p>
                 <p>
                   Use absolute URLs for the image. A relative path like{" "}
@@ -338,13 +344,16 @@ export default function SeoForNextjsPortfolio() {
                   X (formerly Twitter) has its own meta tags. Its crawler does
                   fall back to Open Graph when they&apos;re missing, but the
                   Twitter-specific tags take priority and give you explicit
-                  control over how the card renders. The set maps almost
-                  one-to-one:{" "}
-                  <code>twitter:title</code>, <code>twitter:description</code>,{" "}
-                  <code>twitter:image</code>, <code>twitter:image:alt</code>, and{" "}
-                  <code>twitter:url</code>. I set <code>twitter:card</code> to{" "}
+                  control over how the card renders. The core set is:{" "}
+                  <code>twitter:card</code>, <code>twitter:title</code>,{" "}
+                  <code>twitter:description</code>, <code>twitter:image</code>,
+                  and <code>twitter:image:alt</code>. I set{" "}
+                  <code>twitter:card</code> to{" "}
                   <code>summary_large_image</code> in <code>Layout.js</code> so
-                  every page gets a large image card by default.
+                  every page gets a large image card by default.{" "}
+                  <code>twitter:url</code> is sometimes included but isn&apos;t
+                  part of X&apos;s core card requirements and isn&apos;t widely
+                  used by the platform — treat it as optional.
                 </p>
                 <p>
                   Same story with the <code>key</code> prop: every Twitter meta
@@ -431,9 +440,11 @@ export default function SeoForNextjsPortfolio() {
                 </p>
                 <p>
                   Once the sitemap was ready, I submitted the URL through Google
-                  Search Console. On this site, new posts are typically indexed
-                  within a day or two of publishing after submission, rather than
-                  waiting for Google to discover them through crawling.
+                  Search Console. On this site, new posts have often been
+                  indexed within a day or two of publishing after submission —
+                  though indexing times vary widely and aren&apos;t guaranteed.
+                  Submission still beats waiting for Google to discover them
+                  through crawling.
                 </p>
               </section>
 
@@ -467,7 +478,7 @@ export default function SeoForNextjsPortfolio() {
                     it automatically
                   </li>
                   <li>
-                    <code>manifest.json</code> — enables "Add to Home Screen"
+                    <code>manifest.json</code> — enables &ldquo;Add to Home Screen&rdquo;
                     on mobile and defines the app name and icon for PWA
                     installations
                   </li>
@@ -495,8 +506,10 @@ export default function SeoForNextjsPortfolio() {
                 <p>
                   Meta tags and structured data tell Google what your page is
                   about. Core Web Vitals tell it how your page performs. Since
-                  2021, performance has been an explicit ranking signal, not
-                  just a good idea.
+                  2021, performance has been an explicit ranking signal through
+                  Google&apos;s page experience update — though content relevance
+                  generally outweighs performance differences in most ranking
+                  decisions. It matters, just not more than having useful content.
                 </p>
                 <p>
                   The three metrics that matter:
@@ -528,23 +541,27 @@ export default function SeoForNextjsPortfolio() {
                 <p>
                   <strong><code>next/image</code>.</strong> The Image component
                   prevents layout shift by reserving space for the image before
-                  it loads. It requires <code>width</code> and{" "}
-                  <code>height</code> props, which is exactly the information
-                  the browser needs to do that. It also lazy-loads images below
-                  the fold and serves WebP where the browser supports it. I add{" "}
+                  it loads. In most cases you provide <code>width</code> and{" "}
+                  <code>height</code> props — or use <code>fill</code> for images
+                  that should cover their container — and Next.js uses those
+                  values to hold the space before the image arrives. It also
+                  lazy-loads images below the fold and serves modern optimized
+                  formats like WebP or AVIF where the browser supports them. I
+                  add{" "}
                   <code>priority</code> to above-the-fold images (like the blog
                   post banner) so they preload instead of wait. That directly
                   improves LCP on pages where the banner is the largest element.
                 </p>
                 <p>
                   <strong>Static generation and edge delivery.</strong> Most
-                  pages on this site are statically generated at build time, so
-                  Vercel serves them as pre-built HTML from the edge. The
-                  browser gets a complete document immediately, without waiting
-                  for a server to render anything. That&apos;s a meaningful LCP
-                  improvement over a server-rendered or client-rendered
-                  equivalent, and it requires no SEO-specific configuration.
-                  It&apos;s just how Pages Router works by default.
+                  pages on this site are statically generated at build time.
+                  When deployed on Vercel, those pages are distributed through
+                  Vercel&apos;s global edge network, so the browser gets a
+                  complete document without waiting for a server to render
+                  anything. That&apos;s a meaningful LCP improvement over a
+                  server-rendered or client-rendered equivalent, and it requires
+                  no SEO-specific configuration — it&apos;s just how Pages Router
+                  works by default.
                 </p>
                 <p>
                   <strong>Fonts.</strong> <code>next/font</code> inlines
@@ -692,14 +709,15 @@ export default function SeoForNextjsPortfolio() {
                     Do I need a sitemap for a small portfolio site?
                   </summary>
                   <p className="blog-article__faq-answer">
-                    Yes, even for a small site. A sitemap tells Google which
-                    pages exist and how often they change, which speeds up
-                    indexing when you publish new content. For a Next.js Pages
-                    Router project, the easiest approach is a static{" "}
+                    Yes, even for a small site. A sitemap helps Google discover
+                    your URLs efficiently — especially useful on smaller sites
+                    where internal linking is limited. For a Next.js Pages Router
+                    project, the easiest approach is a static{" "}
                     <code>sitemap.xml</code> in the <code>public</code> folder,
                     maintained by hand. Submit it once through Google Search
-                    Console; in my experience new pages then get indexed within
-                    a day or two of publishing.
+                    Console; on this site new pages have often been indexed within
+                    a day or two of publishing, though indexing times vary and
+                    aren&apos;t guaranteed.
                   </p>
                 </details>
 
@@ -709,15 +727,19 @@ export default function SeoForNextjsPortfolio() {
                   </summary>
                   <p className="blog-article__faq-answer">
                     Yes. Since 2021, Core Web Vitals (LCP, CLS, and INP) are
-                    explicit Google ranking signals. Next.js helps with several
-                    of them by default: <code>next/image</code> handles width
-                    and height automatically to prevent layout shift (CLS),
-                    serves WebP where supported, and lazy-loads below-the-fold
-                    images. Static generation means pages are served as
-                    pre-built HTML from the CDN edge, which directly lowers
-                    LCP. The fastest way to check your actual scores is
-                    PageSpeed Insights — it runs against your live URL and
-                    shows both field data from real Chrome users and lab data.
+                    explicit Google ranking signals as part of the page
+                    experience update — though content relevance generally
+                    outweighs performance differences in most ranking decisions.
+                    Next.js helps with several of them by default:{" "}
+                    <code>next/image</code> reserves space for images before
+                    they load to prevent layout shift (CLS), serves modern
+                    formats like WebP or AVIF where supported, and lazy-loads
+                    below-the-fold images. When deployed on Vercel, statically
+                    generated pages are distributed through Vercel&apos;s global
+                    edge network, which lowers LCP. The fastest way to check
+                    your actual scores is PageSpeed Insights — it runs against
+                    your live URL and shows both field data from real Chrome
+                    users and lab data.
                   </p>
                 </details>
 
