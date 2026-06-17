@@ -1,16 +1,16 @@
 // @ts-check
 const { test, expect } = require("@playwright/test");
 
-const BASE = "http://localhost:3000";
-
 const VIEWPORTS = {
   desktop: { width: 1440, height: 900 },
   tablet:  { width: 768,  height: 1024 },
   mobile:  { width: 375,  height: 812 },
 };
 
-async function goto(page) {
-  await page.goto(BASE, { waitUntil: "networkidle" });
+// Relative paths honor baseURL from playwright.config.js — never hardcode the
+// origin here, or the suite silently runs against whatever app owns port 3000.
+async function goto(page, path = "/") {
+  await page.goto(path, { waitUntil: "networkidle" });
 }
 
 // ─── SEO ────────────────────────────────────────────────────────────────────
@@ -61,7 +61,7 @@ test.describe("SEO", () => {
 
   test("has JSON-LD Person structured data", async ({ page }) => {
     await goto(page);
-    const ld = await page.locator('script[type="application/ld+json"]').textContent();
+    const ld = await page.locator('script[type="application/ld+json"]').first().textContent();
     const parsed = JSON.parse(ld);
     expect(parsed["@type"]).toBe("Person");
     expect(parsed.name).toBe("Yana Krukovets");
@@ -112,7 +112,7 @@ test.describe("Accessibility", () => {
   });
 
   test("all project images have alt text", async ({ page }) => {
-    await goto(page);
+    await goto(page, "/projects");
     await page.locator("#projects").scrollIntoViewIfNeeded();
     const imgs = page.locator("#projects img");
     const count = await imgs.count();
@@ -123,7 +123,7 @@ test.describe("Accessibility", () => {
   });
 
   test("form inputs have associated labels", async ({ page }) => {
-    await goto(page);
+    await goto(page, "/contact");
     expect(await page.locator('label[for="name"]').count()).toBe(1);
     expect(await page.locator('label[for="email"]').count()).toBe(1);
     expect(await page.locator('label[for="message"]').count()).toBe(1);
@@ -131,8 +131,13 @@ test.describe("Accessibility", () => {
 
   test("CV download has aria-label", async ({ page }) => {
     await goto(page);
-    const label = await page.locator("a[download]").getAttribute("aria-label");
-    expect(label).toBeTruthy();
+    // The CV link appears twice (About section + nav) — every instance needs a label
+    const links = page.locator("a[download]");
+    const count = await links.count();
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      expect(await links.nth(i).getAttribute("aria-label"), `download link ${i} missing aria-label`).toBeTruthy();
+    }
   });
 
   test("hamburger has aria-expanded attribute", async ({ page }) => {
@@ -145,7 +150,7 @@ test.describe("Accessibility", () => {
 
   test("social links have aria-label", async ({ page }) => {
     await goto(page);
-    const socialLinks = page.locator('a[aria-label*="Github"], a[aria-label*="linkedin"]');
+    const socialLinks = page.locator('a[aria-label*="github" i], a[aria-label*="linkedin" i]');
     const count = await socialLinks.count();
     expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {
@@ -173,7 +178,8 @@ for (const [name, vp] of Object.entries(VIEWPORTS)) {
 
     test("nav is visible", async ({ page }) => {
       await goto(page);
-      await expect(page.locator("nav")).toBeVisible();
+      // .first() — the page has two <nav> landmarks (top nav + footer nav)
+      await expect(page.locator("nav").first()).toBeVisible();
     });
 
     test("#about section renders", async ({ page }) => {
@@ -183,13 +189,13 @@ for (const [name, vp] of Object.entries(VIEWPORTS)) {
     });
 
     test("#projects section renders", async ({ page }) => {
-      await goto(page);
+      await goto(page, "/projects");
       await page.locator("#projects").scrollIntoViewIfNeeded();
       await expect(page.locator("#projects")).toBeVisible();
     });
 
     test("contact form renders", async ({ page }) => {
-      await goto(page);
+      await goto(page, "/contact");
       await page.locator("#contact").scrollIntoViewIfNeeded();
       await expect(page.locator("form")).toBeVisible();
     });
@@ -215,7 +221,7 @@ test.describe("Mobile nav", () => {
   });
 
   test("project swiper visible on mobile", async ({ page }) => {
-    await goto(page);
+    await goto(page, "/projects");
     await page.locator("#projects").scrollIntoViewIfNeeded();
     await expect(page.locator(".projects-swiper").first()).toBeVisible();
   });
@@ -231,7 +237,7 @@ test.describe("Desktop layout", () => {
   });
 
   test("projects grid visible on desktop (not swiper)", async ({ page }) => {
-    await goto(page);
+    await goto(page, "/projects");
     await page.locator("#projects").scrollIntoViewIfNeeded();
     await expect(page.locator(".projects-container").first()).toBeVisible();
   });
@@ -259,8 +265,12 @@ test.describe("Content", () => {
 
   test("CV download link points to a PDF", async ({ page }) => {
     await goto(page);
-    const href = await page.locator("a[download]").getAttribute("href");
-    expect(href).toMatch(/\.pdf$/i);
+    const links = page.locator("a[download]");
+    const count = await links.count();
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      expect(await links.nth(i).getAttribute("href"), `download link ${i}`).toMatch(/\.pdf$/i);
+    }
   });
 
   test("typewriter text cycles", async ({ page }) => {
