@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { BLOG_POSTS } from "../../lib/blogPosts";
 
 // In-memory rate limiter: max 10 requests per IP per minute.
 // Note: resets on cold start and is NOT shared across serverless instances —
@@ -22,6 +23,13 @@ function isRateLimited(ip) {
 const genAI = process.env.GEMINI_API_KEY
   ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
   : null;
+
+// Built from the shared BLOG_POSTS source of truth so the assistant stays in
+// sync with the blog automatically as new posts are published.
+const BLOG_SECTION = BLOG_POSTS.map(
+  (post) =>
+    `- "${post.title}" (${post.category}, ${post.date}) — ${post.description} URL: https://yanakrukovets.com/blog/${post.slug}`
+).join("\n");
 
 const SYSTEM_CONTEXT = `You are a helpful assistant on Yana Krukovets' portfolio website. Answer questions about Yana based on the following information. Be friendly, concise, and professional. If asked something you don't know about Yana, say you're not sure and suggest contacting her directly.
 
@@ -49,6 +57,10 @@ WORK PROJECTS (at Elite Digital):
 - Bloom website (2023) — WordPress, PHP, CSS
 
 HOBBIES: Spending time with family, playing with kids, traveling, cycling, hiking, painting.
+
+BLOG POSTS (Yana writes about web development, SEO, Next.js, WordPress, and game dev):
+${BLOG_SECTION}
+If a visitor asks about a topic Yana has written about, point them to the relevant blog post and share its URL.
 
 CONTACT: Visitors can reach Yana via the contact form on this site, or connect on GitHub (github.com/YanaKrukovets) or LinkedIn (linkedin.com/in/yana-krukovets-25658260/).
 
