@@ -15,7 +15,7 @@ const articleJsonLd = JSON.stringify({
     "A walkthrough of setting up Yoast SEO on a real client WordPress site: titles and meta templates, XML sitemaps, schema, the green-light analysis, and the SEO work Yoast can't do for you.",
   datePublished: "2026-06-17",
   dateModified: "2026-06-17",
-  image: `${SITE_URL}/images/blogs/wordpress-banner.png`,
+  image: `${SITE_URL}/images/blogs/wordpress-seo.png`,
   url: `${SITE_URL}/blog/wordpress-seo-yoast`,
   mainEntityOfPage: {
     "@type": "WebPage",
@@ -98,10 +98,10 @@ export default function WordPressSeoYoast() {
         <meta
           property="og:image"
           key="og:image"
-          content={`${SITE_URL}/images/blogs/wordpress-banner.png`}
+          content={`${SITE_URL}/images/blogs/wordpress-seo.png`}
         />
         <meta property="og:image:width" key="og:image:width" content="760" />
-        <meta property="og:image:height" key="og:image:height" content="317" />
+        <meta property="og:image:height" key="og:image:height" content="397" />
         <meta
           property="og:image:alt"
           key="og:image:alt"
@@ -120,7 +120,7 @@ export default function WordPressSeoYoast() {
         <meta
           name="twitter:image"
           key="twitter:image"
-          content={`${SITE_URL}/images/blogs/wordpress-banner.png`}
+          content={`${SITE_URL}/images/blogs/wordpress-seo.png`}
         />
         <meta
           name="twitter:image:alt"
@@ -162,10 +162,10 @@ export default function WordPressSeoYoast() {
 
             <div className="blog-article__banner">
               <Image
-                src="/images/blogs/wordpress-banner.png"
+                src="/images/blogs/wordpress-seo.png"
                 alt="WordPress dashboard with the Yoast SEO plugin installed"
                 width={760}
-                height={317}
+                height={397}
                 className="blog-article__banner-img"
                 priority
               />
