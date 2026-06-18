@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import {
   SiHtml5,
@@ -21,18 +22,20 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 
 // Each entry renders as a branded icon + label in the skills grid.
 // color matches the technology's official brand colour so the icons look recognisable.
+// filter (optional) is the exact tech tag used by the Projects page filter bar — when set,
+// the skill becomes a clickable link to /projects with that filter pre-applied.
 const SKILLS = [
   { icon: SiHtml5, label: "HTML5", color: "#e34f26" },
   { icon: SiCss3, label: "CSS3", color: "#1572b6" },
-  { icon: SiJavascript, label: "JavaScript", color: "#f7df1e" },
+  { icon: SiJavascript, label: "JavaScript", color: "#f7df1e", filter: "JavaScript" },
   { icon: SiReact, label: "ReactJS", color: "#61dafb" },
-  { icon: SiNextdotjs, label: "Next.js", color: "#000000" },
-  { icon: SiTailwindcss, label: "Tailwind", color: "#38bdf8" },
-  { icon: SiJquery, label: "jQuery", color: "#0769ad" },
+  { icon: SiNextdotjs, label: "Next.js", color: "#000000", filter: "Next.js" },
+  { icon: SiTailwindcss, label: "Tailwind", color: "#38bdf8", filter: "Tailwind CSS" },
+  { icon: SiJquery, label: "jQuery", color: "#0769ad", filter: "jQuery" },
   { icon: SiBootstrap, label: "Bootstrap", color: "#7952b3" },
-  { icon: SiWordpress, label: "WordPress", color: "#21759b" },
-  { icon: SiSanity, label: "Sanity", color: "#f03e2f" },
-  { icon: SiPhp, label: "PHP", color: "#777bb4" },
+  { icon: SiWordpress, label: "WordPress", color: "#21759b", filter: "WordPress" },
+  { icon: SiSanity, label: "Sanity", color: "#f03e2f", filter: "Sanity" },
+  { icon: SiPhp, label: "PHP", color: "#777bb4", filter: "PHP" },
   { icon: SiMysql, label: "mySQL", color: "#4479a1" },
 ];
 
@@ -160,13 +163,31 @@ const About = () => {
           <b>Skills</b>
         </h3>
         <div className="skills-grid">
-          {SKILLS.map(({ icon: Icon, label, color }) => (
-            <div key={label} className="skill-item">
-              {/* aria-hidden because the label below already describes the icon */}
-              <Icon className="skill-icon" style={{ color }} aria-hidden="true" />
-              <span className="skill-label">{label}</span>
-            </div>
-          ))}
+          {SKILLS.map(({ icon: Icon, label, color, filter }) => {
+            const inner = (
+              <>
+                {/* aria-hidden because the label below already describes the icon */}
+                <Icon className="skill-icon" style={{ color }} aria-hidden="true" />
+                <span className="skill-label">{label}</span>
+              </>
+            );
+            // Skills with a matching project filter link to the Projects page with that
+            // filter pre-applied; the rest stay as plain (non-clickable) cards.
+            return filter ? (
+              <Link
+                key={label}
+                href={{ pathname: "/projects", query: { filter } }}
+                className="skill-item skill-item--link"
+                aria-label={`View ${label} projects`}
+              >
+                {inner}
+              </Link>
+            ) : (
+              <div key={label} className="skill-item">
+                {inner}
+              </div>
+            );
+          })}
         </div>
       </div>
 

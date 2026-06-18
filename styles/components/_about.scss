@@ -36,6 +36,12 @@
   }
 }
 
+// Skills that link through to the Projects page with a filter pre-applied
+.skill-item--link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .skill-icon {
   font-size: 32px;
 }

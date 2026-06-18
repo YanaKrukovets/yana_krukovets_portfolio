@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Project from "./Project";
 import PortfolioModal from "./PortfolioModal";
 import AlifallxModal from "./AlifallxModal";
@@ -237,6 +238,17 @@ const Projects = () => {
 
   // Active technology filter — "All" shows every project
   const [activeFilter, setActiveFilter] = useState("All");
+
+  // Apply a filter passed via the URL query (e.g. a skill click on the About page links
+  // to /projects?filter=Next.js); only honour values that are actually valid filter tags
+  const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { filter } = router.query;
+    if (typeof filter === "string" && ALL_TECHS.includes(filter)) {
+      setActiveFilter(filter);
+    }
+  }, [router.isReady, router.query]);
 
   // Separate scroll reveal refs so the title, personal grid, and work grid animate in independently
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal(0.1);
