@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Project from "./Project";
 import PortfolioModal from "./PortfolioModal";
 import AlifallxModal from "./AlifallxModal";
+import FocusCopilotModal from "./FocusCopilotModal";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, A11y } from "swiper/modules";
@@ -171,6 +172,15 @@ const projectsWork = [
 // Personal projects — shown first in the section
 const projects = [
   {
+    href: "https://adhd-eight-umber.vercel.app/",
+    src: "/images/components/projects/focuscopylot.png",
+    alt: "FocusCopilot, an agentic executive-function assistant for adults with ADHD",
+    text: "Personal Project",
+    year: "2026",
+    tech: "Next.js, React, Tailwind CSS, Postgres, Drizzle, Gemini",
+    description: "An agentic executive-function assistant for adults with ADHD, focused on task initiation over task management.",
+  },
+  {
     href: "https://www.alifallx.com",
     src: "/images/components/projects/alifallx.jpg",
     alt: "Alifallx — a Next.js browser game",
@@ -211,6 +221,7 @@ const projects = [
 // The portfolio card's href — used to detect which project card should show the "Under the hood" button
 const PORTFOLIO_HREF = "https://www.yanakrukovets.com";
 const ALIFALLX_HREF = "https://www.alifallx.com";
+const FOCUSCOPILOT_HREF = "https://adhd-eight-umber.vercel.app/";
 
 const FILTER_EXCLUDE = new Set(["CSS", "HTML", "Sass", "Calendly", "Tidio"]);
 
@@ -235,6 +246,9 @@ const Projects = () => {
 
   // Controls visibility of AlifallxModal
   const [alifallxModalOpen, setAlifallxModalOpen] = useState(false);
+
+  // Controls visibility of FocusCopilotModal
+  const [focusCopilotModalOpen, setFocusCopilotModalOpen] = useState(false);
 
   // Active technology filter — "All" shows every project
   const [activeFilter, setActiveFilter] = useState("All");
@@ -312,6 +326,7 @@ const Projects = () => {
                         onDetails={
                           project.href === PORTFOLIO_HREF ? () => setModalOpen(true) :
                           project.href === ALIFALLX_HREF ? () => setAlifallxModalOpen(true) :
+                          project.href === FOCUSCOPILOT_HREF ? () => setFocusCopilotModalOpen(true) :
                           undefined
                         }
                       />
@@ -330,6 +345,7 @@ const Projects = () => {
                         onDetails={
                           project.href === PORTFOLIO_HREF ? () => setModalOpen(true) :
                           project.href === ALIFALLX_HREF ? () => setAlifallxModalOpen(true) :
+                          project.href === FOCUSCOPILOT_HREF ? () => setFocusCopilotModalOpen(true) :
                           undefined
                         }
                       />
@@ -384,6 +400,7 @@ const Projects = () => {
     {/* Modal is mounted only when open — unmounting it resets internal scroll position */}
     {modalOpen && <PortfolioModal onClose={() => setModalOpen(false)} />}
     {alifallxModalOpen && <AlifallxModal onClose={() => setAlifallxModalOpen(false)} />}
+    {focusCopilotModalOpen && <FocusCopilotModal onClose={() => setFocusCopilotModalOpen(false)} />}
     </>
   );
 };
