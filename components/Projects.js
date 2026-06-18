@@ -29,7 +29,7 @@ const projectsWork = [
     alt: "Next.js website, custom analytics, AI, Canada",
     year: "2026",
     text: "Elite Digital Project",
-    tech: "Next.js, Tailwind CSS, Calendly, Tidio",
+    tech: "Next.js, Tailwind CSS, Calendly, Tidio, Claude Code",
   },
   {
     href: "https://www.eastpenncanada.com/",
@@ -177,7 +177,7 @@ const projects = [
     alt: "FocusCopilot, an agentic executive-function assistant for adults with ADHD",
     text: "Personal Project",
     year: "2026",
-    tech: "Next.js, React, Tailwind CSS, Postgres, Drizzle, Gemini",
+    tech: "Next.js, React, Tailwind CSS, Postgres, Drizzle, Gemini, Claude Code",
     description: "An agentic executive-function assistant for adults with ADHD, focused on task initiation over task management.",
   },
   {
@@ -186,7 +186,7 @@ const projects = [
     alt: "Alifallx — a Next.js browser game",
     text: "Personal Project",
     year: "2026",
-    tech: "Next.js, Tailwind CSS, SCSS, HTML5 Canvas, Framer Motion",
+    tech: "Next.js, Tailwind CSS, SCSS, HTML5 Canvas, Framer Motion, Claude Code",
     description: "A browser-based game built with Next.js and a raw HTML5 Canvas game loop — no game library.",
   },
   {
@@ -204,8 +204,8 @@ const projects = [
     alt: "Yana Krukovets portfolio website",
     year: "2024",
     text: "Personal Project",
-    tech: "Next.js, Tailwind CSS, Sass",
-    description: "This portfolio — built with Next.js, Tailwind CSS, and Sass.",
+    tech: "Next.js, Tailwind CSS, Sass, Gemini, Claude Code",
+    description: "This portfolio — built with Next.js, Tailwind CSS, and Sass, with a Gemini-powered AI chat assistant.",
   },
   {
     href: "https://art-shop-zeta.vercel.app",
