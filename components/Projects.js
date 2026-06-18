@@ -37,7 +37,7 @@ const projectsWork = [
     alt: "Sanity Canada website",
     year: "2026",
     text: "Elite Digital Project",
-    tech: "Next.js, Sanity, Tailwind CSS",
+    tech: "Next.js, Sanity, Tailwind CSS, SCSS",
   },
   {
     href: "https://harmonyorganon.ca/",
@@ -101,7 +101,7 @@ const projectsWork = [
     alt: "Elite Digital Health website",
     year: "2023",
     text: "Elite Digital Project",
-    tech: "Next.js, Tailwind CSS, Sass",
+    tech: "Next.js, Tailwind CSS, Sass, SCSS",
   },
   {
     href: "https://elitedigitalagency.com",
@@ -109,7 +109,7 @@ const projectsWork = [
     alt: "Elite Digital website",
     year: "2023",
     text: "Elite Digital Project",
-    tech: "Next.js, Tailwind CSS, Sass",
+    tech: "Next.js, Tailwind CSS, Sass, SCSS",
   },
   {
     href: "https://orijinsupport.ca/",
@@ -204,7 +204,7 @@ const projects = [
     alt: "Yana Krukovets portfolio website",
     year: "2024",
     text: "Personal Project",
-    tech: "Next.js, Tailwind CSS, Sass, Gemini, Claude Code",
+    tech: "Next.js, Tailwind CSS, Sass, SCSS, Gemini, Claude Code",
     description: "This portfolio — built with Next.js, Tailwind CSS, and Sass, with a Gemini-powered AI chat assistant.",
   },
   {
