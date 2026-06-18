@@ -25,7 +25,7 @@ const projectsWork = [
   {
     href: "https://sleeveclinic.ca/",
     src: "/images/components/projects/sleeve.png",
-    alt: "Sleeve website",
+    alt: "Next.js website, custom analytics, AI, Canada",
     year: "2026",
     text: "Elite Digital Project",
     tech: "Next.js, Tailwind CSS, Calendly, Tidio",
@@ -33,7 +33,7 @@ const projectsWork = [
   {
     href: "https://www.eastpenncanada.com/",
     src: "/images/components/projects/eastpenn.png",
-    alt: "East Penn Canada website",
+    alt: "Sanity Canada website",
     year: "2026",
     text: "Elite Digital Project",
     tech: "Next.js, Sanity, Tailwind CSS",
@@ -41,7 +41,7 @@ const projectsWork = [
   {
     href: "https://harmonyorganon.ca/",
     src: "/images/components/projects/harmony.png",
-    alt: "Harmony Organon website",
+    alt: "WordPress multisite website",
     year: "2026",
     text: "Elite Digital Project",
     tech: "WordPress, JavaScript, jQuery, PHP",
@@ -49,15 +49,15 @@ const projectsWork = [
   {
     href: "https://unite.ca/",
     src: "/images/components/projects/unite.png",
-    alt: "Unite website",
+    alt: "WordPress WordPress website",
     year: "2026",
     text: "Elite Digital Project",
-    tech: "WordPress, PHP, Elementor",
+    tech: "WordPress, PHP, WordPress",
   },
   {
     href: "https://vivalife.ca/",
     src: "/images/components/projects/viva.png",
-    alt: "Viva Life website",
+    alt: "WordPress website",
     year: "2026",
     text: "Elite Digital Project",
     tech: "jQuery, WordPress, JavaScript, PHP",
@@ -65,7 +65,7 @@ const projectsWork = [
   {
     href: "https://firstfrontier.ca/",
     src: "/images/components/projects/firstfrontier.png",
-    alt: "First Frontier website",
+    alt: "WordPress ACF website",
     year: "2025",
     text: "Elite Digital Project",
     tech: "WordPress, JavaScript, PHP, jQuery",
@@ -73,7 +73,7 @@ const projectsWork = [
   {
     href: "https://www.rexulti.ca/",
     src: "/images/components/projects/rexulti.png",
-    alt: "Rexulti website",
+    alt: "Canada website, developer",
     year: "2025",
     text: "Elite Digital Project",
     tech: "Next.js, Tailwind CSS",
@@ -89,7 +89,7 @@ const projectsWork = [
   {
     href: "https://nudestix.ca/",
     src: "/images/components/projects/nudestix.png",
-    alt: "Nudestix website",
+    alt: "Shopify beauty website",
     year: "2025",
     text: "Elite Digital Project",
     tech: "Shopify, Shopify Liquid, jQuery",
@@ -113,7 +113,7 @@ const projectsWork = [
   {
     href: "https://orijinsupport.ca/",
     src: "/images/components/projects/orijin.jpg",
-    alt: "Orijin website",
+    alt: "WordPress Multisite DIVI website",
     year: "2023",
     text: "Elite Digital Project",
     tech: "WordPress Multisite, Divi, JavaScript, PHP, CSS",
@@ -121,7 +121,7 @@ const projectsWork = [
   {
     href: "https://velphoro.orijinsupport.ca/",
     src: "/images/components/projects/velphoro.png",
-    alt: "Velphoro page on the Orijin Support website",
+    alt: "WordPress Multisite website",
     year: "2023",
     text: "Elite Digital Project",
     tech: "Divi, WordPress, PHP",
@@ -129,7 +129,7 @@ const projectsWork = [
   {
     href: "https://korsuva.orijinsupport.ca/",
     src: "/images/components/projects/korsuva.png",
-    alt: "Korsuva page on the Orijin Support website",
+    alt: "WordPress website",
     year: "2023",
     text: "Elite Digital Project",
     tech: "WordPress, Elementor",
@@ -161,7 +161,7 @@ const projectsWork = [
   {
     href: "https://kyleenaandmirena.ca/",
     src: "/images/components/projects/kyleena.png",
-    alt: "Kyleena and Mirena website",
+    alt: "Ckinic Finder website",
     year: "2023",
     text: "Elite Digital Project",
     tech: "Next.js, Tailwind CSS",

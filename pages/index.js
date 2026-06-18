@@ -1,4 +1,5 @@
 import About from "../components/About";
+import BlogCta from "../components/BlogCta";
 import Head from "next/head";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       </Head>
       <div className="max-w-inner xxxl:px-0">
         <About />
+        <BlogCta />
       </div>
     </>
   );
