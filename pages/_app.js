@@ -18,6 +18,10 @@ export default function App({ Component, pageProps }) {
   // no chat, and no self-tracking.
   const isAdmin = router.pathname.startsWith("/admin");
   const isErrorPage = ["/404", "/500"].includes(router.pathname);
+  // Pages loaded inside the admin heatmap iframe preview (see
+  // pages/admin/analytics.js) carry this flag so they don't pollute real
+  // analytics with admin-driven pageviews/clicks, or show chat/consent UI.
+  const isPreview = router.query.__apreview === "1";
 
   if (isAdmin) {
     return <Component {...pageProps} />;
@@ -38,10 +42,10 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
 
-      {/* ChatWidget + analytics shown on all portfolio pages; excluded from error pages */}
-      {!isErrorPage && <ChatWidget />}
-      {!isErrorPage && <AnalyticsTracker />}
-      {!isErrorPage && <ConsentBanner />}
+      {/* ChatWidget + analytics shown on all portfolio pages; excluded from error pages and admin previews */}
+      {!isErrorPage && !isPreview && <ChatWidget />}
+      {!isErrorPage && !isPreview && <AnalyticsTracker />}
+      {!isErrorPage && !isPreview && <ConsentBanner />}
     </>
   );
 }

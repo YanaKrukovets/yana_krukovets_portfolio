@@ -1,9 +1,21 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { BLOG_POSTS as POSTS } from "../../lib/blogPosts";
 
+const POSTS_PER_PAGE = 5;
+
 export default function Blog() {
+  const router = useRouter();
+  const totalPages = Math.max(1, Math.ceil(POSTS.length / POSTS_PER_PAGE));
+  const currentPage = Math.min(
+    totalPages,
+    Math.max(1, parseInt(router.query.page, 10) || 1)
+  );
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const pagePosts = POSTS.slice(startIndex, startIndex + POSTS_PER_PAGE);
+
   return (
     <>
       <Head>
@@ -37,7 +49,7 @@ export default function Blog() {
         </div>
 
         <ul className="blog-list" role="list">
-          {POSTS.map((post) => (
+          {pagePosts.map((post) => (
             <li key={post.slug} className="blog-card">
               {post.image && (
                 <Link href={`/blog/${post.slug}`} className="blog-card__image-link" tabIndex={-1} aria-hidden="true">
@@ -71,6 +83,42 @@ export default function Blog() {
             </li>
           ))}
         </ul>
+
+        {totalPages > 1 && (
+          <div className="blog-pagination" role="navigation" aria-label="Blog pagination">
+            <Link
+              href={currentPage <= 2 ? "/blog" : `/blog?page=${currentPage - 1}`}
+              className={`blog-pagination__arrow ${currentPage === 1 ? "blog-pagination__arrow--disabled" : ""}`}
+              aria-disabled={currentPage === 1}
+              aria-label="Previous page"
+            >
+              ← Prev
+            </Link>
+
+            <ul className="blog-pagination__list" role="list">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <li key={page}>
+                  <Link
+                    href={page === 1 ? "/blog" : `/blog?page=${page}`}
+                    className={`blog-pagination__link ${page === currentPage ? "blog-pagination__link--active" : ""}`}
+                    aria-current={page === currentPage ? "page" : undefined}
+                  >
+                    {page}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href={`/blog?page=${currentPage + 1}`}
+              className={`blog-pagination__arrow ${currentPage === totalPages ? "blog-pagination__arrow--disabled" : ""}`}
+              aria-disabled={currentPage === totalPages}
+              aria-label="Next page"
+            >
+              Next →
+            </Link>
+          </div>
+        )}
       </div>
       </div>
     </>

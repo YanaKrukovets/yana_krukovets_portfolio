@@ -14,39 +14,103 @@ function MetricCard({ label, value }) {
   );
 }
 
-// Simple click heatmap: scatter the relative click points on a canvas.
-function Heatmap({ points }) {
-  const canvasRef = useRef(null);
+// Click heatmap: overlays click points on a live iframe of the real page,
+// rendered at a fixed desktop width. x_pct/y_pct are percentages of full
+// document width/height (see AnalyticsTracker.js), so they line up with the
+// iframe regardless of its rendered size. The panel scrolls (instead of
+// scaling everything to fit) so clicks far down the page are still reachable
+// at a readable size rather than being squashed into a few pixels.
+const HEATMAP_FRAME_WIDTH = 1280;
+const HEATMAP_PANEL_HEIGHT = 420;
+// Some pages (e.g. the homepage hero) size elements relative to the viewport
+// height. Since the iframe's own box height *is* its viewport height, letting
+// the measured content height drive the iframe height feeds back into those
+// vh-based elements, which grow, which grows the measurement again — runaway.
+// Capping the applied height gives that feedback loop nowhere to go.
+const MAX_FRAME_HEIGHT = 4000;
+
+function Heatmap({ path, points }) {
+  const containerRef = useRef(null);
+  const iframeRef = useRef(null);
+  const contentObserverRef = useRef(null);
+  const [scale, setScale] = useState(1);
+  const [frameHeight, setFrameHeight] = useState(720);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const { width, height } = canvas;
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.04)";
-    ctx.fillRect(0, 0, width, height);
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => setScale(el.clientWidth / HEATMAP_FRAME_WIDTH);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
-    for (const p of points) {
-      const x = (p.x / 100) * width;
-      const y = (p.y / 100) * height;
-      const grad = ctx.createRadialGradient(x, y, 0, x, y, 18);
-      grad.addColorStop(0, "rgba(224, 165, 224, 0.6)");
-      grad.addColorStop(1, "rgba(224, 165, 224, 0)");
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(x, y, 18, 0, Math.PI * 2);
-      ctx.fill();
+  // The iframe's `load` event fires before late reflows (lazy images,
+  // web fonts swapping in) finish growing the page, so a one-shot height
+  // read undershoots. Watch the content height continuously instead.
+  useEffect(() => () => contentObserverRef.current?.disconnect(), [path]);
+
+  const handleLoad = () => {
+    try {
+      const doc = iframeRef.current?.contentDocument;
+      if (!doc) return;
+      contentObserverRef.current?.disconnect();
+      const measure = () =>
+        setFrameHeight(Math.min(doc.documentElement.scrollHeight, MAX_FRAME_HEIGHT));
+      measure();
+      const ro = new ResizeObserver(measure);
+      ro.observe(doc.documentElement);
+      contentObserverRef.current = ro;
+    } catch {
+      // Should never be cross-origin here; keep the previous height if so.
     }
-  }, [points]);
+  };
+
+  // __apreview=1 tells _app.js to skip mounting ChatWidget/AnalyticsTracker/
+  // ConsentBanner for this load, so viewing the heatmap doesn't generate fake
+  // pageview/click events for the very page being inspected.
+  const previewSrc = `${path}${path.includes("?") ? "&" : "?"}__apreview=1`;
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={640}
-      height={420}
-      className="w-full rounded-lg border border-white/15"
-    />
+    <div
+      className="overflow-y-auto rounded-lg border border-white/15 bg-white/5"
+      style={{ maxHeight: HEATMAP_PANEL_HEIGHT }}
+    >
+      <div ref={containerRef} className="relative w-full" style={{ height: frameHeight * scale }}>
+        <div
+          className="absolute left-0 top-0 origin-top-left"
+          style={{ width: HEATMAP_FRAME_WIDTH, height: frameHeight, transform: `scale(${scale})` }}
+        >
+          <iframe
+            ref={iframeRef}
+            key={path}
+            src={previewSrc}
+            width={HEATMAP_FRAME_WIDTH}
+            height={frameHeight}
+            onLoad={handleLoad}
+            title="Page preview for heatmap"
+            className="pointer-events-none border-0"
+          />
+          {points.map((p, i) => (
+            <span
+              key={i}
+              className="pointer-events-none absolute rounded-full"
+              style={{
+                left: `${p.x}%`,
+                top: `${p.y}%`,
+                width: 24,
+                height: 24,
+                marginLeft: -12,
+                marginTop: -12,
+                background:
+                  "radial-gradient(circle, rgba(224,165,224,0.65) 0%, rgba(224,165,224,0) 70%)",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -336,7 +400,7 @@ export default function AnalyticsDashboard() {
                         No click data for this page yet.
                       </p>
                     ) : (
-                      <Heatmap points={heatmap} />
+                      <Heatmap path={selectedPath} points={heatmap} />
                     )}
                   </div>
 
