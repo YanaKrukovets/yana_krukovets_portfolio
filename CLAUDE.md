@@ -10,9 +10,18 @@ Personal portfolio website for Yana Krukovets, a Full Stack Developer based in O
 - **Icons**: `react-icons` (AiFillGithub, AiFillLinkedin) + FontAwesome (`@fortawesome/react-fontawesome`)
 - **Contact form**: `@formspree/react` with form ID `mjvllaww`
 - **AI chat**: `@google/generative-ai` (Gemini 2.5 Flash) — backend at `pages/api/chat.js`, rate-limited 10 req/IP/min
+- **Analytics**: Custom, cookieless, first-party analytics stored in **Supabase** (`@supabase/supabase-js`) with **Gemini**-generated improvement suggestions. See the Analytics section below.
 - **i18n**: Next.js built-in i18n (`en` / `fr`), locale strings in `locales/en.js` and `locales/fr.js`
 - **Testing**: Playwright (`@playwright/test`) — config in `playwright.config.js`, tests in `tests/`
 - **Deployment**: Vercel
+
+## Commands
+
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Lint: `npm run lint`
+- Tests: `npm test` (Playwright; use `PORT=3105 npm test` if port 3000 is busy)
+- Tests (UI mode): `npm run test:ui`
 
 ## Project Structure
 
@@ -21,7 +30,8 @@ components/       Flat directory — all components at top level, no subdirector
 hooks/            useScrollReveal.js, useTypewriter.js — custom React hooks
 lib/              blogPosts.js — shared BLOG_POSTS metadata array (single source of truth for blog posts)
 locales/          en.js and fr.js — plain JS export objects for i18n strings
-pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, contact.js, projects.js, privacy-policy.js, api/hello.js, api/chat.js
+pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, contact.js, projects.js, privacy-policy.js, api/hello.js, api/chat.js, api/track.js, api/insights.js, api/admin-login.js, api/admin-stats.js
+pages/admin/      analytics.js — password-gated analytics dashboard (noindex)
 pages/blog/       index.js (blog listing) + one .js file per post (currently 5 posts)
 tests/            portfolio.spec.js — Playwright end-to-end tests (SEO, a11y, responsiveness, content)
 playwright.config.js  Playwright config — Chromium only; port defaults to 3000, override with PORT env var (e.g. `PORT=3105 npx playwright test`)
@@ -75,32 +85,11 @@ styles/           Global SCSS only — no CSS Modules
 
 ## Adding a Project
 
-Projects are hardcoded arrays in `components/Projects.js`:
-
-- `projects` — personal projects (rendered on site)
-- `projectsWork` — work projects (rendered on site, below personal projects)
-
-Each entry shape:
-```js
-{
-  href: "https://...",
-  src: "/images/components/projects/filename.jpg",
-  alt: "Description for accessibility",
-  text: "Personal Project" | "Elite Digital Project" | etc.,
-  tech: "Next.js, Tailwind CSS, Sass",
-  year: "2024",
-}
-```
-
-Place project screenshots in `public/images/components/projects/`.
+Use the `add-project` skill. (Projects are hardcoded arrays — `projects` and `projectsWork` — in `components/Projects.js`; screenshots go in `public/images/components/projects/`.)
 
 ## Updating Content
 
-All content is in `components/About.js`. Structure:
-- **Bio** — JSX paragraphs in the bio block (starts "My name is Yana Krukovets...")
-- **Skills** — `SKILLS` array at the top of the file; each entry is `{ icon, label, color }` rendered as a branded icon grid
-- **Experience** — `EXPERIENCE` array at the top of the file; each entry is `{ period, role, company, href, location }` rendered as a vertical timeline; currently 4 entries
-- **Hobbies** — JSX paragraph in the bio block
+Use the `update-content` skill. (Bio, `SKILLS`, `EXPERIENCE`, and hobbies all live in `components/About.js`.)
 
 ## i18n Notes
 
@@ -108,36 +97,29 @@ French (`fr`) locale content is largely placeholder (identical to English or stu
 
 ## Blog
 
-Blog posts live in `pages/blog/`. Each post is its own `.js` file (Pages Router — no dynamic routes yet).
+Use the `new-blog-post` skill — it enforces the full checklist (metadata in `lib/blogPosts.js`, SEO/FAQ schema, accessibility, sitemap update, and a `write-like-a-human` pass). Posts live in `pages/blog/`, one `.js` file each (Pages Router — no dynamic routes); banners go in `public/images/blogs/` (760×400px).
 
-When writing a new post, use the `new-blog-post` skill (`.claude/skills/new-blog-post/SKILL.md`) — it enforces the full checklist below plus accessibility requirements, a mandatory FAQ section with matching `FAQPage` schema, and a `write-like-a-human` final pass on the prose.
+## Analytics
 
-**Post metadata** lives in the shared `BLOG_POSTS` array in `lib/blogPosts.js` — used by both the blog index (`pages/blog/index.js`) and the `RelatedPosts` component. Add a new entry there whenever a new post is published:
-```js
-{
-  slug: "post-slug",               // matches the filename (without .js)
-  title: "Post title",
-  date: "Month DD, YYYY",
-  isoDate: "YYYY-MM-DD",           // machine-readable date for <time dateTime>
-  readTime: "X min read",
-  category: "Category label",
-  image: "/images/blogs/filename.png",
-  description: "One-sentence teaser shown on the listing page.",
-}
-```
+Custom, Hotjar-style analytics — cookieless and anonymous (opt-out model: tracking runs by default until a visitor clicks "Decline" on the consent banner; also disabled by Do-Not-Track).
 
-**Each post page** should include:
-- `BlogPosting` JSON-LD (structured data for Google)
-- `FAQPage` JSON-LD if the post has clear Q&A sections (helps rich snippets)
-- `og:image`, `og:title`, `og:description`, `og:url` with `key` props to override Layout defaults
-- Twitter card overrides: `twitter:title`, `twitter:description`, `twitter:image`, `twitter:url` with `key` props
-- `<BlogCta />` in the article footer — CTA card linking to `/projects`, `/#about`, and `/contact`
-- `<RelatedPosts currentSlug="post-slug" />` after the article footer (inside `blog-article__inner`)
-- Inline contextual links to other posts where topics naturally overlap
+**Data flow:** browser → `/api/track` → Supabase. Dashboard reads aggregates → `/api/insights` → Gemini → suggestions. The Supabase **service-role key is server-only**; the browser never touches Supabase directly.
 
-**Sitemap** (`public/sitemap.xml`) — manually maintained. Add `/blog` and each new post URL when publishing. Set `changefreq: yearly` and `priority: 0.7` for posts.
+| Piece | File |
+|---|---|
+| Client tracker (cookieless, batched, sessionStorage id) | `lib/analytics.js` |
+| Headless global tracker (pageviews, clicks/heatmap coords, scroll depth, time-on-page) | `components/AnalyticsTracker.js` |
+| Opt-out consent banner | `components/ConsentBanner.js` (+ `styles/components/_consentBanner.scss`) |
+| Event ingestion (validates + inserts; 204 silently if unconfigured) | `pages/api/track.js` |
+| Server Supabase client (lazy, null if env missing) | `lib/supabaseAdmin.js` |
+| Aggregation helpers (raw rows never leave the server) | `lib/analyticsAggregate.js` |
+| Password auth (signed httpOnly cookie) | `lib/adminAuth.js`, `pages/api/admin-login.js` |
+| Dashboard data + AI suggestions | `pages/api/admin-stats.js`, `pages/api/insights.js` |
+| Dashboard UI (password-gated, `noindex`) | `pages/admin/analytics.js` |
 
-**Images** — place blog banners in `public/images/blogs/`. Recommended size: 760×400px (used in OG tags and article banner).
+`/admin/*` pages render standalone in `_app.js` (no site chrome, chat, or self-tracking).
+
+**Setup:** run `supabase/schema.sql` in the Supabase SQL editor, then set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ANALYTICS_ADMIN_PASSWORD`, `ANALYTICS_SESSION_SECRET` (see `.env.example`). View at `/admin/analytics`.
 
 ## Known Quirks
 

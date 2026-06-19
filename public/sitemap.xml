@@ -31,6 +31,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.yanakrukovets.com/blog/claude-code-security-and-privacy</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.yanakrukovets.com/blog/how-i-use-ai-on-wordpress-projects</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.yanakrukovets.com/blog/wordpress-seo-yoast</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>yearly</changefreq>
