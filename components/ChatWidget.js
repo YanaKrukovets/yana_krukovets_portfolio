@@ -10,6 +10,21 @@ const SUGGESTED_QUESTIONS = [
   "Are you available for hire?",
 ];
 
+const URL_PATTERN = /(https?:\/\/[^\s]+)/g;
+
+// Splits message text on URLs and renders them as clickable links, leaving
+// everything else as plain text — avoids dangerouslySetInnerHTML.
+const renderWithLinks = (text) =>
+  text.split(URL_PATTERN).map((part, i) =>
+    /^https?:\/\//.test(part) ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer">
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+
 // Floating AI chat assistant — rendered only on the homepage (controlled in _app.js).
 // Sends messages to /api/chat which proxies to Google Gemini with a Yana-specific system prompt.
 const ChatWidget = () => {
@@ -146,7 +161,7 @@ const ChatWidget = () => {
             {messages.map((msg) => (
               // User messages are right-aligned (--user), bot messages left-aligned (--bot)
               <div key={msg.id} className={`chat-message chat-message--${msg.role === "user" ? "user" : "bot"}`}>
-                <p>{msg.text}</p>
+                <p>{renderWithLinks(msg.text)}</p>
               </div>
             ))}
 
