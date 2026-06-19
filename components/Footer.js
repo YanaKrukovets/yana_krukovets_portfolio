@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { trackConversion } from "../lib/analytics";
 
 export default function Footer() {
   return (
@@ -23,7 +24,14 @@ export default function Footer() {
               <Link href="/contact">Contact</Link>
             </div>
             <div className="footer-nav-col">
-              <a href="/Yana_Krukovets_CV.pdf" download aria-label="Download resume (PDF)">Resume</a>
+              <a
+                href="/Yana_Krukovets_CV.pdf"
+                download
+                aria-label="Download resume (PDF)"
+                onClick={() => trackConversion("cv_downloaded", { path: window.location.pathname })}
+              >
+                Resume
+              </a>
               <Link href="/privacy-policy">Privacy Policy</Link>
               <div className="footer-social">
                 <a

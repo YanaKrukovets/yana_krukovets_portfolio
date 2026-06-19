@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { trackConversion } from "../lib/analytics";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import {
   SiHtml5,
@@ -152,6 +153,7 @@ const About = () => {
               download
               className="btn inline-flex items-center gap-[8px] mt-[10px]"
               aria-label="Download Yana Krukovets resume"
+              onClick={() => trackConversion("cv_downloaded", { path: window.location.pathname })}
             >
               <FontAwesomeIcon icon={faDownload} className="w-4" />
               Download CV

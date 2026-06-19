@@ -1,0 +1,76 @@
+@use "../base/variables" as *;
+
+// Opt-out analytics consent banner — fixed to the bottom of the viewport.
+.consent-banner {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: calc(100% - 32px);
+  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: rgba(9, 10, 15, 0.92);
+  border: 1px solid rgba($color-accent, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  color: $color-white;
+
+  @media (max-width: $medium-max-width) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba($color-white, 0.85);
+  }
+
+  &__link {
+    color: $color-accent;
+    text-decoration: underline;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  &__btn {
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+
+    &--primary {
+      background: $color-accent;
+      color: #090a0f;
+      border: 1px solid $color-accent;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+
+    &--ghost {
+      background: transparent;
+      color: rgba($color-white, 0.8);
+      border: 1px solid rgba($color-white, 0.3);
+
+      &:hover {
+        background: rgba($color-white, 0.08);
+      }
+    }
+  }
+}

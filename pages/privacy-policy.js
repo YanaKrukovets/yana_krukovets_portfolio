@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
       <div className="max-w-inner xxxl:px-0">
         <div className="content-wrapper font-roboto py-[60px] text-black">
           <h1 className="text-[32px] font-bold mb-[30px] pt-[40px]">Privacy Policy</h1>
-          <p className="text-[14px] text-gray-500 mb-[40px]">Last updated: June 5, 2026</p>
+          <p className="text-[14px] text-gray-500 mb-[40px]">Last updated: June 18, 2026</p>
 
           <section className="mb-[40px]">
             <h2 className="text-[22px] font-semibold mb-[16px]">1. Information I collect</h2>
@@ -42,16 +42,28 @@ export default function PrivacyPolicy() {
 
           <section className="mb-[40px]">
             <h2 className="text-[22px] font-semibold mb-[16px]">5. Cookies</h2>
-            <p>This website does not use tracking cookies or analytics services. No cookie consent is required.</p>
+            <p>This website does not use advertising or cross-site tracking cookies. The only cookie that may be set is a strictly necessary session cookie used to keep the site owner signed in to the private analytics dashboard — it is never set for ordinary visitors.</p>
           </section>
 
           <section className="mb-[40px]">
-            <h2 className="text-[22px] font-semibold mb-[16px]">6. Your rights</h2>
+            <h2 className="text-[22px] font-semibold mb-[16px]">6. Analytics</h2>
+            <p className="mb-[12px]">This site uses a privacy-friendly, first-party analytics system to understand how visitors interact with the pages (for example, which pages are viewed, how far people scroll, and where they click). This helps improve the site&apos;s content and usability.</p>
+            <p className="mb-[12px]">This analytics is designed to respect your privacy:</p>
+            <ul className="list-disc pl-[24px] space-y-[8px] mb-[12px]">
+              <li><strong>No cookies</strong> are used for analytics. A random, temporary session identifier is held only in your browser&apos;s session storage and is discarded when you close the tab.</li>
+              <li><strong>No personal data</strong> is collected — no names, emails, or precise IP addresses are stored (your IP is used transiently only to prevent abuse and is not retained with the analytics data).</li>
+              <li>The data is anonymous and aggregated, and is stored on infrastructure provided by <a href="https://supabase.com" className="underline" target="_blank" rel="noopener noreferrer">Supabase</a>. Aggregated summaries may be processed by Google&apos;s Gemini AI to generate suggestions for improving the site.</li>
+            </ul>
+            <p>Analytics is enabled by default, but you can <strong>opt out at any time</strong> by selecting &quot;Decline&quot; on the consent banner shown on your first visit. If your browser sends a &quot;Do Not Track&quot; signal, analytics is disabled automatically.</p>
+          </section>
+
+          <section className="mb-[40px]">
+            <h2 className="text-[22px] font-semibold mb-[16px]">7. Your rights</h2>
             <p>Under PIPEDA (Canada) and applicable privacy laws, you have the right to access, correct, or request deletion of any personal information you have submitted. Contact <a href="mailto:yanashelli@gmail.com" className="underline">yanashelli@gmail.com</a> to exercise these rights.</p>
           </section>
 
           <section className="mb-[40px]">
-            <h2 className="text-[22px] font-semibold mb-[16px]">7. Contact</h2>
+            <h2 className="text-[22px] font-semibold mb-[16px]">8. Contact</h2>
             <p>For any privacy-related questions, reach out via the <Link href="/contact" className="underline">contact page</Link> or email <a href="mailto:krukovets.yana@gmail.com" className="underline">krukovets.yana@gmail.com</a>.</p>
           </section>
         </div>

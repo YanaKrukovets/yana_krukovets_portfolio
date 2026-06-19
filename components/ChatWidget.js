@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { trackConversion } from "../lib/analytics";
 
 // Shown only on the first open (when there's just the welcome message) —
 // gives users conversation starters without having to think of a question
@@ -102,7 +103,15 @@ const ChatWidget = () => {
       {/* Toggle button — floats in the bottom-right corner; icon swaps between chat bubble and X */}
       <button
         className="chat-toggle-btn"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={() =>
+          setIsOpen((prev) => {
+            const next = !prev;
+            if (next) {
+              trackConversion("chat_opened", { path: window.location.pathname });
+            }
+            return next;
+          })
+        }
         aria-label={isOpen ? "Close chat" : "Open chat with Yana's AI assistant"}
       >
         {isOpen ? (

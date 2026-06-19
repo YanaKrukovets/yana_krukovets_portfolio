@@ -1,8 +1,16 @@
+import { useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { trackConversion } from "../lib/analytics";
 
 function ContactForm() {
   const [state, handleSubmit] = useForm("mjvllaww");
+
+  useEffect(() => {
+    if (state.succeeded) {
+      trackConversion("contact_form_submitted", { path: window.location.pathname });
+    }
+  }, [state.succeeded]);
 
   if (state.succeeded) {
     return (

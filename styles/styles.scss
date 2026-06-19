@@ -12,8 +12,10 @@
 @use "./components/animations";
 @use "./components/chat";
 @use "./components/portfolioModal";
+@use "./components/consentBanner";
 @use "./components/errorPages";
 @use "./components/blog";
+@use "./components/adminAnalytics";
 
 @tailwind base;
 @tailwind components;

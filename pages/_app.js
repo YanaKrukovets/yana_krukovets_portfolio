@@ -1,5 +1,7 @@
 import Layout from "../components/Layout";
 import ChatWidget from "../components/ChatWidget";
+import AnalyticsTracker from "../components/AnalyticsTracker";
+import ConsentBanner from "../components/ConsentBanner";
 import "../styles/styles.scss";  // single global stylesheet import — all SCSS partials load from here
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -11,6 +13,15 @@ const FONT_URL =
 // Next.js calls this component for every route; Component is the active page component.
 export default function App({ Component, pageProps }) {
   const router = useRouter();
+
+  // Admin pages (e.g. the analytics dashboard) are standalone: no site chrome,
+  // no chat, and no self-tracking.
+  const isAdmin = router.pathname.startsWith("/admin");
+  const isErrorPage = ["/404", "/500"].includes(router.pathname);
+
+  if (isAdmin) {
+    return <Component {...pageProps} />;
+  }
 
   return (
     <>
@@ -27,8 +38,10 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
 
-      {/* ChatWidget shown on all portfolio pages; excluded from error pages */}
-      {!["/404", "/500"].includes(router.pathname) && <ChatWidget />}
+      {/* ChatWidget + analytics shown on all portfolio pages; excluded from error pages */}
+      {!isErrorPage && <ChatWidget />}
+      {!isErrorPage && <AnalyticsTracker />}
+      {!isErrorPage && <ConsentBanner />}
     </>
   );
 }

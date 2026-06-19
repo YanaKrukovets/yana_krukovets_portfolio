@@ -1,0 +1,203 @@
+@use '../base/variables' as *;
+
+// Site-wide admin dashboard — mirrors the dark radial gradient + accent
+// palette used on /projects and /contact so this page doesn't look bolted on.
+
+.admin-page {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, $color-bg-gradient-start 0%, $color-bg-gradient-end 100%);
+  color: #ffffff;
+}
+
+.admin-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+}
+
+.admin-metric-card {
+  @extend .admin-card;
+  padding: 16px;
+
+  &__label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-teal;
+    margin-bottom: 6px;
+  }
+
+  &__value {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+}
+
+.admin-input {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  appearance: none;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-teal;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba($color-teal, 0.35);
+  }
+}
+
+.admin-select {
+  @extend .admin-input;
+  width: auto;
+  padding: 8px 12px;
+  color-scheme: dark;
+
+  option {
+    color: #111;
+  }
+}
+
+// Outlined accent button — secondary actions (log out)
+.admin-btn-outline {
+  border: 1.5px solid rgba($color-accent, 0.55);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+  }
+}
+
+// Solid accent button — primary actions (sign in, generate suggestions)
+.admin-btn-solid {
+  border: none;
+  background: $color-accent;
+  color: $color-btn-hover-text;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    box-shadow: 0 0 10px $color-accent, 0 0 30px rgba($color-accent, 0.6);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+  }
+}
+
+.admin-title {
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 40%, $color-accent 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.admin-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $color-accent;
+}
+
+.admin-tab {
+  padding: 10px 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    border-color: rgba($color-accent, 0.55);
+    color: #ffffff;
+  }
+
+  &.is-active {
+    background: $color-accent;
+    border-color: $color-accent;
+    color: $color-btn-hover-text;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+  }
+
+  width: 100%;
+  text-align: left;
+  border-radius: 10px;
+
+  @media (max-width: $small-max-width) {
+    width: auto;
+    border-radius: 20px;
+  }
+}
+
+.admin-table {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+
+  thead {
+    color: $color-teal;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  tbody tr {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  tbody tr.is-selected {
+    background: rgba($color-accent, 0.12);
+  }
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { trackConversion } from "../lib/analytics";
 
 // Single project card used in both the personal and work grids (and the Swiper carousel on mobile).
 // Props:
@@ -16,7 +17,18 @@ const Project = ({ href, src, alt, tech, text, year, description, onDetails }) =
     <div>
       <div className="project-card">
         {/* Clicking the image opens the live site in a new tab */}
-        <a href={href} target="_blank" rel="noreferrer" aria-label={`${alt} — view live (opens in new tab)`}>
+        <a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${alt} — view live (opens in new tab)`}
+          onClick={() =>
+            trackConversion("project_link_clicked", {
+              path: window.location.pathname,
+              label: alt,
+            })
+          }
+        >
           <div className="imageContainer">
             <Image
               src={src}
