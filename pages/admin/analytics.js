@@ -384,6 +384,9 @@ export default function AnalyticsDashboard() {
                 <section className="mb-8 grid grid-cols-2 gap-6 md:grid-cols-1">
                   <div className="admin-card p-5">
                     <h2 className="admin-label mb-3">Click heatmap</h2>
+                    <p className="mb-3 text-xs text-white/40">
+                      Desktop clicks only — the preview renders at a fixed desktop width, and mobile&apos;s reflowed layout wouldn&apos;t line up.
+                    </p>
                     <select
                       value={selectedPath || ""}
                       onChange={(e) => setSelectedPath(e.target.value)}
