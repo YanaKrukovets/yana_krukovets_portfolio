@@ -17,8 +17,8 @@ import {
   SiPhp,
   SiMysql,
   SiPostgresql,
-  SiDrizzle,
   SiGooglegemini,
+  SiClaude,
 } from "react-icons/si";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
@@ -42,8 +42,8 @@ const SKILLS = [
   { icon: SiPhp, label: "PHP", color: "#777bb4", filter: "PHP" },
   { icon: SiMysql, label: "mySQL", color: "#4479a1" },
   { icon: SiPostgresql, label: "Postgres", color: "#4169e1", filter: "Postgres" },
-  { icon: SiDrizzle, label: "Drizzle", color: "#c5f74f", filter: "Drizzle" },
   { icon: SiGooglegemini, label: "Gemini", color: "#8e75b2", filter: "Gemini" },
+  { icon: SiClaude, label: "Claude Code", color: "#d97757", filter: "Claude Code" },
 ];
 
 // Rendered as a vertical timeline — most recent entry first.
