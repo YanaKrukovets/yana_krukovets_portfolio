@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
@@ -5,16 +6,34 @@ import { useRouter } from "next/router";
 import { BLOG_POSTS as POSTS } from "../../lib/blogPosts";
 
 const POSTS_PER_PAGE = 5;
+const CATEGORIES = ["All", ...Array.from(new Set(POSTS.map((post) => post.category)))];
 
 export default function Blog() {
   const router = useRouter();
-  const totalPages = Math.max(1, Math.ceil(POSTS.length / POSTS_PER_PAGE));
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredPosts = useMemo(
+    () =>
+      activeCategory === "All"
+        ? POSTS
+        : POSTS.filter((post) => post.category === activeCategory),
+    [activeCategory]
+  );
+
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
   const currentPage = Math.min(
     totalPages,
     Math.max(1, parseInt(router.query.page, 10) || 1)
   );
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const pagePosts = POSTS.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  const pagePosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+
+  const handleCategoryClick = (category) => {
+    setActiveCategory(category);
+    if (router.query.page) {
+      router.push("/blog", undefined, { shallow: true });
+    }
+  };
 
   return (
     <>
@@ -43,10 +62,30 @@ export default function Blog() {
         <div className="blog-page__header">
           <h1 className="blog-page__title">Blog</h1>
           <p className="blog-page__subtitle">
-            Notes from real projects — on WordPress, performance, and building
-            things that last.
+            Notes from real projects...
           </p>
         </div>
+
+        <ul className="blog-filters" role="list" aria-label="Filter posts by category">
+          {CATEGORIES.map((category) => (
+            <li key={category}>
+              <button
+                type="button"
+                className={`blog-filters__tag ${
+                  category === activeCategory ? "blog-filters__tag--active" : ""
+                }`}
+                aria-pressed={category === activeCategory}
+                onClick={() => handleCategoryClick(category)}
+              >
+                {category}
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        {pagePosts.length === 0 && (
+          <p className="blog-list__empty">No posts in this category yet.</p>
+        )}
 
         <ul className="blog-list" role="list">
           {pagePosts.map((post) => (

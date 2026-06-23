@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackConversion } from "../lib/analytics";
-import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { AiFillGithub, AiFillLinkedin, AiOutlineMail } from "react-icons/ai";
 import {
   SiHtml5,
   SiCss3,
@@ -19,6 +19,7 @@ import {
   SiPostgresql,
   SiGooglegemini,
   SiClaude,
+  SiPython,
 } from "react-icons/si";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
@@ -44,6 +45,7 @@ const SKILLS = [
   { icon: SiPostgresql, label: "Postgres", color: "#4169e1", filter: "Postgres" },
   { icon: SiGooglegemini, label: "Gemini", color: "#8e75b2", filter: "Gemini" },
   { icon: SiClaude, label: "Claude Code", color: "#d97757", filter: "Claude Code" },
+  { icon: SiPython, label: "Python", color: "#3776ab", filter: "Python" },
 ];
 
 // Rendered as a vertical timeline — most recent entry first.
@@ -76,6 +78,8 @@ const EXPERIENCE = [
     company: "IT Academy \"Step\"",
     href: "https://itstep.org",
     location: "Dnipro, Ukraine",
+    description:
+      "Taught the basics of C++ to kids aged 10-14, covering topics like variables, functions, operators, data types, and simple algorithms such as bubble sort and factorial.",
   },
 ];
 
@@ -230,6 +234,9 @@ const About = () => {
                   </a>
                 </p>
                 <span className="timeline-location">{item.location}</span>
+                {item.description && (
+                  <p className="timeline-description">{item.description}</p>
+                )}
               </div>
             </div>
           ))}
@@ -239,7 +246,7 @@ const About = () => {
       {/* Social links — GitHub and LinkedIn icons from react-icons */}
       <div
         ref={socialRef}
-        className={`flex justify-center py-[10px] mt-[20px] social reveal${socialVisible ? " reveal--visible" : ""}`}
+        className={`flex justify-center py-[10px] mt-[20px] social-links reveal${socialVisible ? " reveal--visible" : ""}`}
       >
         <a
           href="https://github.com/YanaKrukovets"
@@ -258,6 +265,9 @@ const About = () => {
         >
           <AiFillLinkedin className="social-media" role="presentation" />
         </a>
+        <Link href="/contact" aria-label="Link to Yana Krukovets contact page">
+          <AiOutlineMail className="social-media" role="presentation" />
+        </Link>
       </div>
     </div>
   );

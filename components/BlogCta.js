@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function BlogCta() {
+  const router = useRouter();
+  const isHome = router.pathname === "/";
+
   return (
     <section className="blog-cta" aria-labelledby="blog-cta-title">
       <p id="blog-cta-title" className="blog-cta__title">
@@ -15,9 +19,15 @@ export default function BlogCta() {
         <Link href="/projects" className="blog-cta__button">
           View Projects
         </Link>
-        <Link href="/#about" className="blog-cta__button">
-          About Yana
-        </Link>
+        {isHome ? (
+          <Link href="/blog" className="blog-cta__button">
+            Read the Blog
+          </Link>
+        ) : (
+          <Link href="/#about" className="blog-cta__button">
+            About Yana
+          </Link>
+        )}
         <Link href="/contact" className="blog-cta__button">
           Get in Touch
         </Link>

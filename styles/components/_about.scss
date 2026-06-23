@@ -115,6 +115,13 @@
   color: $color-font-primary;
 }
 
+.timeline-description {
+  font-size: 13px;
+  opacity: 0.8;
+  color: $color-font-primary;
+  margin-top: 4px;
+}
+
 .profile-img {
   border: 3px solid $color-accent;
   box-shadow: 0 0 10px $color-accent, 0 0 40px $color-accent, 0 0 80px $color-accent;
@@ -128,7 +135,11 @@
   margin-bottom: 40px;
 }
 
+.social-links a:last-child .social-media {
+  margin-right: 0;
+}
+
 .social-media {
   font-size: 35px;
-  margin-right: 20px;
+  margin-right: 10px;
 }

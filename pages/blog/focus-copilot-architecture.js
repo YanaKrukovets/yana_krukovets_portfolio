@@ -36,14 +36,7 @@ const faqJsonLd = JSON.stringify({
         text: "Because a database-session lookup means a Postgres round-trip on every request, and a serverless connection pool occasionally hands back a stale connection that hangs instead of failing fast. A JWT session validates a signed cookie in memory with zero database calls, so a flaky connection can never eat the whole function timeout just to confirm someone is logged in.",
       },
     },
-    {
-      "@type": "Question",
-      name: "Why does Focus Copilot avoid TypeScript?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "It's a deliberate constraint, not a shortcut. Every file starts with a // @ts-check comment, which tells the editor and tsc to type-check that file using JSDoc tags as real annotations. That catches the same class of bug TypeScript catches, without a compile step or a new file extension, though it only works as a real gate if tsc --noEmit is actually wired into CI.",
-      },
-    },
+   
     {
       "@type": "Question",
       name: "Why run three separate AI agents instead of one general-purpose assistant?",
@@ -149,11 +142,9 @@ export default function FocusCopilotArchitecture() {
             <a href="https://github.com/YanaKrukovets/adhd" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
-            ) is an ADHD and focus assistant: it turns a vague intention into
+            ) is a focus assistant: it turns a vague intention into
             a plan, stays with you while you work, and talks you down when
-            anxiety gets in the way. I built it as a learning project to get
-            hands-on with a stack I hadn&apos;t combined before, not as a
-            commercial product. The interesting part isn&apos;t the app
+            anxiety gets in the way. I built it as a learning project. The interesting part isn&apos;t the app
             itself, it&apos;s everywhere a choice in the stack left a
             visible scar in the code: a timeout, a step cap, a comment
             explaining why something slower is actually safer.

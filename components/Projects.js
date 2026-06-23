@@ -172,6 +172,15 @@ const projectsWork = [
 // Personal projects — shown first in the section
 const projects = [
   {
+    href: "https://github.com/YanaKrukovets/reward-tampering-gridworld",
+    src: "/images/components/projects/reward-tampering-gridworld.png",
+    alt: "Reward tampering gridworld research diagram",
+    text: "Personal Project",
+    year: "2026",
+    tech: "Python, Gymnasium, stable-baselines3 (PPO), Ollama/Llama 3.2",
+    description: "An AI safety research project simulating reward tampering in RL, then testing whether a behavioral monitor can detect it without seeing the reward signal.",
+  },
+  {
     href: "https://adhd-eight-umber.vercel.app/",
     src: "/images/components/projects/focuscopylot.png",
     alt: "FocusCopilot, an agentic executive-function assistant for adults with ADHD",
