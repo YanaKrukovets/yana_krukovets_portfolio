@@ -52,7 +52,7 @@ const SKILLS = [
 // href links to the company website (opens in a new tab).
 const EXPERIENCE = [
   {
-    period: "Jul 2025 — May 2026",
+    period: "Jul 2025 — Jun 2026",
     role: "Full Stack Developer",
     company: "Elite Digital",
     href: "https://elitedigitalagency.com/",

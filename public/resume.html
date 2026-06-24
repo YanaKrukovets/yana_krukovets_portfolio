@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Yana Krukovets — Resume</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    color: #2b2b2b;
+    background: #ffffff;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    display: flex;
+  }
+  /* Sidebar */
+  .sidebar {
+    width: 68mm;
+    background: #2a5a51;
+    color: #ffffff;
+    padding: 9mm 8mm;
+  }
+  .photo {
+    width: 34mm;
+    height: 34mm;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 6mm;
+    border: 3px solid #ffd100;
+  }
+  .sidebar h1 {
+    font-size: 15px;
+    text-align: center;
+    margin: 0 0 1mm;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .sidebar .role {
+    text-align: center;
+    font-size: 10px;
+    color: #ffd100;
+    margin: 0 0 7mm;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+  .sidebar h2 {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 1px solid rgba(255,255,255,0.35);
+    padding-bottom: 1.5mm;
+    margin: 6mm 0 3mm;
+    color: #ffd100;
+  }
+  .sidebar h2:first-of-type { margin-top: 0; }
+  .contact-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 9.3px;
+    line-height: 1.55;
+  }
+  .contact-list li { margin-bottom: 2mm; word-break: break-word; }
+  .contact-list a { color: #ffffff; text-decoration: none; }
+  .contact-list a:hover { text-decoration: underline; }
+  .skills-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 8.6px;
+    line-height: 1.4;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2mm;
+  }
+  .skill-pill {
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 3mm;
+    padding: 0.8mm 2.2mm;
+  }
+  .skill-group-label {
+    font-size: 8.6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffd100;
+    margin: 3mm 0 1.5mm;
+  }
+  .skill-group-label:first-of-type { margin-top: 0; }
+  .langs { font-size: 9.3px; line-height: 1.6; }
+  .langs .lvl { color: #ffd100; }
+
+  /* Main content */
+  .main {
+    flex: 1;
+    padding: 9mm 10mm;
+  }
+  .main h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #2a5a51;
+    border-bottom: 2px solid #ffd100;
+    padding-bottom: 1.5mm;
+    margin: 6mm 0 3mm;
+  }
+  .main h2:first-of-type { margin-top: 0; }
+  .summary {
+    font-size: 10.3px;
+    line-height: 1.55;
+    margin: 0;
+    color: #3a3a3a;
+  }
+  .job {
+    margin-bottom: 4.5mm;
+  }
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .job-title {
+    font-size: 10.6px;
+    font-weight: 700;
+    color: #1f1f1f;
+  }
+  .job-company {
+    font-weight: 400;
+    color: #2a5a51;
+  }
+  .job-period {
+    font-size: 9px;
+    color: #595959;
+    white-space: nowrap;
+  }
+  .job-location {
+    font-size: 9px;
+    color: #595959;
+    margin-bottom: 1mm;
+  }
+  .job-desc {
+    font-size: 9.5px;
+    line-height: 1.5;
+    color: #3a3a3a;
+    margin: 1mm 0 0;
+  }
+  .proj-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2mm 6mm;
+  }
+  .proj {
+    font-size: 9.5px;
+    line-height: 1.45;
+    margin-bottom: 2.5mm;
+  }
+  .proj-title {
+    font-weight: 700;
+    color: #1f1f1f;
+  }
+  .proj-title a { color: #1f1f1f; text-decoration: none; }
+  .proj-tech {
+    color: #2a5a51;
+    font-size: 8.6px;
+  }
+  .edu {
+    font-size: 9.7px;
+    line-height: 1.5;
+  }
+  .edu-title { font-weight: 700; color: #ffffff; }
+  .edu-meta { color: #d8d8d8; font-size: 8.8px; }
+
+  @media print {
+    .page { box-shadow: none; }
+  }
+  @media screen {
+    body { background: #e9e9e9; padding: 10mm 0; }
+    .page { box-shadow: 0 0 12px rgba(0,0,0,0.15); }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img class="photo" src="images/resume/yana_krukovets_resume.jpg" alt="Yana Krukovets" />
+      <h1>Yana Krukovets</h1>
+      <p class="role">Full Stack Developer</p>
+
+      <h2>Contact</h2>
+      <ul class="contact-list">
+        <li>📍 Ottawa, Canada</li>
+        <li>✉️ <a href="mailto:krukovets.yana@gmail.com">krukovets.yana@gmail.com</a></li>
+        <li>🌐 <a href="https://yanakrukovets.com" target="_blank" rel="noreferrer">yanakrukovets.com</a></li>
+        <li>💼 <a href="https://www.linkedin.com/in/yana-krukovets-25658260/" target="_blank" rel="noreferrer">linkedin.com/in/yana-krukovets</a></li>
+        <li>🐙 <a href="https://github.com/YanaKrukovets" target="_blank" rel="noreferrer">github.com/YanaKrukovets</a></li>
+      </ul>
+
+      <h2>Skills</h2>
+      <p class="skill-group-label">Frontend</p>
+      <ul class="skills-list">
+        <li class="skill-pill">JavaScript</li>
+        <li class="skill-pill">React</li>
+        <li class="skill-pill">Next.js</li>
+        <li class="skill-pill">Tailwind CSS</li>
+        <li class="skill-pill">HTML5</li>
+        <li class="skill-pill">CSS3</li>
+        <li class="skill-pill">Sass/SCSS</li>
+        <li class="skill-pill">jQuery</li>
+        <li class="skill-pill">Bootstrap</li>
+      </ul>
+      <p class="skill-group-label">Backend &amp; Data</p>
+      <ul class="skills-list">
+        <li class="skill-pill">Node.js</li>
+        <li class="skill-pill">PHP</li>
+        <li class="skill-pill">MySQL</li>
+        <li class="skill-pill">PostgreSQL</li>
+        <li class="skill-pill">Supabase</li>
+        <li class="skill-pill">Docker</li>
+        <li class="skill-pill">C++ (basics)</li>
+      </ul>
+      <p class="skill-group-label">CMS &amp; Platforms</p>
+      <ul class="skills-list">
+        <li class="skill-pill">WordPress</li>
+        <li class="skill-pill">Sanity</li>
+        <li class="skill-pill">Shopify</li>
+        <li class="skill-pill">Tilda</li>
+        <li class="skill-pill">Jekyll</li>
+        <li class="skill-pill">Liquid</li>
+        <li class="skill-pill">Flywheel</li>
+      </ul>
+      <p class="skill-group-label">AI &amp; Tools</p>
+      <ul class="skills-list">
+        <li class="skill-pill">Claude Code</li>
+        <li class="skill-pill">Codex</li>
+        <li class="skill-pill">Gemini</li>
+        <li class="skill-pill">Python</li>
+        <li class="skill-pill">Git</li>
+      </ul>
+
+      <h2>Languages</h2>
+      <p class="langs">
+        English <span class="lvl">— Fluent</span><br/>
+        Ukrainian <span class="lvl">— Native</span><br/>
+        Russian <span class="lvl">— Fluent</span>
+      </p>
+
+      <h2>Education</h2>
+      <p class="edu">
+        <span class="edu-title">Dnipropetrovsk State Technical University of Railway Transport</span><br/>
+        <span class="edu-meta">Master's Degree, Computer Programming</span><br/>
+        <span class="edu-meta">Dnipro, Ukraine — 2008–2013</span>
+      </p>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+      <h2>Profile</h2>
+      <p class="summary">
+        Full Stack and Frontend Developer based in Ottawa, Canada, with 5+ years of
+        professional experience building fast, accessible, and intuitive web
+        applications. Comfortable across the stack — from React/Next.js front ends
+        to PHP/WordPress and Node/Postgres back ends. Fascinated by how AI systems
+        work behind the scenes — currently exploring machine learning, model
+        training, and reinforcement learning (PPO) through hands-on projects.
+        Collaborated with Agile teams across the full software development
+        lifecycle, including requirements analysis, architecture decisions, code
+        review, and client communication.
+        <a href="https://yanakrukovets.com/#about" target="_blank" rel="noreferrer" style="color: #2a5a51; font-weight: 600;">more</a>
+      </p>
+
+      <h2>Experience</h2>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">Full Stack Developer — <span class="job-company">Elite Digital</span></span>
+          <span class="job-period">Jul 2025 — Jun 2026</span>
+        </div>
+        <div class="job-location">Ontario, Canada</div>
+        <p class="job-desc">
+          Worked across the stack with Claude Code, Sanity, JavaScript, WordPress,
+          Codex, Supabase, PHP, MySQL, CSS, Shopify, Next.js, and Tailwind CSS.
+          Maintained existing codebases, contributed to architecture decisions,
+          analyzed requirements, delivered new features, fixed bugs, updated
+          documentation, performed code reviews, and communicated directly with
+          clients.
+        </p>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">Frontend Developer — <span class="job-company">Elite Digital</span></span>
+          <span class="job-period">Jan 2023 — Jan 2024</span>
+        </div>
+        <div class="job-location">Ontario, Canada</div>
+        <p class="job-desc">
+          Built and maintained front ends with Jekyll, Sanity, React.js, Next.js,
+          JavaScript, Liquid, Elementor, SASS, WordPress, and Docker. Handled
+          requirements analysis, feature delivery, bug fixing, documentation, and
+          code review.
+        </p>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">Frontend Developer — <span class="job-company">SoftServe</span></span>
+          <span class="job-period">Jan 2013 — May 2016</span>
+        </div>
+        <div class="job-location">Dnipro, Ukraine</div>
+        <p class="job-desc">
+          3+ years building and maintaining production codebases with JavaScript,
+          HTML, CSS, Bootstrap, and Backbone.js. Owned requirements analysis, client
+          communication, feature delivery, bug fixing, documentation, and code
+          review.
+        </p>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">C++ Teacher — <span class="job-company">IT Academy "Step"</span></span>
+          <span class="job-period">2011 — 2013</span>
+        </div>
+        <div class="job-location">Dnipro, Ukraine</div>
+        <p class="job-desc">
+          Taught C++ fundamentals to students aged 10–14, covering variables,
+          functions, operators, data types, and simple algorithms such as bubble
+          sort and factorial.
+        </p>
+      </div>
+
+      <h2>Projects</h2>
+      <p class="summary" style="margin-top: 2mm; font-size: 9px; color: #595959;">
+        Full project list and live demos:
+        <a href="https://yanakrukovets.com/projects" target="_blank" rel="noreferrer" style="color: #2a5a51;">yanakrukovets.com/projects</a>
+        <br/>
+        My thoughts from real projects:
+        <a href="https://yanakrukovets.com/blog" target="_blank" rel="noreferrer" style="color: #2a5a51;">yanakrukovets.com/blog</a>
+      </p>
+    </main>
+
+  </div>
+</body>
+</html>
