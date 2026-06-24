@@ -57,6 +57,8 @@ const EXPERIENCE = [
     company: "Elite Digital",
     href: "https://elitedigitalagency.com/",
     location: "Ontario, Canada",
+    description:
+      "Professional software experience as a Full Stack Developer, working with Claude Code, Sanity, JavaScript, Wordpess, site performance, Codex, Supabase, PHP, MySQL, WordPress, CSS, Shopify, Next.js, Tailwind CSS. Responsibilities: maintenance of the existing codebase, communication with the customer, some architecture decisions, requirements analysis, new feature delivery, bug fixing, updating documentation, and code review.",
   },
   {
     period: "Jan 2023 — Jan 2024",
