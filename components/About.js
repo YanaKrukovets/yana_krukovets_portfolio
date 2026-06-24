@@ -64,6 +64,8 @@ const EXPERIENCE = [
     company: "Elite Digital",
     href: "https://elitedigitalagency.com/",
     location: "Ontario, Canada",
+    description:
+      "Professional software experience as a Frontend Developer, working with Jekyll, Sanity, React.js, Next.js, JavaScript, Liquid Template Language, Elementor, SASS, WordPress, Docker. Responsibilities: maintenance of the existing codebase, requirements analysis, new feature delivery, bug fixing, updating documentation, and code review.",
   },
   {
     period: "Jan 2013 — May 2016",
@@ -71,6 +73,8 @@ const EXPERIENCE = [
     company: "SoftServe",
     href: "https://www.softserveinc.com",
     location: "Dnipro, Ukraine",
+    description:
+      "3+ years of professional software experience as a Frontend Developer (JavaScript, HTML, CSS, Bootstrap, Backbone.js). Responsibilities: maintenance of the existing codebase, requirements analysis, communication with the customer, new feature delivery, bug fixing, updating documentation, and code review.",
   },
   {
     period: "2011 — 2013",
@@ -123,31 +127,53 @@ const About = () => {
             ideas to life in the browser.
           </p>
           <p className="mt-[12px]">
-            I work across the full stack — from database and API design to
-            polished, user-facing front-end work — using React, Next.js,
-            JavaScript, GraphQL, Tailwind CSS, and more. I have hands-on
-            experience with Agile/SCRUM teams, full SDLC, and building both
-            MVC and MVVM applications.
+            I love turning ideas into products people actually enjoy using.
+            My passion has always been creating fast, intuitive, and
+            accessible user experiences that feel great to use.
           </p>
           <p className="mt-[12px]">
-            Beyond the code, I&rsquo;m genuinely excited about AI. I practice
-            AI-assisted development daily — working with tools like Claude Code, Codex,
-            Gemini, Grok to speed up everyday workflows without cutting corners
-            on code quality.
+            Over the years, I&rsquo;ve worked with technologies such as
+            React, Next.js, JavaScript, Tailwind CSS, Node.js, Backbone.js,
+            have experience teaching the basics C++ to kids. I&rsquo;ve collaborated with Agile teams throughout
+            the full software development lifecycle, helping build and
+            maintain applications using both MVC and MVVM architectures.
           </p>
           <p className="mt-[12px]">
-            I&rsquo;m open to freelance projects, contract work, and full-time
-            roles — working remotely with teams anywhere, or onsite in Ottawa.
+            Lately, I&rsquo;ve been exploring Python and AI. I use
+            AI-assisted development tools in my daily workflow to automate
+            repetitive tasks, improve productivity, and focus more time on
+            solving real problems. At the same time, I&rsquo;m fascinated by
+            how AI systems work behind the scenes and enjoy learning about
+            machine learning, model training, and emerging technologies —
+            check out my{" "}
+            <Link href="/blog" className="underline">
+              latest blog posts
+            </Link>{" "}
+            if you want to go deeper with me there.
+          </p>
+          <p className="mt-[12px]">
+            I&rsquo;m always excited by opportunities to learn, build, and
+            collaborate. Whether it&rsquo;s a freelance project, contract
+            role, or full-time position, I enjoy working with teams that
+            care about creating thoughtful products and great user
+            experiences.
           </p>
 
           {/* Hobbies */}
           <div className="mt-[20px]">
-            <p>Outside of work, I enjoy pursuing activities that
-              help me recharge and stay inspired. Whether it&apos;s discovering a great film, painting, hiking, biking,
-              skiing, skating or making memories with my family,
-              I appreciate experiences that bring both excitement and balance to life.
+            <p>
+              When I&rsquo;m not coding, you&rsquo;ll usually find me
+              hiking, biking, skiing, skating, painting, watching a great
+              film, or spending time with my family. I believe maintaining a
+              balance between work and life helps me stay creative,
+              motivated, and continually inspired.
             </p>
           </div>
+
+          <p className="mt-[20px]">
+            If you&rsquo;d like to work together or simply connect,
+            I&rsquo;d love to hear from you.
+          </p>
 
           {/* Resume download — the `download` attribute tells the browser to save the file
               rather than open it; aria-label makes the purpose clear to screen readers */}

@@ -296,7 +296,12 @@ on_tamper_cell = bool(np.array_equal(self.agent_pos, self.tamper_pos))`}</code>
                 <a href="https://github.com/YanaKrukovets/reward-tampering-gridworld" target="_blank" rel="noopener noreferrer">
                   GitHub
                 </a>{" "}
-                if you want to poke at it yourself.
+                if you want to poke at it yourself. The{" "}
+                <Link href="/blog/reward-hacking-detector-build">
+                  next post in this series
+                </Link>{" "}
+                goes through how the environment, the three agents, and the
+                detector were actually built.
               </p>
             </section>
 
