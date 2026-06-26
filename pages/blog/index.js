@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { BLOG_POSTS as POSTS } from "../../lib/blogPosts";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 const POSTS_PER_PAGE = 5;
 const CATEGORIES = ["All", ...Array.from(new Set(POSTS.map((post) => post.category)))];
@@ -11,6 +12,7 @@ const CATEGORIES = ["All", ...Array.from(new Set(POSTS.map((post) => post.catego
 export default function Blog() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("All");
+  const isMobile = useIsMobile(); // drives dropdown vs. button bar
 
   const filteredPosts = useMemo(
     () =>
@@ -66,22 +68,42 @@ export default function Blog() {
           </p>
         </div>
 
-        <ul className="blog-filters" role="list" aria-label="Filter posts by category">
-          {CATEGORIES.map((category) => (
-            <li key={category}>
-              <button
-                type="button"
-                className={`blog-filters__tag ${
-                  category === activeCategory ? "blog-filters__tag--active" : ""
-                }`}
-                aria-pressed={category === activeCategory}
-                onClick={() => handleCategoryClick(category)}
-              >
-                {category}
-              </button>
-            </li>
-          ))}
-        </ul>
+        {isMobile ? (
+          <div className="filter-select-wrap">
+            <label htmlFor="blog-category-filter" className="sr-only">
+              Filter posts by category
+            </label>
+            <select
+              id="blog-category-filter"
+              className="filter-select"
+              value={activeCategory}
+              onChange={(e) => handleCategoryClick(e.target.value)}
+            >
+              {CATEGORIES.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : (
+          <ul className="blog-filters" role="list" aria-label="Filter posts by category">
+            {CATEGORIES.map((category) => (
+              <li key={category}>
+                <button
+                  type="button"
+                  className={`blog-filters__tag ${
+                    category === activeCategory ? "blog-filters__tag--active" : ""
+                  }`}
+                  aria-pressed={category === activeCategory}
+                  onClick={() => handleCategoryClick(category)}
+                >
+                  {category}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {pagePosts.length === 0 && (
           <p className="blog-list__empty">No posts in this category yet.</p>

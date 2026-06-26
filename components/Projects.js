@@ -5,6 +5,7 @@ import PortfolioModal from "./PortfolioModal";
 import AlifallxModal from "./AlifallxModal";
 import FocusCopilotModal from "./FocusCopilotModal";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import { useIsMobile } from "../hooks/useIsMobile";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, A11y } from "swiper/modules";
 import "swiper/css";
@@ -232,7 +233,7 @@ const PORTFOLIO_HREF = "https://www.yanakrukovets.com";
 const ALIFALLX_HREF = "https://www.alifallx.com";
 const FOCUSCOPILOT_HREF = "https://adhd-eight-umber.vercel.app/";
 
-const FILTER_EXCLUDE = new Set(["CSS", "HTML", "Sass", "Calendly", "Tidio"]);
+const FILTER_EXCLUDE = new Set(["CSS", "HTML", "Sass", "Calendly", "Tidio", "stable-baselines3 (PPO)"]);
 
 // Derive sorted unique tech tags from all projects combined; "All" is always first
 const ALL_TECHS = ["All", ...Array.from(
@@ -248,7 +249,7 @@ const matchesFilter = (project, filter) =>
 
 const Projects = () => {
   // Swaps between a CSS grid (desktop) and Swiper carousel (mobile ≤768px)
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
 
   // Controls visibility of PortfolioModal — only one modal exists in the tree
   const [modalOpen, setModalOpen] = useState(false);
@@ -278,14 +279,6 @@ const Projects = () => {
   const { ref: personalRef, isVisible: personalVisible } = useScrollReveal(0.1);
   const { ref: workRef, isVisible: workVisible } = useScrollReveal(0.1);
 
-  // Keep isMobile in sync with the window width — runs on mount and on every resize
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
   const filteredPersonal = projects.filter((p) => matchesFilter(p, activeFilter));
   const filteredWork = projectsWork.filter((p) => matchesFilter(p, activeFilter));
 
@@ -305,20 +298,40 @@ const Projects = () => {
             <div className="projects-page-header__line" />
           </div>
 
-          {/* Technology filter bar */}
-          <div className="filter-bar">
-            {ALL_TECHS.map((tech) => (
-              <button
-                key={tech}
-                className={`filter-btn${activeFilter === tech ? " filter-btn--active" : ""}`}
-                onClick={() => setActiveFilter(tech)}
-                aria-pressed={activeFilter === tech}
-                aria-label={tech === "All" ? "Show all projects" : `Filter projects by ${tech}`}
+          {/* Technology filter — dropdown on mobile, button bar on desktop */}
+          {isMobile ? (
+            <div className="filter-select-wrap">
+              <label htmlFor="project-filter" className="sr-only">
+                Filter projects by technology
+              </label>
+              <select
+                id="project-filter"
+                className="filter-select"
+                value={activeFilter}
+                onChange={(e) => setActiveFilter(e.target.value)}
               >
-                {tech}
-              </button>
-            ))}
-          </div>
+                {ALL_TECHS.map((tech) => (
+                  <option key={tech} value={tech}>
+                    {tech === "All" ? "All projects" : tech}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <div className="filter-bar">
+              {ALL_TECHS.map((tech) => (
+                <button
+                  key={tech}
+                  className={`filter-btn${activeFilter === tech ? " filter-btn--active" : ""}`}
+                  onClick={() => setActiveFilter(tech)}
+                  aria-pressed={activeFilter === tech}
+                  aria-label={tech === "All" ? "Show all projects" : `Filter projects by ${tech}`}
+                >
+                  {tech}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Personal projects — ref always in DOM so observer fires on initial scroll-into-view */}

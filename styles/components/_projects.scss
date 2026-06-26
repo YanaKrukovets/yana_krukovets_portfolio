@@ -85,6 +85,37 @@
   }
 }
 
+.filter-select-wrap {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 10px 40px 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid rgba($color-accent, 0.5);
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+
+  &:focus-visible {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+  }
+
+  option {
+    color: #000;
+  }
+}
+
 .filter-empty {
   text-align: center;
   opacity: 0.55;
@@ -187,6 +218,14 @@
   padding-left: 36px !important;
   padding-right: 36px !important;
 
+  // Each slide is the source of truth for width; the card must fill it so
+  // neighbouring cards don't overlap on narrow viewports.
+  .swiper-slide {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+  }
+
   .swiper-pagination-bullet {
     background: rgba(255, 255, 255, 0.4);
     opacity: 1;
@@ -210,6 +249,7 @@
   }
 
   .project-card {
+    width: 100%;
     max-width: 330px;
     margin: 0 auto;
   }
