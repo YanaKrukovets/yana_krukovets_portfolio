@@ -20,6 +20,8 @@ import {
   SiGooglegemini,
   SiClaude,
   SiPython,
+  SiCplusplus,
+  SiDocker,
 } from "react-icons/si";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
@@ -45,7 +47,9 @@ const SKILLS = [
   { icon: SiPostgresql, label: "Postgres", color: "#4169e1", filter: "Postgres" },
   { icon: SiGooglegemini, label: "Gemini", color: "#8e75b2", filter: "Gemini" },
   { icon: SiClaude, label: "Claude Code", color: "#d97757", filter: "Claude Code" },
-  { icon: SiPython, label: "Python", color: "#3776ab", filter: "Python" },
+  { icon: SiPython, label: "Python (basics)", color: "#3776ab", filter: "Python" },
+  { icon: SiCplusplus, label: "C++ (basics)", color: "#00599c" },
+  { icon: SiDocker, label: "Docker", color: "#2496ed" },
 ];
 
 // Rendered as a vertical timeline — most recent entry first.
