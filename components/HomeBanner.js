@@ -10,8 +10,8 @@ const ROLES = [
   "Full Stack Developer",
   "AI-Assisted Developer",
   "Next.js Developer",
+  "React Developer",
   "UI Developer",
-  "fascinated by how AI systems work behind the scenes",
 ];
 
 // Hero section — occupies the full viewport above the fold on the homepage.
