@@ -43,12 +43,12 @@ export default function ProjectsPage() {
         <title>Projects | Yana Krukovets — Full Stack Developer Ottawa, Canada</title>
         <meta
           name="description"
-          content="Personal and professional projects by Yana Krukovets — Full Stack Developer based in Ottawa, Canada. Built with React, Next.js, TypeScript, GraphQL, Tailwind CSS, and more."
+          content="Personal and professional projects by Yana Krukovets, a Full Stack Developer in Ottawa, Canada. Built with React, Next.js, TypeScript, GraphQL, and more."
         />
         <meta property="og:title" key="og:title" content="Projects | Yana Krukovets — Full Stack Developer Ottawa" />
-        <meta property="og:description" key="og:description" content="Personal and professional projects by Yana Krukovets — Full Stack Developer based in Ottawa, Canada. Built with React, Next.js, TypeScript, GraphQL, Tailwind CSS, and more." />
+        <meta property="og:description" key="og:description" content="Personal and professional projects by Yana Krukovets, a Full Stack Developer in Ottawa, Canada. Built with React, Next.js, TypeScript, GraphQL, and more." />
         <meta name="twitter:title" key="twitter:title" content="Projects | Yana Krukovets — Full Stack Developer Ottawa" />
-        <meta name="twitter:description" key="twitter:description" content="Personal and professional projects by Yana Krukovets — Full Stack Developer based in Ottawa, Canada. Built with React, Next.js, TypeScript, GraphQL, Tailwind CSS, and more." />
+        <meta name="twitter:description" key="twitter:description" content="Personal and professional projects by Yana Krukovets, a Full Stack Developer in Ottawa, Canada. Built with React, Next.js, TypeScript, GraphQL, and more." />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: projectsJsonLd }}
