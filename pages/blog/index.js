@@ -5,9 +5,32 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { BLOG_POSTS as POSTS } from "../../lib/blogPosts";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import { SITE_URL, PERSON_ID, WEBSITE_ID } from "../../lib/site";
 
 const POSTS_PER_PAGE = 5;
 const CATEGORIES = ["All", ...Array.from(new Set(POSTS.map((post) => post.category)))];
+
+// Lists every post (not just the current page) so crawlers and AI assistants get the full index
+const blogJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": `${SITE_URL}/blog#blog`,
+  url: `${SITE_URL}/blog`,
+  name: "Yana Krukovets — Blog",
+  description:
+    "Notes from real projects on web development, WordPress, performance, SEO, and AI — by Yana Krukovets, Full Stack Developer based in Ottawa, Canada.",
+  inLanguage: "en-CA",
+  isPartOf: { "@id": WEBSITE_ID },
+  author: { "@id": PERSON_ID },
+  blogPost: POSTS.map((post) => ({
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    url: `${SITE_URL}/blog/${post.slug}`,
+    datePublished: post.isoDate,
+    author: { "@id": PERSON_ID },
+  })),
+});
 
 export default function Blog() {
   const router = useRouter();
@@ -56,6 +79,10 @@ export default function Blog() {
           name="twitter:description"
           key="twitter:description"
           content="Thoughts on web development, WordPress, and building better websites."
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: blogJsonLd }}
         />
       </Head>
 

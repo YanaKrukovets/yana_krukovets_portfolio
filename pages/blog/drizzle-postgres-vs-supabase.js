@@ -20,8 +20,8 @@ const articleJsonLd = JSON.stringify({
     "@type": "WebPage",
     "@id": `${SITE_URL}/blog/drizzle-postgres-vs-supabase`,
   },
-  author: { "@type": "Person", name: "Yana Krukovets", url: SITE_URL },
-  publisher: { "@type": "Person", name: "Yana Krukovets", url: SITE_URL },
+  author: { "@type": "Person", "@id": `${SITE_URL}/#person`, name: "Yana Krukovets", url: SITE_URL },
+  publisher: { "@type": "Person", "@id": `${SITE_URL}/#person`, name: "Yana Krukovets", url: SITE_URL },
 });
 
 const faqJsonLd = JSON.stringify({

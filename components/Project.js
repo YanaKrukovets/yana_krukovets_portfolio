@@ -4,15 +4,16 @@ import { trackConversion } from "../lib/analytics";
 
 // Single project card used in both the personal and work grids (and the Swiper carousel on mobile).
 // Props:
+//   name        — project name, shown as the card heading
 //   href        — link to the live project (opens in new tab)
 //   src         — image path relative to /public
 //   alt         — accessible description of the screenshot
 //   tech        — comma-separated tech stack string
 //   text        — label shown top-left ("Personal Project" / "Elite Digital Project")
 //   year        — displayed top-right
-//   description — optional short summary below the label row
+//   description — short summary below the label row
 //   onDetails   — optional callback; when provided, renders the "Under the hood →" button
-const Project = ({ href, src, alt, tech, text, year, description, onDetails }) => {
+const Project = ({ name, href, src, alt, tech, text, year, description, onDetails }) => {
   return (
     <div>
       <div className="project-card">
@@ -21,11 +22,11 @@ const Project = ({ href, src, alt, tech, text, year, description, onDetails }) =
           href={href}
           target="_blank"
           rel="noreferrer"
-          aria-label={`${alt} — view live (opens in new tab)`}
+          aria-label={`${name} — view live (opens in new tab)`}
           onClick={() =>
             trackConversion("project_link_clicked", {
               path: window.location.pathname,
-              label: alt,
+              label: name,
             })
           }
         >
@@ -46,12 +47,14 @@ const Project = ({ href, src, alt, tech, text, year, description, onDetails }) =
           </div>
         </a>
         <div className="px-[10px] pt-4">
+          {/* Real text heading — the project name must not live only in the screenshot,
+              or crawlers and AI assistants can't tell which project a card describes */}
+          <h2 className="project-name">{name}</h2>
           {/* Label row: project type on the left, year on the right */}
           <div className="flex justify-between leading-[19px]">
             <p className="text">{text}</p>
             <p>{year}</p>
           </div>
-          {/* description is optional — personal projects have it, work projects don't */}
           {description && (
             <p className="project-description">{description}</p>
           )}

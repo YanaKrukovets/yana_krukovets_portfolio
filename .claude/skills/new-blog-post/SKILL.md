@@ -19,7 +19,7 @@ Add the post to `lib/blogPosts.js` (`BLOG_POSTS` array) using the entry shape do
 
 Create `pages/blog/<slug>.js` from the reference post. Required pieces:
 
-- `BlogPosting` JSON-LD constant (headline, description, dates, image, url, author/publisher = Yana Krukovets).
+- `BlogPosting` JSON-LD constant (headline, description, dates, image, url, author/publisher = Yana Krukovets, each carrying `"@id": `${SITE_URL}/#person`` so the post links to the site-wide Person node — copy the shape from an existing post).
 - `FAQPage` JSON-LD constant — **required for every post**, see Step 4.
 - `<Head>`: title with `| Yana Krukovets` suffix, meta description, full `og:*` set and `twitter:*` set, all with `key` props so they override Layout defaults.
 - Body wrapped in `content-wrapper` → `blog-article` → `blog-article__inner`, with back-link, header meta, banner image, h1, intro, body sections.

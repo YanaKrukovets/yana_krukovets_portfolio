@@ -20,7 +20,7 @@ Rules for `type`:
 - `fix` — bug fix
 
 Rules for `scope` — use the most specific one that applies:
-- `projects` — components/Projects.js
+- `projects` — components/Projects.js, lib/projects.js
 - `about` — components/About.js
 - `contact` — components/Contact.js
 - `navbar` — components/Navbar.js

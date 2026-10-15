@@ -58,6 +58,7 @@ function sanitize(ev) {
       selector: str(ev.meta.selector, 120),
       name: str(ev.meta.name, 80),
       label: str(ev.meta.label, 120),
+      source: str(ev.meta.source, 80),
       count: ev.meta.count == null ? null : Math.round(clamp(ev.meta.count, 0, 1000)),
     };
   }

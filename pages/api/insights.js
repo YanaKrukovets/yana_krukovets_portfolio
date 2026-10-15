@@ -22,7 +22,7 @@ let cache = { at: 0, days: null, data: null };
 const CACHE_TTL_MS = 5 * 60 * 1000;
 
 function buildPrompt(stats) {
-  const { totals, topPages, topClicks, rangeDays, eventsAnalyzed } = stats;
+  const { totals, topPages, topClicks, trafficChannels, aiReferrals, rangeDays, eventsAnalyzed } = stats;
   const pages = topPages
     .slice(0, 10)
     .map(
@@ -33,6 +33,13 @@ function buildPrompt(stats) {
   const clicks = topClicks
     .slice(0, 10)
     .map((c) => `- ${c.selector}: ${c.count} clicks`)
+    .join("\n");
+
+  const channels = (trafficChannels || [])
+    .map((c) => `- ${c.channel}: ${c.sessions} sessions`)
+    .join("\n");
+  const assistants = (aiReferrals || [])
+    .map((a) => `- ${a.name}: ${a.sessions} sessions`)
     .join("\n");
 
   return `Analytics summary for the last ${rangeDays} days (${eventsAnalyzed} events analyzed):
@@ -49,6 +56,12 @@ ${pages || "(no page data)"}
 
 MOST-CLICKED ELEMENTS
 ${clicks || "(no click data)"}
+
+TRAFFIC SOURCES (sessions by channel; "ai" = arrived from an AI assistant such as ChatGPT or Perplexity)
+${channels || "(no source data)"}
+
+AI ASSISTANT REFERRALS
+${assistants || "(none yet)"}
 
 Based on this, what should the developer change to get more visitors to contact her?`;
 }

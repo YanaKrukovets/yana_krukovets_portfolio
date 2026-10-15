@@ -5,35 +5,61 @@ import { useRouter } from "next/router";
 import BackToTopButton from "../components/BackToTopButton";
 import HeaderBanner from "./HomeBanner";
 import Footer from "./Footer";
+import { SITE_URL, PERSON_ID, WEBSITE_ID } from "../lib/site";
 
 // Centralised constants — used across OG, Twitter, canonical, and JSON-LD tags
-// so changing the domain in one place updates all meta tags at once
-const SITE_URL = "https://www.yanakrukovets.com";
+// so changing the domain in one place (lib/site.js) updates all meta tags at once
 const OG_IMAGE = `${SITE_URL}/images/og-image.png`;
 const DESCRIPTION =
   "Full Stack & Frontend Developer in Ottawa, Canada — available for remote, freelance, and onsite work. React, Next.js, TypeScript, and AI-assisted development.";
 
-// Schema.org Person structured data — helps search engines understand who owns this site
-// and surfaces rich results (job title, location, social profiles) in Google Search
-const jsonLd = {
-  "@context": "https://schema.org",
+// Schema.org Person structured data — helps search engines and AI assistants understand
+// who owns this site. Blog posts and project schema reference this node by its @id.
+const person = {
   "@type": "Person",
+  "@id": PERSON_ID,
   name: "Yana Krukovets",
   url: SITE_URL,
+  image: `${SITE_URL}/images/components/about/yana_krukovets.jpg`,
   jobTitle: ["Full Stack Developer", "Frontend Developer"],
   description:
-    "Full Stack and Frontend Developer in Ottawa, Canada specializing in React, Next.js, and AI-assisted development. Available for remote, freelance, and onsite work.",
+    "Frontend-focused Full Stack Developer in Ottawa, Canada specializing in React, Next.js, and AI-assisted development. Available for remote, freelance, and onsite work.",
   worksFor: { "@type": "Organization", name: "Elite Digital" },
   address: { "@type": "PostalAddress", addressLocality: "Ottawa", addressRegion: "ON", addressCountry: "CA" },
   sameAs: [
     "https://github.com/YanaKrukovets",
     "https://www.linkedin.com/in/yana-krukovets-25658260/",
   ],
-  knowsAbout: ["React", "Next.js", "TypeScript", "JavaScript", "GraphQL", "Tailwind CSS", "WordPress", "PHP", "MySQL", "AI-Assisted Development"],
+  knowsAbout: [
+    "React", "Next.js", "TypeScript", "JavaScript", "GraphQL", "Tailwind CSS", "WordPress", "PHP", "MySQL",
+    "PostgreSQL", "Sanity", "Shopify", "Python", "Web Performance", "SEO", "AI-Assisted Development",
+    "Claude Code", "Reinforcement Learning", "AI Safety",
+  ],
+};
+
+const website = {
+  "@type": "WebSite",
+  "@id": WEBSITE_ID,
+  url: SITE_URL,
+  name: "Yana Krukovets",
+  description: DESCRIPTION,
+  inLanguage: "en-CA",
+  publisher: { "@id": PERSON_ID },
+};
+
+// Homepage only — marks the page as Yana's profile, with the Person as its main entity
+const profilePage = {
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}/#profilepage`,
+  url: `${SITE_URL}/`,
+  name: "Yana Krukovets | Full Stack & Frontend Developer — Ottawa, Canada",
+  isPartOf: { "@id": WEBSITE_ID },
+  mainEntity: { "@id": PERSON_ID },
 };
 
 // Serialised once at module level — avoids re-stringifying on every render
-const jsonLdString = JSON.stringify(jsonLd);
+const siteJsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": [person, website] });
+const homeJsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": [person, website, profilePage] });
 
 // Root layout wrapper — wraps every page via _app.js.
 // Owns all shared meta tags so individual pages only need to set <title> and <description>.
@@ -80,12 +106,14 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
         {/* Canonical prevents duplicate-content penalties if the page is ever indexed under multiple URLs */}
         {canonicalUrl && <link rel="canonical" key="canonical" href={canonicalUrl} />}
+        {/* Feed autodiscovery — lets readers and crawlers find new blog posts */}
+        <link rel="alternate" type="application/rss+xml" title="Yana Krukovets — Blog" href={`${SITE_URL}/rss.xml`} />
 
         {/* Inject JSON-LD as a plain string — dangerouslySetInnerHTML is safe here because
             the data comes from a hardcoded constant, not user input */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLdString }}
+          dangerouslySetInnerHTML={{ __html: isHome ? homeJsonLd : siteJsonLd }}
         />
       </Head>
 

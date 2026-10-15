@@ -62,10 +62,52 @@ test.describe("SEO", () => {
   test("has JSON-LD Person structured data", async ({ page }) => {
     await goto(page);
     const ld = await page.locator('script[type="application/ld+json"]').first().textContent();
-    const parsed = JSON.parse(ld);
-    expect(parsed["@type"]).toBe("Person");
-    expect(parsed.name).toBe("Yana Krukovets");
-    expect(Array.isArray(parsed.sameAs)).toBeTruthy();
+    const graph = JSON.parse(ld)["@graph"];
+    const person = graph.find((node) => node["@type"] === "Person");
+    expect(person.name).toBe("Yana Krukovets");
+    expect(Array.isArray(person.sameAs)).toBeTruthy();
+    expect(graph.some((node) => node["@type"] === "WebSite")).toBeTruthy();
+    expect(graph.some((node) => node["@type"] === "ProfilePage")).toBeTruthy();
+  });
+
+  test("blog post author points at the site-wide Person", async ({ page }) => {
+    await goto(page, "/blog/seo-for-nextjs-portfolio");
+    const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+    const posting = blocks.map((b) => JSON.parse(b)).find((b) => b["@type"] === "BlogPosting");
+    expect(posting.author["@id"]).toBe("https://www.yanakrukovets.com/#person");
+  });
+
+  test("hero role is present in server-rendered HTML", async ({ request }) => {
+    const html = await (await request.get("/")).text();
+    expect(html).toMatch(/class="typewriter-text">[A-Za-z]/);
+  });
+
+  test("every project card has a text name", async ({ page }) => {
+    await goto(page, "/projects");
+    const cards = await page.locator(".project-card").count();
+    expect(cards).toBeGreaterThan(0);
+    expect(await page.locator(".project-card .project-name").count()).toBe(cards);
+    const names = await page.locator(".project-card .project-name").allInnerTexts();
+    for (const name of names) expect(name.trim().length).toBeGreaterThan(1);
+  });
+
+  test("llms.txt lists projects and blog posts", async ({ request }) => {
+    const res = await request.get("/llms.txt");
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toContain("text/plain");
+    const body = await res.text();
+    expect(body.startsWith("# Yana Krukovets")).toBeTruthy();
+    expect(body).toContain("## Blog posts");
+    expect(body).toContain("Focus Copilot");
+  });
+
+  test("rss.xml is a valid feed with blog posts", async ({ request }) => {
+    const res = await request.get("/rss.xml");
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toContain("application/rss+xml");
+    const body = await res.text();
+    expect(body).toContain("<rss version=\"2.0\"");
+    expect((body.match(/<item>/g) || []).length).toBeGreaterThan(5);
   });
 
   test("has preconnect for Google Fonts", async ({ page }) => {

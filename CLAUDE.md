@@ -29,8 +29,11 @@ Personal portfolio website for Yana Krukovets, a Full Stack Developer based in O
 components/       Flat directory — all components at top level, no subdirectories
 hooks/            useScrollReveal.js, useTypewriter.js — custom React hooks
 lib/              blogPosts.js — shared BLOG_POSTS metadata array (single source of truth for blog posts)
+                  projects.js — `projects` (personal) and `projectsWork` (professional) arrays (single source of truth for projects)
+                  site.js — SITE_URL plus the JSON-LD ids (PERSON_ID, WEBSITE_ID) every schema block points at
+                  trafficSource.js — classifies a visit's referrer / utm_source as ai, search, social, referral, or direct
 locales/          en.js and fr.js — plain JS export objects for i18n strings
-pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, contact.js, projects.js, privacy-policy.js, api/hello.js, api/chat.js, api/track.js, api/insights.js, api/admin-login.js, api/admin-stats.js
+pages/            _app.js, _document.jsx, index.js, 404.js, 500.js, contact.js, projects.js, privacy-policy.js, llms.txt.js, rss.xml.js, api/hello.js, api/chat.js, api/track.js, api/insights.js, api/admin-login.js, api/admin-stats.js
 pages/admin/      analytics.js — password-gated analytics dashboard (noindex)
 pages/blog/       index.js (blog listing) + one .js file per post (currently 5 posts)
 tests/            portfolio.spec.js — Playwright end-to-end tests (SEO, a11y, responsiveness, content)
@@ -66,8 +69,8 @@ styles/           Global SCSS only — no CSS Modules
 | `HomeBanner.js` | Hero section — renders Navbar + welcome text + CTA buttons + animated stars |
 | `Navbar.js` | Fixed top nav — links to `/#about`, `/#projects`, `/#contact` |
 | `About.js` | Bio section — photo, skills, experience, hobbies, GitHub/LinkedIn links |
-| `Projects.js` | Projects grid — two hardcoded arrays: `projects` (personal) and `projectsWork` (professional) |
-| `Project.js` | Single project card — props: `href`, `src`, `alt`, `tech`, `text`, `year` |
+| `Projects.js` | Projects grid — renders the `projects` (personal) and `projectsWork` (professional) arrays from `lib/projects.js` |
+| `Project.js` | Single project card — props: `name`, `href`, `src`, `alt`, `tech`, `text`, `year`, `description` |
 | `Contact.js` | Contact form via Formspree |
 | `Footer.js` | Simple footer — copyright line |
 | `BackToTopButton.js` | Fixed scroll-to-top button, appears after 300px scroll |
@@ -85,7 +88,7 @@ styles/           Global SCSS only — no CSS Modules
 
 ## Adding a Project
 
-Use the `add-project` skill. (Projects are hardcoded arrays — `projects` and `projectsWork` — in `components/Projects.js`; screenshots go in `public/images/components/projects/`.)
+Use the `add-project` skill. (Projects are hardcoded arrays — `projects` and `projectsWork` — in `lib/projects.js`; screenshots go in `public/images/components/projects/`. Every entry needs a `name` and `description`: they are the only text crawlers get for a card, and they feed the `/projects` JSON-LD and `llms.txt`.)
 
 ## Updating Content
 
@@ -98,6 +101,15 @@ French (`fr`) locale content is largely placeholder (identical to English or stu
 ## Blog
 
 Use the `new-blog-post` skill — it enforces the full checklist (metadata in `lib/blogPosts.js`, SEO/FAQ schema, accessibility, sitemap update, and a `write-like-a-human` pass). Posts live in `pages/blog/`, one `.js` file each (Pages Router — no dynamic routes); banners go in `public/images/blogs/` (760×400px).
+
+## AI Search / SEO
+
+The site is built to be readable by AI crawlers, which mostly do not run JavaScript — anything that matters must be in the server-rendered HTML.
+
+- **Structured data**: `components/Layout.js` emits a site-wide `@graph` (`Person` + `WebSite`, plus `ProfilePage` on the homepage). Other schema (`BlogPosting` authors, the `Blog` list on `/blog`, the project `ItemList` on `/projects`) references the Person by `@id` (`PERSON_ID` in `lib/site.js`) instead of redefining her.
+- **`/llms.txt`** (`pages/llms.txt.js`) and **`/rss.xml`** (`pages/rss.xml.js`) are generated on request from `lib/blogPosts.js` and `lib/projects.js` — no manual upkeep when a post or project is added.
+- **`public/sitemap.xml`** is still maintained by hand.
+- **AI referral tracking**: see the Sources tab in the analytics dashboard (`lib/trafficSource.js`).
 
 ## Analytics
 
@@ -113,6 +125,7 @@ Custom, Hotjar-style analytics — cookieless and anonymous (opt-out model: trac
 | Event ingestion (validates + inserts; 204 silently if unconfigured) | `pages/api/track.js` |
 | Server Supabase client (lazy, null if env missing) | `lib/supabaseAdmin.js` |
 | Aggregation helpers (raw rows never leave the server) | `lib/analyticsAggregate.js` |
+| Traffic source classification (AI assistants / search / social / referral / direct) | `lib/trafficSource.js` |
 | Password auth (signed httpOnly cookie) | `lib/adminAuth.js`, `pages/api/admin-login.js` |
 | Dashboard data + AI suggestions | `pages/api/admin-stats.js`, `pages/api/insights.js` |
 | Dashboard UI (password-gated, `noindex`) | `pages/admin/analytics.js` |

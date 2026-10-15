@@ -15,7 +15,8 @@ export function useTypewriter(
   deleteSpeed = 40,
   pauseMs = 1800
 ) {
-  const [displayed, setDisplayed] = useState("");
+  // Start on the full first word so server-rendered HTML (crawlers, no-JS) has real text
+  const [displayed, setDisplayed] = useState(words?.[0] ?? "");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 

@@ -118,9 +118,19 @@ const TABS = [
   { id: "overview", label: "Overview" },
   { id: "heatmap", label: "Heatmap" },
   { id: "paths", label: "Paths" },
+  { id: "sources", label: "Sources" },
   { id: "conversions", label: "Conversions" },
   { id: "insights", label: "AI Suggestions" },
 ];
+
+// Display names for the acquisition channels computed in lib/trafficSource.js
+const CHANNEL_LABELS = {
+  direct: "Direct / unknown",
+  search: "Search engines",
+  ai: "AI assistants",
+  social: "Social",
+  referral: "Other sites",
+};
 
 export default function AnalyticsDashboard() {
   const [authed, setAuthed] = useState(null); // null = checking
@@ -538,6 +548,68 @@ export default function AnalyticsDashboard() {
                         </li>
                       ))}
                     </ul>
+                  </div>
+                </section>
+              )}
+
+              {tab === "sources" && (
+                <section className="mb-8 grid grid-cols-2 gap-6 md:grid-cols-1">
+                  <div className="admin-card p-5">
+                    <h2 className="admin-label mb-3">Sessions by channel</h2>
+                    <ul className="space-y-1 text-sm">
+                      {(stats.trafficChannels || []).map((c) => (
+                        <li
+                          key={c.channel}
+                          className="flex justify-between border-b border-white/10 py-1"
+                        >
+                          <span className="text-white/75">{CHANNEL_LABELS[c.channel] || c.channel}</span>
+                          <span className="text-white/50">{c.sessions}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="admin-card p-5">
+                    <h2 className="admin-label mb-3">AI assistant referrals</h2>
+                    {(stats.aiReferrals || []).length === 0 ? (
+                      <p className="text-sm text-white/50">
+                        No visits from AI assistants in this period.
+                      </p>
+                    ) : (
+                      <ul className="space-y-1 text-sm">
+                        {stats.aiReferrals.map((a) => (
+                          <li
+                            key={a.name}
+                            className="flex justify-between border-b border-white/10 py-1"
+                          >
+                            <span className="text-white/75">{a.name}</span>
+                            <span className="text-white/50">{a.sessions}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  <div className="admin-card p-5">
+                    <h2 className="admin-label mb-3">Top sources</h2>
+                    {(stats.topSources || []).length === 0 ? (
+                      <p className="text-sm text-white/50">No external sources yet.</p>
+                    ) : (
+                      <ul className="space-y-1 text-sm">
+                        {stats.topSources.map((s) => (
+                          <li
+                            key={`${s.channel}|${s.name}`}
+                            className="flex justify-between gap-3 border-b border-white/10 py-1"
+                          >
+                            <span className="text-white/75">
+                              {s.name}{" "}
+                              <span className="text-white/40">· {CHANNEL_LABELS[s.channel] || s.channel}</span>
+                            </span>
+                            <span className="shrink-0 text-white/50">{s.sessions}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </section>
               )}

@@ -74,6 +74,14 @@ const EXPERIENCE = [
       "Professional software experience as a Frontend Developer, working with Jekyll, Sanity, React.js, Next.js, JavaScript, Liquid Template Language, Elementor, SASS, WordPress, Docker. Responsibilities: maintenance of the existing codebase, requirements analysis, new feature delivery, bug fixing, updating documentation, and code review.",
   },
   {
+    period: "Jan 2020 — Dec 2021",
+    role: "Independent iOS Developer",
+    company: "Freelance",
+    location: "Remote",
+    description:
+      "Designed, developed, and published three children's iOS applications on the Apple App Store, combining mobile development, interactive gameplay, and educational experiences. Built native iOS apps in Swift with interactive puzzles, animations, touch interactions, and game mechanics designed for young children. Managed development, testing, and App Store releases independently.",
+  },
+  {
     period: "Jan 2013 — May 2016",
     role: "Frontend Developer",
     company: "SoftServe",
@@ -127,9 +135,9 @@ const About = () => {
             <b>Who am I?</b>
           </h3>
           <p>
-            My name is Yana Krukovets. I&rsquo;m a Full Stack and Frontend
-            Developer based in Ottawa, Canada, with 5+ years of professional
-            experience. I like to code things from scratch and enjoy bringing
+            My name is Yana Krukovets. I&rsquo;m a Full Stack Developer with
+            a focus on the frontend, based in Ottawa, Canada, with 5+ years of
+            professional experience. I like to code things from scratch and enjoy bringing
             ideas to life in the browser.
           </p>
           <p className="mt-[12px]">
@@ -139,8 +147,10 @@ const About = () => {
           </p>
           <p className="mt-[12px]">
             Over the years, I&rsquo;ve worked with technologies such as
-            React, Next.js, JavaScript, Tailwind CSS, Node.js, Backbone.js,
-            have experience teaching the basics C++ to kids. I&rsquo;ve collaborated with Agile teams throughout
+            React, Next.js, JavaScript, Tailwind CSS, Node.js, and
+            Backbone.js, and I&rsquo;ve built native iOS apps in Swift that
+            are published on the App Store. I&rsquo;ve also taught the basics
+            of C++ to kids. I&rsquo;ve collaborated with Agile teams throughout
             the full software development lifecycle, helping build and
             maintain applications using both MVC and MVVM architectures.
           </p>
@@ -254,16 +264,24 @@ const About = () => {
               <div className="timeline-content">
                 <span className="timeline-period">{item.period}</span>
                 <p className="timeline-role">
-                  {item.role} at{" "}
-                  <a
-                    href={item.href}
-                    className="underline"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${item.company} (opens in new tab)`}
-                  >
-                    <i>{item.company}</i>
-                  </a>
+                  {item.role}
+                  {/* Entries without an href (e.g. freelance work) render the company as plain text */}
+                  {item.href ? (
+                    <>
+                      {" "}at{" "}
+                      <a
+                        href={item.href}
+                        className="underline"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${item.company} (opens in new tab)`}
+                      >
+                        <i>{item.company}</i>
+                      </a>
+                    </>
+                  ) : (
+                    <> · <i>{item.company}</i></>
+                  )}
                 </p>
                 <span className="timeline-location">{item.location}</span>
                 {item.description && (
