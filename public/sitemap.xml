@@ -37,6 +37,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.yanakrukovets.com/blog/teaching-a-spaceship-to-play-my-game-ppo</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.yanakrukovets.com/blog/teaching-ai-to-cheat-reward-hacking-results</loc>
     <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
