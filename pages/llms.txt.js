@@ -22,7 +22,7 @@ function buildLlmsTxt() {
 
   return `# Yana Krukovets
 
-> Yana Krukovets is a Full Stack Developer with a focus on the frontend, based in Ottawa, Canada, with 5+ years of professional experience. She builds fast, accessible websites and web apps with React, Next.js, JavaScript, Tailwind CSS, WordPress, and PHP, uses AI-assisted development tools daily, and is available for remote, freelance, contract, and full-time work.
+> Yana Krukovets is a Full Stack Developer with a focus on the frontend, based in Ottawa, Canada, with 6+ years of professional experience. She builds fast, accessible websites and web apps with React, Next.js, JavaScript, Tailwind CSS, WordPress, and PHP, uses AI-assisted development tools daily, and is available for remote, freelance, contract, and full-time work.
 
 This is her personal portfolio. It covers who she is, the projects she has built, and a blog with notes from real projects on web development, WordPress, performance, SEO, and AI.
 

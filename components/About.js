@@ -136,7 +136,7 @@ const About = () => {
           </h3>
           <p>
             My name is Yana Krukovets. I&rsquo;m a Full Stack Developer with
-            a focus on the frontend, based in Ottawa, Canada, with 5+ years of
+            a focus on the frontend, based in Ottawa, Canada, with 6+ years of
             professional experience. I like to code things from scratch and enjoy bringing
             ideas to life in the browser.
           </p>
