@@ -309,6 +309,20 @@
     display: block;
   }
 
+  // Inline SVG diagrams with a caption underneath
+  &__figure {
+    margin: 32px 0;
+    overflow: visible;
+  }
+
+  &__figcaption {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: v.$color-middle-gray;
+    text-align: center;
+  }
+
   &__back {
     display: inline-block;
     font-size: 14px;

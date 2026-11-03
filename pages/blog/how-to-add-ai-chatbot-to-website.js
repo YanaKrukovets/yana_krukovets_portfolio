@@ -65,6 +65,165 @@ const faqJsonLd = JSON.stringify({
   ],
 });
 
+// Diagram colors match the blog palette in styles/base/_variables.scss
+const C = {
+  purple: "#663b66",
+  accent: "#e0a5e0",
+  tint: "#faf5ff",
+  text: "#414042",
+  gray: "#616060",
+  line: "#d9c6d9",
+};
+
+// Three options side by side: hosted service, WordPress plugin, custom build
+function OptionsTable() {
+  const cols = ["Hosted service", "WordPress plugin", "Custom build"];
+  const rows = [
+    ["Time to launch", "An afternoon", "A few hours", "A few days"],
+    ["Design control", "Low", "Medium", "Full"],
+    ["You pay", "Monthly plan", "Plugin + API", "Per message"],
+    ["Messages stored", "Their servers", "Depends on plugin", "Where you decide"],
+  ];
+  return (
+    <svg viewBox="0 0 800 330" width="100%" role="img" aria-labelledby="options-title" style={{ fontFamily: "inherit", display: "block" }}>
+      <title id="options-title">
+        Comparison of three ways to add an AI chatbot. Hosted service: launches in an afternoon, low design control, monthly plan, messages on their servers. WordPress plugin: a few hours, medium control, plugin plus API fees, storage depends on the plugin. Custom build: a few days, full control, pay per message, messages stored where you decide.
+      </title>
+      <rect width="800" height="330" fill={C.tint} rx="12" />
+      {cols.map((c, i) => (
+        <g key={c}>
+          <rect x={200 + i * 200} y="20" width="185" height="56" rx="8" fill={i === 2 ? C.purple : "#fff"} stroke={C.purple} strokeWidth="2" />
+          <text x={292 + i * 200} y="55" textAnchor="middle" fontSize="19" fontWeight="700" fill={i === 2 ? "#fff" : C.purple}>{c}</text>
+        </g>
+      ))}
+      {rows.map((r, ri) => (
+        <g key={r[0]}>
+          <line x1="20" x2="780" y1={96 + ri * 58} y2={96 + ri * 58} stroke={C.line} />
+          <text x="24" y={132 + ri * 58} fontSize="17" fontWeight="700" fill={C.text}>{r[0]}</text>
+          {r.slice(1).map((v, vi) => (
+            <text key={vi} x={292 + vi * 200} y={132 + ri * 58} textAnchor="middle" fontSize="18" fill={vi === 2 ? C.purple : C.gray} fontWeight={vi === 2 ? "700" : "400"}>{v}</text>
+          ))}
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+// How a message travels: browser -> own server route -> Gemini, with the
+// system prompt built from the site's data files
+function ArchitectureDiagram() {
+  return (
+    <svg viewBox="0 0 800 470" width="100%" role="img" aria-labelledby="arch-title" style={{ fontFamily: "inherit", display: "block" }}>
+      <title id="arch-title">
+        Diagram of the chatbot on yanakrukovets.com. The visitor&apos;s browser sends the question to the site&apos;s own /api/chat route, which applies a rate limit, size limits and a role filter, holds the Gemini API key, and forwards the question to Gemini 2.5 Flash. The reply goes back the same way. The system prompt is built from lib/blogPosts.js and lib/projects.js.
+      </title>
+      <defs>
+        <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill={C.purple} />
+        </marker>
+      </defs>
+      <rect width="800" height="470" fill={C.tint} rx="12" />
+
+      {/* Browser */}
+      <rect x="20" y="70" width="170" height="130" rx="10" fill="#fff" stroke={C.purple} strokeWidth="2" />
+      <text x="105" y="112" textAnchor="middle" fontSize="20" fontWeight="700" fill={C.purple}>Browser</text>
+      <text x="105" y="142" textAnchor="middle" fontSize="15" fill={C.text} fontFamily="monospace">ChatWidget.js</text>
+      <text x="105" y="174" textAnchor="middle" fontSize="15" fill={C.gray}>no API key here</text>
+
+      {/* Server */}
+      <rect x="290" y="20" width="220" height="280" rx="10" fill="#fff" stroke={C.purple} strokeWidth="3" />
+      <text x="400" y="58" textAnchor="middle" fontSize="20" fontWeight="700" fill={C.purple}>Your server</text>
+      <text x="400" y="86" textAnchor="middle" fontSize="16" fill={C.text} fontFamily="monospace">/api/chat</text>
+      <line x1="310" x2="490" y1="104" y2="104" stroke={C.line} />
+      {["Rate limit: 10/min", "Max 2,000 characters", "Only user/model roles"].map((t, i) => (
+        <g key={t}>
+          <circle cx="318" cy={133 + i * 34} r="5" fill={C.accent} />
+          <text x="332" y={139 + i * 34} fontSize="15" fill={C.text}>{t}</text>
+        </g>
+      ))}
+      <rect x="310" y="236" width="180" height="44" rx="8" fill={C.purple} />
+      <text x="400" y="264" textAnchor="middle" fontSize="15" fontWeight="700" fill="#fff">API key lives here</text>
+
+      {/* Gemini */}
+      <rect x="610" y="70" width="170" height="130" rx="10" fill="#fff" stroke={C.purple} strokeWidth="2" />
+      <text x="695" y="122" textAnchor="middle" fontSize="20" fontWeight="700" fill={C.purple}>Gemini</text>
+      <text x="695" y="152" textAnchor="middle" fontSize="16" fill={C.text}>2.5 Flash</text>
+
+      {/* Request / reply arrows */}
+      <line x1="192" x2="286" y1="115" y2="115" stroke={C.purple} strokeWidth="2.5" markerEnd="url(#arch-arrow)" />
+      <text x="239" y="104" textAnchor="middle" fontSize="14" fill={C.gray}>question</text>
+      <line x1="286" x2="192" y1="160" y2="160" stroke={C.purple} strokeWidth="2.5" strokeDasharray="6 5" markerEnd="url(#arch-arrow)" />
+      <text x="239" y="184" textAnchor="middle" fontSize="14" fill={C.gray}>reply</text>
+      <line x1="512" x2="606" y1="115" y2="115" stroke={C.purple} strokeWidth="2.5" markerEnd="url(#arch-arrow)" />
+      <text x="559" y="104" textAnchor="middle" fontSize="14" fill={C.gray}>question</text>
+      <line x1="606" x2="512" y1="160" y2="160" stroke={C.purple} strokeWidth="2.5" strokeDasharray="6 5" markerEnd="url(#arch-arrow)" />
+      <text x="559" y="184" textAnchor="middle" fontSize="14" fill={C.gray}>reply</text>
+
+      {/* Data files feeding the system prompt */}
+      <rect x="290" y="370" width="220" height="80" rx="10" fill="#fff" stroke={C.accent} strokeWidth="2" strokeDasharray="6 4" />
+      <text x="400" y="403" textAnchor="middle" fontSize="15" fill={C.text} fontFamily="monospace">lib/blogPosts.js</text>
+      <text x="400" y="430" textAnchor="middle" fontSize="15" fill={C.text} fontFamily="monospace">lib/projects.js</text>
+      <line x1="400" x2="400" y1="368" y2="304" stroke={C.purple} strokeWidth="2.5" markerEnd="url(#arch-arrow)" />
+      <text x="412" y="342" fontSize="14" fill={C.gray}>builds the system prompt</text>
+    </svg>
+  );
+}
+
+// Mockup of the chat panel with notes on the small UX decisions
+function ChatWindowMockup() {
+  const notes = [
+    { y: 200, text: ["Suggested questions", "on first open"] },
+    { y: 334, text: ["Links become real <a> tags,", "never raw HTML"] },
+    { y: 406, text: ["Enter sends,", "Shift+Enter adds a line"] },
+  ];
+  return (
+    <svg viewBox="0 0 800 470" width="100%" role="img" aria-labelledby="chat-title" style={{ fontFamily: "inherit", display: "block" }}>
+      <title id="chat-title">
+        Mockup of the chat panel. It opens with a greeting and suggested questions such as &ldquo;What projects have you built?&rdquo; and &ldquo;Are you available for hire?&rdquo;. A reply includes a clickable link to the contact page. Notes point out that suggested questions appear on first open, links are rendered as real anchor tags instead of raw HTML, and Enter sends while Shift+Enter adds a new line.
+      </title>
+      <rect width="800" height="470" fill={C.tint} rx="12" />
+
+      {/* Panel */}
+      <rect x="40" y="24" width="400" height="422" rx="16" fill="#fff" stroke={C.line} strokeWidth="2" />
+      <rect x="40" y="24" width="400" height="58" rx="16" fill={C.purple} />
+      <rect x="40" y="66" width="400" height="16" fill={C.purple} />
+      <circle cx="70" cy="53" r="6" fill="#7bd88f" />
+      <text x="86" y="59" fontSize="17" fontWeight="700" fill="#fff">Yana&apos;s AI assistant</text>
+
+      <rect x="60" y="100" width="290" height="56" rx="12" fill={C.tint} />
+      <text x="76" y="124" fontSize="14" fill={C.text}>Hi! Ask me anything about her</text>
+      <text x="76" y="144" fontSize="14" fill={C.text}>skills, experience, or projects.</text>
+
+      {["What projects have you built?", "Are you available for hire?"].map((q, i) => (
+        <g key={q}>
+          <rect x="60" y={168 + i * 40} width="250" height="32" rx="16" fill="#fff" stroke={C.accent} strokeWidth="2" />
+          <text x="185" y={189 + i * 40} textAnchor="middle" fontSize="13" fill={C.purple}>{q}</text>
+        </g>
+      ))}
+
+      <rect x="200" y="258" width="220" height="36" rx="12" fill={C.accent} />
+      <text x="310" y="281" textAnchor="middle" fontSize="14" fill={C.text}>Are you free next month?</text>
+
+      <rect x="60" y="306" width="320" height="56" rx="12" fill={C.tint} />
+      <text x="76" y="330" fontSize="14" fill={C.text}>Yes, she&apos;s open to new projects:</text>
+      <text x="76" y="350" fontSize="14" fill={C.purple} textDecoration="underline">yanakrukovets.com/contact</text>
+
+      <rect x="60" y="384" width="360" height="44" rx="10" fill="#fff" stroke={C.line} strokeWidth="2" />
+      <text x="76" y="411" fontSize="14" fill={C.gray}>Type a message…</text>
+
+      {/* Notes */}
+      {notes.map((n, i) => (
+        <g key={i}>
+          <line x1="448" x2="500" y1={n.y} y2={n.y} stroke={C.purple} strokeWidth="2" />
+          <circle cx="448" cy={n.y} r="5" fill={C.purple} />
+          <text x="512" y={n.y - 4} fontSize="17" fontWeight="700" fill={C.purple}>{n.text[0]}</text>
+          <text x="512" y={n.y + 20} fontSize="17" fill={C.text}>{n.text[1]}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 export default function HowToAddAiChatbotToWebsite() {
   return (
     <>
@@ -213,6 +372,12 @@ export default function HowToAddAiChatbotToWebsite() {
                 message instead of paying a subscription, which on a small site
                 works out cheap.
               </p>
+              <figure className="blog-article__image blog-article__figure">
+                <OptionsTable />
+                <figcaption className="blog-article__figcaption">
+                  The three options at a glance.
+                </figcaption>
+              </figure>
               <p>
                 The rest of this post is about that third option, using the
                 code that runs on this site.
@@ -239,6 +404,13 @@ export default function HowToAddAiChatbotToWebsite() {
                   <code>GEMINI_API_KEY</code> environment variable on Vercel
                 </li>
               </ul>
+              <figure className="blog-article__image blog-article__figure">
+                <ArchitectureDiagram />
+                <figcaption className="blog-article__figcaption">
+                  The browser never talks to Gemini directly. Every message
+                  goes through the site&apos;s own server route first.
+                </figcaption>
+              </figure>
               <p>
                 I picked Gemini 2.5 Flash because it&apos;s fast and cheap, and
                 a portfolio assistant doesn&apos;t need a big reasoning model to
@@ -385,6 +557,12 @@ Keep responses brief (2-4 sentences max).`}</code></pre>
               <p>
                 A few small decisions made the widget easier to use:
               </p>
+              <figure className="blog-article__image blog-article__figure">
+                <ChatWindowMockup />
+                <figcaption className="blog-article__figcaption">
+                  A simplified version of the chat panel on this site.
+                </figcaption>
+              </figure>
               <ul>
                 <li>
                   Suggested questions on first open (&ldquo;What projects have
