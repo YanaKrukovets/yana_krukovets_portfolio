@@ -44,8 +44,8 @@ styles/           Global SCSS only — no CSS Modules
   styles.scss     Master entry point (imports Tailwind directives + all partials)
   base/           _fonts.scss, _variables.scss
   components/     _animations.scss, _backToTopButton.scss, _chat.scss,
-                  _footer.scss, _header.scss, _home.scss, _layout.scss,
-                  _about.scss, _projects.scss, _contact.scss, _stars.scss,
+                  _footer.scss, _header.scss, _home.scss, _homepage.scss, _layout.scss,
+                  _projects.scss, _contact.scss, _stars.scss,
                   _portfolioModal.scss
 ```
 
@@ -66,9 +66,12 @@ styles/           Global SCSS only — no CSS Modules
 | Component | Role |
 |---|---|
 | `Layout.js` | Root shell — wraps all pages; handles OG/Twitter `<Head>` meta tags |
-| `HomeBanner.js` | Hero section — renders Navbar + welcome text + CTA buttons + animated stars |
+| `HomeBanner.js` | Renders Navbar on every page; on the homepage also the hero — typewriter kicker, headline, CTAs, photo, "Ask my AI assistant" card (fires `open-chat` for ChatWidget), facts strip, twinkling + falling stars |
+| `HomeWork.js` | Homepage "Selected work" — featured + 3 cards picked by name from `lib/projects.js` |
+| `HomeWriting.js` | Homepage "Writing" — 2 newest posts + the "Teaching an AI to Cheat" series card, from `lib/blogPosts.js` |
+| `HomeContact.js` | Homepage closing CTA |
 | `Navbar.js` | Fixed top nav — links to `/#about`, `/#projects`, `/#contact` |
-| `About.js` | Bio section — photo, skills, experience, hobbies, GitHub/LinkedIn links |
+| `About.js` | Homepage About (bio, hobbies, links, `SKILL_GROUPS`) and Experience (`EXPERIENCE`, expandable rows) sections |
 | `Projects.js` | Projects grid — renders the `projects` (personal) and `projectsWork` (professional) arrays from `lib/projects.js` |
 | `Project.js` | Single project card — props: `name`, `href`, `src`, `alt`, `tech`, `text`, `year`, `description` |
 | `Contact.js` | Contact form via Formspree |
@@ -92,7 +95,7 @@ Use the `add-project` skill. (Projects are hardcoded arrays — `projects` and `
 
 ## Updating Content
 
-Use the `update-content` skill. (Bio, `SKILLS`, `EXPERIENCE`, and hobbies all live in `components/About.js`.)
+Use the `update-content` skill. (Bio, `SKILL_GROUPS`, `EXPERIENCE`, and hobbies all live in `components/About.js`.)
 
 ## i18n Notes
 
@@ -133,6 +136,10 @@ Custom, Hotjar-style analytics — cookieless and anonymous (opt-out model: trac
 `/admin/*` pages render standalone in `_app.js` (no site chrome, chat, or self-tracking).
 
 **Setup:** run `supabase/schema.sql` in the Supabase SQL editor, then set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ANALYTICS_ADMIN_PASSWORD`, `ANALYTICS_SESSION_SECRET` (see `.env.example`). View at `/admin/analytics`.
+
+## Homepage Design
+
+The homepage uses its own dark theme (`styles/components/_homepage.scss`, colors `$color-home-*` in `_variables.scss`, fonts Bricolage Grotesque + Geist loaded in `pages/index.js`). `Layout.js` adds `home-main` to `<main>` on `/` only; other pages keep the original styles.
 
 ## Known Quirks
 

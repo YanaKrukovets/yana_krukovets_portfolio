@@ -68,3 +68,14 @@ $font-primary: "Arial";
 $padding: calc((100vw - 1320px) / 2 - (100vw - 1960px) / 2);
 $padding-lg: calc((100vw - 1198px) / 2);
 $padding-2000: calc((100vw - 1360px) / 2);
+
+// Homepage (dark theme) colors — used by _homepage.scss and the home hero in _header.scss
+$color-home-bg: #110e15;
+$color-home-surface: #19151e;
+$color-home-surface-2: #241e2a;
+$color-home-line: #2b2531;
+$color-home-line-strong: #3a3342;
+$color-home-text: #eeeaf2;
+$color-home-text-soft: #cfc8d6;
+$color-home-muted: #a9a1b2;
+$color-home-faint: #8c8496;
