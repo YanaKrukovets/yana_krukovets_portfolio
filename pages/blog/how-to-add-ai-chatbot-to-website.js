@@ -140,9 +140,9 @@ export default function HowToAddAiChatbotToWebsite() {
             I&apos;ve built or whether I&apos;m free for a project and it
             answers in a couple of sentences, with links to the right page.
             It runs on Google&apos;s Gemini, and the whole thing is about 120
-            lines of server code and one React component. This post covers the
-            three ways to put a chatbot like that on your own website, which
-            one fits which kind of site, and the parts of my build that took
+            lines of server code and one React component. Below are the ways to
+            put a chatbot like that on your own website, which one I&apos;d
+            pick for which kind of site, and the parts of my build that took
             longer than I expected.
           </p>
 
@@ -194,8 +194,9 @@ export default function HowToAddAiChatbotToWebsite() {
                 Others ask for your own OpenAI or Gemini API key and call the
                 model for you. Check two things before you install one: where it
                 stores the key, and whether it loads a heavy script on every
-                page. I&apos;ve seen chat plugins add more to a page&apos;s load
-                time than everything else on it, which I wrote about in{" "}
+                page. Chat widgets are third-party scripts, and third-party
+                scripts are a common reason a WordPress site gets slow, which I
+                wrote about in{" "}
                 <Link href="/blog/improve-wordpress-performance">
                   my post on WordPress performance
                 </Link>
@@ -295,8 +296,9 @@ res.status(200).json({ reply: result.response.text() });`}</code></pre>
                 followed by rules about tone and length.
               </p>
               <p>
-                The first version had the projects typed in by hand, and it went
-                stale the first time I added a new one. Now the prompt is built
+                The first version had the projects typed in by hand, and before
+                long it was describing work I&apos;d replaced and skills
+                I no longer listed. Now the prompt is built
                 from the same data files the site itself renders, so a new blog
                 post shows up in the chatbot&apos;s answers the moment it&apos;s
                 deployed:
@@ -319,13 +321,13 @@ const BLOG_SECTION = BLOG_POSTS.map(
             <section>
               <h2>Stop It From Making Things Up</h2>
               <p>
-                Early on, my bot answered a question about a blog post by
-                inventing a URL that looked right and led to a 404. Models do
-                this. When they don&apos;t have a fact, they write something
+                Ask a model for a link to a blog post it hasn&apos;t been shown
+                and it will often write one anyway: right domain, sensible slug,
+                404. When a model doesn&apos;t have a fact, it writes something
                 shaped like one.
               </p>
               <p>
-                Three lines in the prompt fixed most of it:
+                These rules in my prompt handle most of it:
               </p>
               <pre className="blog-article__code"><code>{`If asked something you don't know about Yana, say you're not sure
 and suggest contacting her directly.
@@ -510,7 +512,7 @@ Keep responses brief (2-4 sentences max).`}</code></pre>
 
           <footer className="blog-article__footer">
             <BlogCta />
-            <Link href="/blog" className="blog-article__back">
+            <Link href="/blog" className="blog-article__back blog-article__back--bottom">
               ← Back to Blog
             </Link>
           </footer>
