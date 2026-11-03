@@ -286,7 +286,7 @@ test.describe("Desktop layout", () => {
 
   test("two CTA buttons visible in hero", async ({ page }) => {
     await goto(page);
-    const btns = page.locator(".my-work-btn");
+    const btns = page.locator(".hero__ctas .hero-cta");
     await expect(btns.first()).toBeVisible();
     expect(await btns.count()).toBe(2);
   });
@@ -294,15 +294,15 @@ test.describe("Desktop layout", () => {
 
 // ─── Content integrity ────────────────────────────────────────────────────────
 test.describe("Content", () => {
-  test("skills grid has at least 6 items", async ({ page }) => {
+  test("skills list has at least 6 items", async ({ page }) => {
     await goto(page);
     await page.locator("#about").scrollIntoViewIfNeeded();
-    expect(await page.locator(".skill-item").count()).toBeGreaterThanOrEqual(6);
+    expect(await page.locator(".skill-chip").count()).toBeGreaterThanOrEqual(6);
   });
 
-  test("timeline has at least 3 experience entries", async ({ page }) => {
+  test("experience list has at least 3 entries", async ({ page }) => {
     await goto(page);
-    expect(await page.locator(".timeline-item").count()).toBeGreaterThanOrEqual(3);
+    expect(await page.locator(".exp-row").count()).toBeGreaterThanOrEqual(3);
   });
 
   test("CV download link points to a PDF", async ({ page }) => {

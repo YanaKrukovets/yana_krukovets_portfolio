@@ -62,6 +62,19 @@ const ChatWidget = () => {
     }
   }, [isOpen]);
 
+  // Lets other components open the panel, e.g. the "Ask my AI assistant" card in the hero:
+  // window.dispatchEvent(new Event("open-chat"))
+  useEffect(() => {
+    const open = () => {
+      setIsOpen((prev) => {
+        if (!prev) trackConversion("chat_opened", { path: window.location.pathname });
+        return true;
+      });
+    };
+    window.addEventListener("open-chat", open);
+    return () => window.removeEventListener("open-chat", open);
+  }, []);
+
   const sendMessage = async (text) => {
     const userText = text || input.trim();
     if (!userText || isLoading) return;

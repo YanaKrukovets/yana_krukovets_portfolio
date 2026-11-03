@@ -288,10 +288,13 @@ header {
   }
 }
 
-// Home page only: full-viewport hero with the dark gradient background
+// Home page only: hero at least one screen tall, star field over a dark plum gradient.
+// Hero content styles live in _homepage.scss.
 header.home-header {
-  height: 100vh;
-  background: radial-gradient(ellipse at bottom, $color-bg-gradient-start 0%, $color-bg-gradient-end 100%);
+  min-height: 100vh;
+  padding-left: 0;
+  padding-right: 0;
+  background: radial-gradient(ellipse at bottom, #3a2140 0%, $color-home-bg 70%);
   overflow: hidden;
 }
 

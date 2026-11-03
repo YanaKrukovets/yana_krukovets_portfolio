@@ -127,7 +127,7 @@ export default function Layout({ children }) {
       <header className={`max-w-inner${isHome ? " home-header" : ""}`}>
         <HeaderBanner />
       </header>
-      <main className="overflow-x-hidden w-full text-black" id="main">
+      <main className={`overflow-x-hidden w-full text-black${isHome ? " home-main" : ""}`} id="main">
         <div id="content" className="max-w-inner xxxl:px-0">
           {/* Page-specific content injected here (About, Projects, Contact via index.js) */}
           {children}
