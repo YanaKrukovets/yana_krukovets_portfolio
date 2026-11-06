@@ -1,27 +1,15 @@
 import { supabaseAdmin } from "../../lib/supabaseAdmin";
+import { isRateLimited, getClientIp } from "../../lib/rateLimit";
 
 // Analytics event ingestion. The browser (lib/analytics.js) batches anonymous,
 // cookieless events and POSTs them here; we validate, sanitise, and insert into
 // Supabase. This is best-effort: any failure returns 204 so a visitor's page is
 // never affected.
 //
-// Rate limiting mirrors pages/api/chat.js (in-memory Map by IP). The limit is
-// higher because events arrive in batches.
-const rateLimitMap = new Map();
+// Rate limited per IP via lib/rateLimit.js. The limit is higher than chat's
+// because events arrive in batches.
 const RATE_LIMIT = 60;
 const RATE_WINDOW_MS = 60_000;
-
-function isRateLimited(ip) {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
-  if (now - entry.start > RATE_WINDOW_MS) {
-    rateLimitMap.set(ip, { count: 1, start: now });
-    return false;
-  }
-  if (entry.count >= RATE_LIMIT) return true;
-  rateLimitMap.set(ip, { count: entry.count + 1, start: entry.start });
-  return false;
-}
 
 const ALLOWED_TYPES = new Set([
   "pageview",
@@ -84,11 +72,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const ip =
-    req.headers["x-forwarded-for"]?.split(",")[0].trim() ||
-    req.socket.remoteAddress ||
-    "unknown";
-  if (isRateLimited(ip)) {
+  if (await isRateLimited(`track:${getClientIp(req)}`, RATE_LIMIT, RATE_WINDOW_MS)) {
     return res.status(429).end();
   }
 

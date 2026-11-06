@@ -1,25 +1,15 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { BLOG_POSTS } from "../../lib/blogPosts";
 import { projects, projectsWork } from "../../lib/projects";
+import { isRateLimited, getClientIp } from "../../lib/rateLimit";
 
-// In-memory rate limiter: max 10 requests per IP per minute.
-// Note: resets on cold start and is NOT shared across serverless instances —
-// provides basic abuse protection in dev/low-traffic but not a hard guarantee in prod.
-const rateLimitMap = new Map();
+// Per-visitor limit plus a site-wide daily cap, so a flood of requests from
+// many IPs can't run up the Gemini bill. Both are only shared across serverless
+// instances when Upstash is configured (see lib/rateLimit.js).
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 60_000;
-
-function isRateLimited(ip) {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
-  if (now - entry.start > RATE_WINDOW_MS) {
-    rateLimitMap.set(ip, { count: 1, start: now });
-    return false;
-  }
-  if (entry.count >= RATE_LIMIT) return true;
-  rateLimitMap.set(ip, { count: entry.count + 1, start: entry.start });
-  return false;
-}
+const DAILY_LIMIT = Number(process.env.CHAT_DAILY_LIMIT) || 500;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 const genAI = process.env.GEMINI_API_KEY
   ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
@@ -87,8 +77,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const ip = req.headers["x-forwarded-for"]?.split(",")[0].trim() || req.socket.remoteAddress || "unknown";
-  if (isRateLimited(ip)) {
+  if (await isRateLimited(`chat:${getClientIp(req)}`, RATE_LIMIT, RATE_WINDOW_MS)) {
     return res.status(429).json({ error: "Too many requests. Please wait a moment." });
   }
 
@@ -105,6 +94,10 @@ export default async function handler(req, res) {
 
   if (!model) {
     return res.status(503).json({ error: "Chat is currently unavailable" });
+  }
+
+  if (await isRateLimited("chat:global", DAILY_LIMIT, DAY_MS)) {
+    return res.status(429).json({ error: "The assistant is taking a break for today. Please use the contact form instead." });
   }
 
   try {

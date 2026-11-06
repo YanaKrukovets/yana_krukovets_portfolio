@@ -74,6 +74,13 @@ function ContactForm() {
               />
               <ValidationError prefix="Message" field="message" errors={state.errors} />
 
+              {/* Spam honeypot: hidden from people and screen readers. Bots fill
+                  every field, and Formspree drops submissions where _gotcha has a value. */}
+              <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+                <label htmlFor="_gotcha">Leave this field empty</label>
+                <input id="_gotcha" type="text" name="_gotcha" tabIndex={-1} autoComplete="off" />
+              </div>
+
               <button type="submit" className="btn" disabled={state.submitting}>
                 {state.submitting ? "Sending…" : "Send Message"}
               </button>
